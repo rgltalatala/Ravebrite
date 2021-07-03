@@ -2,7 +2,9 @@ import React from "react"
 
 const App = () => (
     <div>
-        Ravebrite
+        <header>
+            <h1>Ravebrite</h1>
+        </header>
     </div>
 )
 
