@@ -10,10 +10,6 @@ const Root = () => (
                   <App />
             </header>
       </>
-      // <Provider store={store}>
-      //       <HashRouter>
-      //       </HashRouter>
-      // </Provider>
 );
 
 export default Root;
