@@ -1,0 +1,33 @@
+h1 {
+    margin-bottom: 0px;
+}
+
+.logo {
+    font-family: Raleway-Black;
+    font-weight: bold;
+    text-decoration: none;
+    color: #FAA763 ;
+}
+
+.signup-login-link {
+    font-family: Raleway-Black;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff ;
+    display: flex;
+}
+
+.signin-container {
+    display: flex;
+    background-color: #FAA763 ;
+    justify-content: flex-end;
+}
+
+a:visited, link:visited{
+    text-decoration: none;
+}
+
+@font-face{
+    font-family: Raleway-Black;
+    src: url("fonts/Raleway-Black.ttf") format("opentype");
+}
