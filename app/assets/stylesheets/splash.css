@@ -21,6 +21,10 @@ h1 {
     display: flex;
     background-color: #FAA763 ;
     justify-content: flex-end;
+    font-size: 18px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    margin: auto;
 }
 
 a:visited, link:visited{

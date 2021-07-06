@@ -1,4 +1,12 @@
 import React from 'react'
+import {
+  Route,
+  Redirect,
+  Switch,
+  Link,
+  HashRouter
+} from 'react-router-dom'; 
+
 
 class SessionForm extends React.Component {
     constructor(props) {
@@ -29,6 +37,7 @@ class SessionForm extends React.Component {
                 fname: "",
                 lname: ""
             })
+            this.props.history.push(`/`) // only do this on a successful login / sign up
         })
     }
 
@@ -53,20 +62,39 @@ class SessionForm extends React.Component {
                     </label>
                     <br/>
 
-                    <label>Last Name:
+                    <label>Last name:
                         <input type="text" value={this.state.lname} onChange={this.update('lname')}/>
                     </label>
                 </>
             )
         }
 
+        const splitRight = () => {
+          return(
+            <>
+                <div className="split right">
+                  <div className="centered">
+                    <p>
+
+                    </p>
+                  </div>
+                </div>
+            </>
+          )
+        }
+
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className={"split left container"}>
+                <h1>
+                    <Link to='/' className={"logo"} >
+                        ravebrite
+                    </Link>
+                </h1>
+                <form onSubmit={this.handleSubmit} className={"centered"}>
                 {this.props.formType} or {this.props.navLink} here
                 {this.renderErrors()}
                 <br/>
-                <label>Email:
+                <label className={"emailLabel"}>Email:
                     <input type="text" value={this.state.email} onChange={this.update('email')}/>
                 </label>
                 <br/>
@@ -75,9 +103,10 @@ class SessionForm extends React.Component {
                     <input type="password" value={this.state.password} onChange={this.update('password')}/>
                 </label>
                 <br/>
-                {this.props.formType === 'signup' ? signupNames() : ''}
-                <input type="submit" value={this.props.formType}/>
+                {this.props.formType === 'Sign up' ? signupNames() : ''}
+                <input className="formButton" type="submit" value={this.props.formType}/>
                 </form>
+                {splitRight()}
             </div>
         )
     }

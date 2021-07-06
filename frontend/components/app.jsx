@@ -15,18 +15,12 @@ const App = () => {
 
     return (
         <div>
-            <header>
-                <h1>
-                    <Link to='/' className={"logo"} >
-                        ravebrite
-                    </Link>
-                </h1>
-                <HomeContainer />
-            </header>
-            <br/>
-            <Route path="/"/>
-            <Route path="/login" component={LoginFormContainer} />
-            <Route path="/signup" component={SignupFormContainer} />
+            <Switch>
+                <Route exact path="/"component={HomeContainer}/>
+                <Route path="/login" component={LoginFormContainer} />
+                <Route path="/signup" component={SignupFormContainer} />
+            </Switch>
+
         </div>
     )
 
