@@ -15,11 +15,14 @@
   
   /* Control the right side */
   .right {
-    display: relative;
+    /* display: relative; */
     right: 0;
     background-image: url('samuel-regan-asante-3BcNKoySAq0-unsplash.jpg');
-    background-size: 100%;
-    background-repeat: round;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: auto 100%;
+    flex: 1;
+    height: 100%;
   }
   
   /* If you want the content centered horizontally and vertically */
@@ -30,16 +33,11 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  
-  /* Style the image inside the centered container, if needed */
-  /* .centered:only-child {
-  } */
 
-  /* .emailLabel{
-      font-size: 400px;
-  } */
-
-* {box-sizing: border-box}
+* {
+  box-sizing: border-box;
+  font-family: Raleway-Black;
+}
 
 /* Add padding to containers */
 .container {
@@ -50,20 +48,23 @@
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
+  padding-top: 30px;
   margin: 5px 0 22px 0;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(170, 169, 169);
+  border-radius: 2px;
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
+  /* background-color: #ddd; */
   outline: none;
 }
 
 /* Overwrite default styles of hr */
 form {
-  border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
 
@@ -77,6 +78,7 @@ form {
   cursor: pointer;
   width: 100%;
   opacity: 0.9;
+  border-radius: 5px;
 }
 
 .formButton:hover {
@@ -92,4 +94,24 @@ a {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
+}
+
+.inputGroup{
+  position: relative;
+  min-height: 3.5em;
+}
+
+.formInput{
+  height: 3em;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.formInputLabel{
+  position: absolute;
+  font-size: .8em;
+  top: 10px;
+  left: 15px;
+  text-transform: uppercase;
 }

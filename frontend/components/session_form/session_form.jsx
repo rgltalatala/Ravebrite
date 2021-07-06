@@ -57,14 +57,27 @@ class SessionForm extends React.Component {
         const signupNames = () => {
             return(
                 <>
-                    <label>First name:
-                        <input type="text" value={this.state.fname} onChange={this.update('fname')}/>
-                    </label>
-                    <br/>
+                  <div className={"inputGroup"}>
+                    <input 
+                      type="text" 
+                      value={this.state.fname} 
+                      onChange={this.update('fname')}
+                      className={"formInput"}
+                    />
+                    <label className={"formInputLabel"}>First name:</label>
+                  </div>
+                  <br/>
 
-                    <label>Last name:
-                        <input type="text" value={this.state.lname} onChange={this.update('lname')}/>
-                    </label>
+                  <div className={"inputGroup"}>
+                    <input 
+                      type="text" 
+                      value={this.state.lname} 
+                      onChange={this.update('lname')}
+                      className={"formInput"}
+                    />
+                    <label className={"formInputLabel"}>Last name:</label>
+                  </div>
+                  <br/>
                 </>
             )
         }
@@ -91,17 +104,29 @@ class SessionForm extends React.Component {
                     </Link>
                 </h1>
                 <form onSubmit={this.handleSubmit} className={"centered"}>
-                {this.props.formType} or {this.props.navLink} here
+                {this.props.formType} or {this.props.navLink}
                 {this.renderErrors()}
                 <br/>
-                <label className={"emailLabel"}>Email:
-                    <input type="text" value={this.state.email} onChange={this.update('email')}/>
-                </label>
+                <div className={"inputGroup"}>
+                    <input 
+                      type="text" 
+                      value={this.state.email} 
+                      onChange={this.update('email')}
+                      className={"formInput"}
+                    />
+                    <label className={"formInputLabel"}>Email:</label>
+                </div>
                 <br/>
 
-                <label>Password:
-                    <input type="password" value={this.state.password} onChange={this.update('password')}/>
-                </label>
+                <div className={"inputGroup"}>
+                    <input 
+                      type="password" 
+                      value={this.state.password} 
+                      onChange={this.update('password')}
+                      className={"formInput"}
+                    />
+                    <label className={"formInputLabel"}>Password:</label>
+                </div>
                 <br/>
                 {this.props.formType === 'Sign up' ? signupNames() : ''}
                 <input className="formButton" type="submit" value={this.props.formType}/>
