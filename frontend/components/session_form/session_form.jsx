@@ -6,6 +6,7 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom'; 
+import { login } from '../../actions/session_actions';
 
 
 class SessionForm extends React.Component {
@@ -18,14 +19,21 @@ class SessionForm extends React.Component {
           lname: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-
       }
 
-      update(field) {
-        return e => this.setState({
-          [field]: e.currentTarget.value
-        });
+    update(field) {
+      return e => this.setState({
+        [field]: e.currentTarget.value
+      });
+    }
+
+    demoUserSignin(demoUser) {
+      return e => {
+        e.preventDefault();
+        this.props.processForm(demoUser)
+        this.props.history.push(`/`)
       }
+    }
 
     handleSubmit(e) {
         e.preventDefault();
@@ -53,60 +61,67 @@ class SessionForm extends React.Component {
         );
       }
 
+    
+
     render(){
-        const signupNames = () => {
-            return(
-                <>
-                  <div className={"inputGroup"}>
-                    <input 
-                      type="text" 
-                      value={this.state.fname} 
-                      onChange={this.update('fname')}
-                      className={"formInput"}
+      const demoUser = {
+        email: "demo@user.com",
+        password: "demouser"
+      }
+      
+      
+      const signupNames = () => {
+        return(
+          <>
+                <div className={"inputGroup"}>
+                  <input 
+                    type="text" 
+                    value={this.state.fname} 
+                    onChange={this.update('fname')}
+                    className={"formInput"}
                     />
-                    <label className={"formInputLabel"}>First name:</label>
-                  </div>
-                  <br/>
-
-                  <div className={"inputGroup"}>
-                    <input 
-                      type="text" 
-                      value={this.state.lname} 
-                      onChange={this.update('lname')}
-                      className={"formInput"}
-                    />
-                    <label className={"formInputLabel"}>Last name:</label>
-                  </div>
-                  <br/>
-                </>
-            )
-        }
-
-        const splitRight = () => {
-          return(
-            <>
-                <div className="split right">
-                  <div className="centered">
-                    <p>
-
-                    </p>
-                  </div>
+                  <label className={"formInputLabel"}>First name:</label>
                 </div>
-            </>
+                <br/>
+
+                <div className={"inputGroup"}>
+                  <input 
+                    type="text" 
+                    value={this.state.lname} 
+                    onChange={this.update('lname')}
+                    className={"formInput"}
+                    />
+                  <label className={"formInputLabel"}>Last name:</label>
+                </div>
+                <br/>
+              </>
           )
         }
+        
+      const splitRight = () => {
+          return(
+            <>
+              <div className="split right">
+                <div className="centered">
+                  <p>
 
-        return(
-            <div className={"split left container"}>
-                <h1>
-                    <Link to='/' className={"logo"} >
-                        ravebrite
-                    </Link>
-                </h1>
-                <form onSubmit={this.handleSubmit} className={"centered"}>
+                  </p>
+                </div>
+              </div>
+          </>
+        )
+      }
+
+      return(
+          <div className={"split left container"}>
+              <h1>
+                  <Link to='/' className={"logo"} >
+                      ravebrite
+                  </Link>
+              </h1>
+              <form onSubmit={this.handleSubmit} className={"centered"}>
                 {this.props.formType} or {this.props.navLink}
                 {this.renderErrors()}
-                <br/>
                 <div className={"inputGroup"}>
                     <input 
                       type="text" 
@@ -130,11 +145,21 @@ class SessionForm extends React.Component {
                 <br/>
                 {this.props.formType === 'Sign up' ? signupNames() : ''}
                 <input className="formButton" type="submit" value={this.props.formType}/>
-                </form>
-                {splitRight()}
-            </div>
-        )
+                <br />
+                {this.props.formType === 'Log in' ? 
+                  <button 
+                    onClick={this.demoUserSignin(demoUser)}
+                    className={"split left container inputGroup formButton"}  
+                  >Demo User</button>
+                : ''}
+                
+              </form>
+              {splitRight()}
+          </div>
+      )
     }
 }
 
 export default SessionForm
+
+// don't make ali mad w css design choices or else
