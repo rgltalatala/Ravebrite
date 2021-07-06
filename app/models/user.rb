@@ -8,7 +8,26 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
 
-  # write associations here
+  has_many :hosted_events,
+    foreign_key: :host_id,
+    source: :events
+
+  has_many :bookmarks,
+    foreign_key: :user_id,
+    source: :bookmarks
+
+  has_many :registrations,
+    foreign_key: :user_id,
+    source: :registrations
+
+  has_many :registered_events,
+    through: :registrations,
+    source: :registrations
+
+  has_many :bookmarked_events,
+    through: :bookmarks,
+    source: :bookmarks
+  
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
