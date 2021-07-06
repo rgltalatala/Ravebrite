@@ -61,8 +61,6 @@ class SessionForm extends React.Component {
         );
       }
 
-    
-
     render(){
       const demoUser = {
         email: "demo@user.com",
@@ -149,7 +147,7 @@ class SessionForm extends React.Component {
                 {this.props.formType === 'Log in' ? 
                   <button 
                     onClick={this.demoUserSignin(demoUser)}
-                    className={"split left container inputGroup formButton"}  
+                    className={"split left container inputGroup   formButton"}  
                   >Demo User</button>
                 : ''}
                 
