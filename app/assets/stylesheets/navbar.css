@@ -1,0 +1,45 @@
+.logo {
+    font-family: Raleway-Black;
+    font-weight: bold;
+    font-size: 36px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #FAA763 ;
+}
+
+.signup-login-link {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    text-decoration: none;
+    color: #39364f;
+    display: flexbox;
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+}
+
+.logout-button{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    float: right;
+}
+
+a:visited, link:visited{
+    text-decoration: none;
+}
+
+@font-face{
+    font-family: Raleway-Black;
+    src: url("fonts/Raleway-Black.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: TypoGroteskDemo;
+    src: url("fonts/TypoGroteskDemo.otf") format("opentype");
+}
