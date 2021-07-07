@@ -23,7 +23,8 @@
   },
   "scripts": {
     "postinstall": "webpack",
-    "webpack": "webpack --mode=development --watch"
+    "webpack": "webpack --mode=development --watch",
+    "start": "node index.js"
   },
   "description": "Ravebrite is an Eventbrite clone where users will be able to search and register for EDM related events. Users will have the ability to create and host their own events as well.",
   "version": "1.0.0",
