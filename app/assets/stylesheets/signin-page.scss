@@ -30,7 +30,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
-    width: 300px;
+    width: 75%;
 
     .signin-logo{
       font-family: Raleway-Black;
@@ -39,6 +39,10 @@
       text-decoration: none;
       color: #FAA763 ;
     }
+  }
+
+  .signin-text{
+    text-decoration: none;
   }
 
 * {

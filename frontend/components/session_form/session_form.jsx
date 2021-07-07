@@ -116,7 +116,7 @@ class SessionForm extends React.Component {
                         ravebrite
                     </Link>
                 </h2>
-                <h1>
+                <h1 >
                   {formType} or {navLink}
                 </h1>
                 {this.renderErrors()}

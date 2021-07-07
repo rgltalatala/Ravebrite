@@ -512,7 +512,8 @@ var mSTP = function mSTP(_ref) {
     errors: errors.session,
     formType: 'Log in',
     navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/signup"
+      to: "/signup",
+      className: "signin-text"
     }, "sign up instead")
   };
 };
@@ -752,7 +753,8 @@ var mSTP = function mSTP(_ref) {
     errors: errors.session,
     formType: 'Sign up',
     navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/login"
+      to: "/login",
+      className: "signin-text"
     }, "log in instead")
   };
 };
