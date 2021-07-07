@@ -26,10 +26,10 @@ class navBar extends React.Component{
               </Link>
               <div className="dropdown">
                 
-                <Link className="signup-login-link dropbtn">
+                 <a className="signup-login-link dropbtn">    {/* change this to Link when I create userShow --> */}
                   <i className="far fa-smile profilePic"></i> 
                   {currentUser.email}
-                </Link>
+                </a>
                 <div className="dropdown-content">
                   <a>Link 1</a>
                   <a>Link 2</a>
