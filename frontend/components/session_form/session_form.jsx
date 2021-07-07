@@ -116,7 +116,9 @@ class SessionForm extends React.Component {
                   </Link>
               </h1>
               <form onSubmit={this.handleSubmit} className={"centered"}>
-                {formType} or {navLink}
+                <h1>
+                  {formType} or {navLink}
+                </h1>
                 {this.renderErrors()}
                 <div className={"inputGroup"}>
                     <input 

@@ -8,14 +8,12 @@
     padding-top: 20px;
   }
   
-  /* Control the left side */
+
   .left {
     left: 0;
   }
   
-  /* Control the right side */
   .right {
-    /* display: relative; */
     position: fixed;
     right: 0;
     background-image: url('samuel-regan-asante-3BcNKoySAq0-unsplash.jpg');
@@ -26,13 +24,13 @@
     height: 135%;
   }
   
-  /* If you want the content centered horizontally and vertically */
   .centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
+    text-align: left;
+    width: 300px;
   }
 
 * {
@@ -40,12 +38,10 @@
   font-family: Raleway-Black;
 }
 
-/* Add padding to containers */
 .container {
   padding: 16px;
 }
 
-/* Full-width input fields */
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
@@ -60,16 +56,14 @@ input[type=text], input[type=password] {
 }
 
 input[type=text]:focus, input[type=password]:focus {
-  /* background-color: #ddd; */
   outline: none;
 }
 
-/* Overwrite default styles of hr */
 form {
   margin-bottom: 25px;
+  
 }
 
-/* Set a style for the submit/register button */
 .formButton {
   background-color: #FAA763 ;
   color: white;
@@ -86,12 +80,10 @@ form {
   opacity:1;
 }
 
-/* Add a blue text color to links */
 a {
   color: #FAA763 ;
 }
 
-/* Set a grey background color and center the text of the "sign in" section */
 .signin {
   background-color: #f1f1f1;
   text-align: center;
