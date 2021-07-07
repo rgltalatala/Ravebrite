@@ -110,12 +110,12 @@ class SessionForm extends React.Component {
 
       return(
           <div className={"split left container"}>
-              <h1>
-                  <Link to='/' className={"logo"} >
-                      ravebrite
-                  </Link>
-              </h1>
               <form onSubmit={this.handleSubmit} className={"centered"}>
+                <h2>
+                    <Link to='/' className={"logo"} >
+                        ravebrite
+                    </Link>
+                </h2>
                 <h1>
                   {formType} or {navLink}
                 </h1>
