@@ -12,6 +12,7 @@ import SignupFormContainer from "./session_form/signup_form_container";
 import LoginFormContainer from "./session_form/login_form_container";
 import { AuthRoute } from "../util/route_util";
 import NavBarContainer from './nav_bar/nav_bar_container'
+import EventIndexContainer from "./events/event_index/event_index_container";
 
 function App () {
     // const [showUser, setShowUser] = useState(true)
@@ -26,13 +27,13 @@ function App () {
 
     return (
         <div>
-            {/* {navBar} */}
-            <Route exact path="/" />
+            
             <Switch>
                 <Route exact path="/" component={NavBarContainer} />
                 <AuthRoute exact path="/login" component={LoginFormContainer} />
                 <AuthRoute exact path="/signup" component={SignupFormContainer} />
             </Switch>
+            <Route exact path='/' component={EventIndexContainer}></Route>
         </div>
     )
 

@@ -37,12 +37,17 @@
       font-weight: bold;
       font-size: 36px;
       text-decoration: none;
-      color: #FAA763 ;
+      // color: #FAA763 ;
+      color: #C9BFDE;
     }
   }
 
-  .signin-text{
+  .signin-text {
     text-decoration: none;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
 * {
@@ -77,7 +82,8 @@ form {
 }
 
 .formButton {
-  background-color: #FAA763 ;
+  // background-color: #FAA763 ;
+  background-color: #C9BFDE;
   color: white;
   padding: 16px 20px;
   margin: 8px 0;
@@ -93,7 +99,9 @@ form {
 }
 
 a {
-  color: #FAA763 ;
+  // color: #FAA763 ;
+  color: #C9BFDE;
+
 }
 
 .signin {
