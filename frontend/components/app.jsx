@@ -13,6 +13,7 @@ import LoginFormContainer from "./session_form/login_form_container";
 import { AuthRoute } from "../util/route_util";
 import NavBarContainer from './nav_bar/nav_bar_container'
 import EventIndexContainer from "./events/event_index/event_index_container";
+import EventShowContainer  from "./events/event_show/event_show_container";
 
 function App () {
     // const [showUser, setShowUser] = useState(true)
@@ -20,20 +21,19 @@ function App () {
     //     setShowUser(state => !state)
     // }
 
-    let navBar;
-    if (window.location.href.split("/").slice(-1)[0] !== "login" && window.location.href.split("/").slice(-1)[0] !== "signup"){
-        navBar = <NavBarContainer />
-    }
+    
 
     return (
         <div>
-            
+            <NavBarContainer />
             <Switch>
-                <Route exact path="/" component={NavBarContainer} />
                 <AuthRoute exact path="/login" component={LoginFormContainer} />
                 <AuthRoute exact path="/signup" component={SignupFormContainer} />
             </Switch>
-            <Route exact path='/' component={EventIndexContainer}></Route>
+            <Switch>
+                <Route exact path='/' component={EventIndexContainer}></Route>
+                <Route path="/events/:eventId" component={EventShowContainer} />
+            </Switch>
         </div>
     )
 

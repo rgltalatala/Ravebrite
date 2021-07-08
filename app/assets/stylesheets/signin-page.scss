@@ -44,7 +44,9 @@
 
   .signin-text {
     text-decoration: none;
-
+    color: #C9BFDE;
+    display: inline-block;
+    
     &:hover{
       text-decoration: underline;
     }
@@ -98,11 +100,6 @@ form {
   opacity:1;
 }
 
-a {
-  // color: #FAA763 ;
-  color: #C9BFDE;
-
-}
 
 .signin {
   background-color: #f1f1f1;

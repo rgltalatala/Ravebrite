@@ -1,11 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+
 
 const EventIndexItem = props => {
-    const {deleteEvent, event} = props
+    const {event} = props
     
     return(
         <li>
-            <h3>{event.title}</h3>
+            <h3>
+                <Link to={`/events/${event.id}`}>{event.title}</Link>
+            </h3>
             <br />
 
             <label>Location: 
@@ -23,12 +28,7 @@ const EventIndexItem = props => {
             </label>
             <br />
 
-            <p>{event.description}</p>
-            <br />
-
-            {event.category}
-
-            <button onClick={() => deleteEvent(event.id)}></button>
+            
         </li>
     )
 }

@@ -53,6 +53,7 @@ class SessionForm extends React.Component {
       }
 
     componentWillUnmount() {
+      
      }
 
     render(){

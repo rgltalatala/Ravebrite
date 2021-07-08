@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  // window.fetchEvents = fetchEvents
-  // window.fetchEvent = fetchEvent
-  // window.createEvent = createEvent
-  // window.updateEvent = updateEvent
-  // window.deleteEvent = deleteEvent
-  // window.dispatch = store.dispatch
-  // window.getState = store.getState
+  window.fetchEvents = fetchEvents
+  window.fetchEvent = fetchEvent
+  window.createEvent = createEvent
+  window.updateEvent = updateEvent
+  window.deleteEvent = deleteEvent
+  window.dispatch = store.dispatch
+  window.getState = store.getState
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store}/>, root);

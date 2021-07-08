@@ -3,9 +3,17 @@ import { Link } from 'react-router-dom';
 
 
 class navBar extends React.Component{
+  constructor(props){
+    super(props)
 
-    render(){
-      const {currentUser, logout} = this.props
+    // this.navBarToggle = this.navBarToggle.bind(this)
+  }
+
+  
+  render(){
+    
+
+    const {currentUser, logout} = this.props
 
       const sessionLinks = () => (
         <>
@@ -13,7 +21,7 @@ class navBar extends React.Component{
               <Link to='/' className="logo" >
                 ravebrite
               </Link>
-              <Link to="/login" className="signup-login-link">log in</Link>
+              <Link to="/login" className="signup-login-link">Log in</Link>
           </div>
         </>
       )
