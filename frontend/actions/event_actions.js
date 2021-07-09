@@ -46,7 +46,7 @@ export const createEvent = event => dispatch => {
     return EventAPIUtil.createEvent(event)
         .then(event => {dispatch(receiveEvent(event))
     }, err => (
-        dispatch(receiveErrors(err.responseJSON))
+        dispatch(receiveEventErrors(err.responseJSON))
       ))
 }
 
@@ -54,7 +54,7 @@ export const updateEvent = event => dispatch => {
     return EventAPIUtil.createEvent(event)
         .then(event => {dispatch(receiveEvent(event))
     }, err => (
-        dispatch(receiveErrors(err.responseJSON))
+        dispatch(receiveEventErrors(err.responseJSON))
       ))
 }
 

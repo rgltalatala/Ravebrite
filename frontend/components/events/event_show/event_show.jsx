@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom"
 
 class EventShow extends React.Component{
     constructor(props){
@@ -48,7 +48,7 @@ class EventShow extends React.Component{
                     <br />
     
                     {event.category}
-    
+                    <Link to={`/events/${event.id}/edit`}>Edit Event</Link>
                     <button onClick={() => deleteEvent(event.id)}></button>
                 </>
             )

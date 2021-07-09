@@ -10,10 +10,12 @@ import {
 
 import SignupFormContainer from "./session_form/signup_form_container";
 import LoginFormContainer from "./session_form/login_form_container";
-import { AuthRoute } from "../util/route_util";
+import { AuthRoute, ProtectedRoute } from "../util/route_util";
 import NavBarContainer from './nav_bar/nav_bar_container'
 import EventIndexContainer from "./events/event_index/event_index_container";
 import EventShowContainer  from "./events/event_show/event_show_container";
+import CreateEventFormContainer from './events/event_form/create_event_form_container'
+import EditEventFormContainer from './events/event_form/edit_event_form_container'
 
 function App () {
     // const [showUser, setShowUser] = useState(true)
@@ -31,8 +33,10 @@ function App () {
                 <AuthRoute exact path="/signup" component={SignupFormContainer} />
             </Switch>
             <Switch>
-                <Route exact path='/' component={EventIndexContainer}></Route>
-                <Route path="/events/:eventId" component={EventShowContainer} />
+                <Route exact path='/' component={EventIndexContainer} />
+                <ProtectedRoute exact path="/events/create" component={CreateEventFormContainer} />
+                <Route exact path="/events/:eventId" component={EventShowContainer} />
+                <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />
             </Switch>
         </div>
     )

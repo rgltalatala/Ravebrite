@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { createEvent } from "../../../actions/event_actions";
-import { EventForm } from "./event_form";
+import EventForm from "./event_form";
 
 const mSTP = state => ({
     event: {
@@ -11,7 +11,8 @@ const mSTP = state => ({
         start_date: '',
         end_date: '',
         start_time: '',
-        end_time: ''
+        end_time: '',
+        host_id: state.session.id
     },
     formType: 'Add Event'
 })

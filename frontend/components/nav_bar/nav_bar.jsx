@@ -32,8 +32,10 @@ class navBar extends React.Component{
               <Link to='/' className={"logo"} >
                 ravebrite
               </Link>
+              <Link to="/events/create">
+                Create Event
+              </Link>
               <div className="dropdown">
-                
                  <a className="signup-login-link dropbtn">    {/* change this to Link when I create userShow --> */}
                   <i className="far fa-smile profilePic"></i> 
                   {currentUser.email}
