@@ -5,8 +5,9 @@ import {
     Switch,
     Link,
     HashRouter,
-    Router
-  } from 'react-router-dom';
+    Router,
+    withRouter
+    } from 'react-router-dom';
 
 import SignupFormContainer from "./session_form/signup_form_container";
 import LoginFormContainer from "./session_form/login_form_container";
@@ -44,4 +45,4 @@ function App () {
     
 }
 
-export default App
+export default withRouter(App);

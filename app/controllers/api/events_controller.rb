@@ -1,4 +1,6 @@
 class Api::EventsController < ApplicationController
+    before_action :require_logged_in, only: [:create, :update, :destroy]
+
     def index
         @events = Event.all
         render :index
@@ -10,6 +12,7 @@ class Api::EventsController < ApplicationController
     
     def create
       @event = Event.new(event_params)
+      @GENRES = Event.GENRES
   
       if @event.save
         render :show
@@ -18,12 +21,10 @@ class Api::EventsController < ApplicationController
       end
     end
     
-    def edit
-        @event = Event.find_by(id: params[:id])
-        render :edit 
-    end
-
     def update
+        @event = Event.find_by(id: params[:id])
+        @GENRES = Event.GENRES
+        
         if @event.update(event_params)
             render :show
         else
@@ -44,7 +45,7 @@ class Api::EventsController < ApplicationController
     private
   
     def event_params
-      params.require(:event).permit(:title, :description, :location, :category, :start_date, :end_date, :start_time, :end_time, :host_id)
+      params.require(:event).permit(:title, :description, :location, :genre, :start_date, :end_date, :start_time, :end_time, :host_id)
     end
   end
   

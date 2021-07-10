@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
 
 class EventShow extends React.Component{
     constructor(props){
@@ -7,12 +7,19 @@ class EventShow extends React.Component{
         this.state = {
             loading: true
         };
+
+        this.deleteEvent = this.deleteEvent.bind(this)
     }
 
     componentDidMount(){
         this.props.fetchEvent(this.props.match.params.eventId).then(() => {
             this.setState({loading: false})
         })
+    }
+
+    deleteEvent(eventId){
+        this.props.deleteEvent(eventId)
+        this.props.history.push('/')
     }
 
     render(){
@@ -23,7 +30,7 @@ class EventShow extends React.Component{
                 </>
             )
         } else {
-            const {event, deleteEvent} = this.props
+            const {event} = this.props
             return (
                 <>
                     <h3>{event.title}</h3>
@@ -47,9 +54,9 @@ class EventShow extends React.Component{
                     <p>{event.description}</p>
                     <br />
     
-                    {event.category}
+                    {event.genre}
                     <Link to={`/events/${event.id}/edit`}>Edit Event</Link>
-                    <button onClick={() => deleteEvent(event.id)}></button>
+                    <button onClick={() => this.deleteEvent(event.id)}>Delete Event</button>
                 </>
             )
         }
@@ -57,4 +64,4 @@ class EventShow extends React.Component{
     }
 }
 
-export default EventShow
+export default withRouter(EventShow)

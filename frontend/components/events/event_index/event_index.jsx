@@ -13,15 +13,19 @@ class EventIndex extends React.Component{
         const {events} = this.props
         return (
             <>
-                <ul>
-                    {events.map(event => (
-                        <EventIndexItem 
-                            key={event.id} 
-                            event={event}
-                            deleteEvent={this.props.deleteEvent}
-                        />
-                    ))}
-                </ul>
+                <div className="landing">
+                    <div className="events-wrapper">
+                        <ul className="event-index">
+                            {events.map(event => (
+                                <EventIndexItem 
+                                    key={event.id} 
+                                    event={event}
+                                    deleteEvent={this.props.deleteEvent}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </>
         )
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class EventForm extends React.Component{
     constructor(props) {
@@ -6,41 +7,41 @@ class EventForm extends React.Component{
         // this.newState = Object.assign({}, this.props.event)
         this.state = this.props.event
         this.handleSubmit = this.handleSubmit.bind(this);
-      }
+    }
 
       //write function to assign host_id to session :id
 
     update(field) {
-      return e => this.setState({
+    return e => this.setState({
         [field]: e.currentTarget.value
-      });
+    });
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
         this.props.processForm(this.state)
-        this.setState(this.newState)        
+            .then((res) => this.props.history.push(`/events/${res.event.id}`))
     }
 
     renderErrors() {
         return(
-          <ul>
+        <ul>
             {this.props.errors.map((error, i) => (
-              <li key={`error-${i}`}>
+            <li key={`error-${i}`}>
                 {error}
-              </li>
+            </li>
             ))}
-          </ul>
+        </ul>
         );
-      }
+    }
 
     componentWillUnmount() {
-     }
+    }
 
-     componentDidMount(){
+    componentDidMount(){
 
-     }
+    }
 
     render(){
         const {formType} = this.props
@@ -55,9 +56,10 @@ class EventForm extends React.Component{
                         <input 
                             type="text" 
                             onChange={this.update('title')}
+                            value={this.state.title}
                         />
                         <br />
-                        <select onChange={this.update('category')}>
+                        <select onChange={this.update('genre')}>
                             <option value="house">House</option>
                             <option value="dubstep">Dubstep</option>
                             <option value="big room">Big Room</option>
@@ -136,4 +138,4 @@ class EventForm extends React.Component{
     }
 }
 
-export default EventForm
+export default withRouter(EventForm)

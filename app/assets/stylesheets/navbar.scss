@@ -1,3 +1,12 @@
+.navBar {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    justify-content: space-between;
+}
+
 .logo {
     font-family: Raleway-Black;
     font-weight: bold;
@@ -7,21 +16,29 @@
     color: #C9BFDE;
 }
 
+.nav-bar-links {
+    display: flex;
+}
+
+.create-button{
+    text-decoration: none;
+    color: #C9BFDE;
+    float: right;
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+    
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
 .signup-login-link {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: normal;
     text-decoration: none;
     color: #39364f;
-    display: flexbox;
-}
-
-.navBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    padding-top: 2.5px;
-    padding-bottom: 2.5px;
+    // display: flexbox;
 }
 
 .logout-button{

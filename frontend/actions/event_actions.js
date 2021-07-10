@@ -28,9 +28,9 @@ export const receiveEventErrors = errors => ({
 
 export const removeEventErrors = () => {
     return {
-      type: REMOVE_EVENT_ERRORS
+        type: REMOVE_EVENT_ERRORS
     }
-  }
+    }
 
 export const fetchEvents = () => dispatch => {
     return EventAPIUtil.fetchEvents()
@@ -44,18 +44,18 @@ export const fetchEvent = eventId => dispatch => {
 
 export const createEvent = event => dispatch => {
     return EventAPIUtil.createEvent(event)
-        .then(event => {dispatch(receiveEvent(event))
-    }, err => (
+        .then(event => dispatch(receiveEvent(event))
+    , err => (
         dispatch(receiveEventErrors(err.responseJSON))
-      ))
+    ))
 }
 
 export const updateEvent = event => dispatch => {
-    return EventAPIUtil.createEvent(event)
-        .then(event => {dispatch(receiveEvent(event))
-    }, err => (
+    return EventAPIUtil.updateEvent(event)
+        .then(event => dispatch(receiveEvent(event))
+    , err => (
         dispatch(receiveEventErrors(err.responseJSON))
-      ))
+    ))
 }
 
 export const deleteEvent = eventId => dispatch => {
@@ -65,5 +65,5 @@ export const deleteEvent = eventId => dispatch => {
 
 export const clearEventErrors = () => dispatch => {
     return dispatch(removeEventErrors())
-  }
+}
         

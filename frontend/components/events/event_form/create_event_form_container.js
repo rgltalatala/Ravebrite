@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { createEvent } from "../../../actions/event_actions";
 import EventForm from "./event_form";
+
 
 const mSTP = state => ({
     event: {
         title: '',
         description: '',
         location: '',
-        category: '',
+        genre: '',
         start_date: '',
         end_date: '',
         start_time: '',

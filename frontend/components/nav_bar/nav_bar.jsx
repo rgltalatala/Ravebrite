@@ -32,18 +32,21 @@ class navBar extends React.Component{
               <Link to='/' className={"logo"} >
                 ravebrite
               </Link>
-              <Link to="/events/create">
-                Create Event
-              </Link>
-              <div className="dropdown">
-                 <a className="signup-login-link dropbtn">    {/* change this to Link when I create userShow --> */}
-                  <i className="far fa-smile profilePic"></i> 
-                  {currentUser.email}
-                </a>
-                <div className="dropdown-content">
-                  <a>Link 1</a>
-                  <a>Link 2</a>
-                  <a onClick={logout}>Log Out</a>
+
+              <div className="nav-bar-links">
+                <Link to="/events/create" className="create-button">
+                  Create Event
+                </Link>
+                <div className="dropdown">
+                  <a className="signup-login-link dropbtn">    {/* change this to Link when I create userShow --> */}
+                      <i className="far fa-smile profilePic"></i> 
+                      {currentUser.email}
+                    </a>
+                  <div className="dropdown-content">
+                    <a>Link 1</a>
+                    <a>Link 2</a>
+                    <a onClick={logout}>Log Out</a>
+                  </div>
                 </div>
               </div>
             </div>

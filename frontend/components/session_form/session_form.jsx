@@ -54,7 +54,7 @@ class SessionForm extends React.Component {
 
     componentWillUnmount() {
       
-     }
+    }
 
     render(){
       const {formType, navLink } = this.props
@@ -99,11 +99,9 @@ class SessionForm extends React.Component {
           return(
             <>
               <div className="split right">
-                <div className="centered">
-                  <p>
+                <p>
 
-                  </p>
-                </div>
+                </p>
               </div>
           </>
         )
