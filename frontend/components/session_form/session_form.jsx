@@ -72,8 +72,8 @@ class SessionForm extends React.Component {
               <input 
                 type="text" 
                 placeholder="First name"
-                value={this.state.fname} 
-                onChange={this.update('fname')}
+                value={this.state.first_name} 
+                onChange={this.update('first_name')}
                 className={"formInput"}
                 />
               <label className={"formInputLabel"}>First name:</label>
@@ -84,8 +84,8 @@ class SessionForm extends React.Component {
               <input 
                 type="text" 
                 placeholder="Last name"
-                value={this.state.lname} 
-                onChange={this.update('lname')}
+                value={this.state.last_name} 
+                onChange={this.update('last_name')}
                 className={"formInput"}
                 />
               <label className={"formInputLabel"}>Last name:</label>

@@ -30,7 +30,17 @@ class EventShow extends React.Component{
                 </>
             )
         } else {
-            const {event} = this.props
+            const {event, currentUser} = this.props
+            const currUserButtons = () => {
+                return (
+                    <>
+                        <Link to={`/events/${event.id}/edit`}>Edit Event</Link>
+                        <br />
+                        <button onClick={() => this.deleteEvent(event.id)}>Delete Event</button>
+                    </>
+                )
+            }
+
             return (
                 <>
                     <h3>{event.title}</h3>
@@ -55,8 +65,11 @@ class EventShow extends React.Component{
                     <br />
     
                     {event.genre}
-                    <Link to={`/events/${event.id}/edit`}>Edit Event</Link>
-                    <button onClick={() => this.deleteEvent(event.id)}>Delete Event</button>
+                    <br />
+
+                    {currentUser === event.host_id ? currUserButtons() : ''}
+                    
+                    
                 </>
             )
         }

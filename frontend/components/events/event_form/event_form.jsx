@@ -44,6 +44,7 @@ class EventForm extends React.Component{
     }
 
     render(){
+        console.log(this.state)
         const {formType} = this.props
         return (
             <>
@@ -58,13 +59,11 @@ class EventForm extends React.Component{
                             onChange={this.update('title')}
                             value={this.state.title}
                         />
+                        {/* make default option: Add your own by having user type in own genre */}
                         <br />
-                        <select onChange={this.update('genre')}>
-                            <option value="house">House</option>
-                            <option value="dubstep">Dubstep</option>
-                            <option value="big room">Big Room</option>
-                            <option value="trance">Trance</option>
-                            <option value="trap">Trap</option>
+                        <label >Genre: </label>
+                        <select onChange={this.update('genre')}> 
+                            {/* {this.props.} */}
                         </select>
                     </div>
                     <br />

@@ -217,7 +217,8 @@ var RECEIVE_EVENTS = 'RECEIVE_EVENTS';
 var RECEIVE_EVENT = 'RECEIVE_EVENT';
 var REMOVE_EVENT = 'REMOVE_EVENT';
 var RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
-var REMOVE_EVENT_ERRORS = 'REMOVE_EVENT_ERRORS';
+var REMOVE_EVENT_ERRORS = 'REMOVE_EVENT_ERRORS'; // export const RECEIVE_GENRES = 'RECEIVE_GENRES'
+
 var receiveEvents = function receiveEvents(events) {
   return {
     type: RECEIVE_EVENTS,
@@ -246,7 +247,13 @@ var removeEventErrors = function removeEventErrors() {
   return {
     type: REMOVE_EVENT_ERRORS
   };
-};
+}; // export const receiveEventGenres = (genres) => {
+//     return {
+//         type: RECEIVE_GENRES,
+//         genres
+//     }
+// }
+
 var fetchEvents = function fetchEvents() {
   return function (dispatch) {
     return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchEvents().then(function (events) {
@@ -290,7 +297,10 @@ var clearEventErrors = function clearEventErrors() {
   return function (dispatch) {
     return dispatch(removeEventErrors());
   };
-};
+}; // export const fetchEventGenres = () => dispatch => {
+//     return EventAPIUtil.fetchEventGenres()
+//         .then(() => dispatch(genres => receiveEventGenres(genres)))
+// }
 
 /***/ }),
 
@@ -463,7 +473,8 @@ var mSTP = function mSTP(state) {
       end_time: '',
       host_id: state.session.id
     },
-    formType: 'Add Event'
+    formType: 'Add Event' // genres: state.genres
+
   };
 };
 
@@ -677,6 +688,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      console.log(this.state);
       var formType = this.props.formType;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
@@ -686,19 +698,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         type: "text",
         onChange: this.update('title'),
         value: this.state.title
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Genre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
         onChange: this.update('genre')
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "house"
-      }, "House"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "dubstep"
-      }, "Dubstep"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "big room"
-      }, "Big Room"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "trance"
-      }, "Trance"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-        value: "trap"
-      }, "Trap"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let people in the area discover your event, and let attendees know where to show up."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let people in the area discover your event, and let attendees know where to show up."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         value: this.state.location,
         onChange: this.update('location')
@@ -800,7 +802,15 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
       var _this = this;
 
       var events = this.props.events;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "splash-page"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "splash-header"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        src: window.coachella,
+        alt: "coachella grounds",
+        className: "header"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "landing"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "events-wrapper"
@@ -884,11 +894,22 @@ var EventIndexItem = function EventIndexItem(props) {
     className: "event-index-item-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
     className: "event-index-item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    to: "/events/".concat(event.id),
+    className: "card-image"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "bookmark-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+    "class": "far fa-heart bookmark"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
     className: "event-index-title"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: "/events/".concat(event.id)
-  }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Location:", event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Date(s):", event.start_date, " - ", event.end_date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Time:", event.start_time, " - ", event.end_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null)));
+  }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "card-date"
+  }, event.start_date, ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "card-location"
+  }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null)));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventIndexItem);
@@ -977,14 +998,21 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       if (this.state.loading) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "loading");
       } else {
-        var event = this.props.event;
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, event.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Location:", event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Date(s):", event.start_date, " - ", event.end_date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Time:", event.start_time, " - ", event.end_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, event.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), event.genre, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-          to: "/events/".concat(event.id, "/edit")
-        }, "Edit Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          onClick: function onClick() {
-            return _this3.deleteEvent(event.id);
-          }
-        }, "Delete Event"));
+        var _this$props = this.props,
+            event = _this$props.event,
+            currentUser = _this$props.currentUser;
+
+        var currUserButtons = function currUserButtons() {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+            to: "/events/".concat(event.id, "/edit")
+          }, "Edit Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+            onClick: function onClick() {
+              return _this3.deleteEvent(event.id);
+            }
+          }, "Delete Event"));
+        };
+
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, event.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Location:", event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Date(s):", event.start_date, " - ", event.end_date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Time:", event.start_time, " - ", event.end_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, event.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), event.genre, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), currentUser === event.host_id ? currUserButtons() : '');
       }
     }
   }]);
@@ -1018,7 +1046,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state, ownProps) {
   return {
-    event: state.entities.events[ownProps.match.params.eventId]
+    event: state.entities.events[ownProps.match.params.eventId],
+    currentUser: state.session.id
   };
 };
 
@@ -1378,8 +1407,8 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           type: "text",
           placeholder: "First name",
-          value: _this4.state.fname,
-          onChange: _this4.update('fname'),
+          value: _this4.state.first_name,
+          onChange: _this4.update('first_name'),
           className: "formInput"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
           className: "formInputLabel"
@@ -1388,8 +1417,8 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
           type: "text",
           placeholder: "Last name",
-          value: _this4.state.lname,
-          onChange: _this4.update('lname'),
+          value: _this4.state.last_name,
+          onChange: _this4.update('last_name'),
           className: "formInput"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
           className: "formInputLabel"
@@ -1476,8 +1505,8 @@ var mSTP = function mSTP(_ref) {
     information: {
       email: '',
       password: '',
-      fname: '',
-      lname: ''
+      full_name: '',
+      last_name: ''
     },
     errors: errors.session,
     formType: 'Sign up',
@@ -1622,6 +1651,26 @@ var EventsReducer = function EventsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/form_input_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/form_input_reducer.js ***!
+  \*************************************************/
+/***/ (() => {
+
+// import { RECEIVE_GENRES } from "../actions/event_actions";
+// const formInputReducer = (initialState = {}, action) => {
+//     Object.freeze(initialState)
+//     switch (action.type) {
+//         case RECEIVE_GENRES:
+//             return action.genres
+//         default:
+//             return initialState
+//     }
+// }
+// export default formInputReducer
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -1633,20 +1682,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _entities_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./entities_reducer */ "./frontend/reducers/entities_reducer.js");
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
+/* harmony import */ var _form_input_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form_input_reducer */ "./frontend/reducers/form_input_reducer.js");
+/* harmony import */ var _form_input_reducer__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_form_input_reducer__WEBPACK_IMPORTED_MODULE_3__);
 
  // import ui from './ui_reducer';
 
 
 
-var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+
+var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
   //   ui,
   session: _session_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
-  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_2__.default
+  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_2__.default,
+  formInputs: (_form_input_reducer__WEBPACK_IMPORTED_MODULE_3___default())
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rootReducer);
 
@@ -1842,7 +1895,12 @@ var deleteEvent = function deleteEvent(eventId) {
     method: 'DELETE',
     url: "/api/events/".concat(eventId)
   });
-};
+}; // export const fetchGenres = () => {
+//     return $.ajax({
+//         method: 'GET',
+//         url: `/`
+//     })
+// }
 
 /***/ }),
 

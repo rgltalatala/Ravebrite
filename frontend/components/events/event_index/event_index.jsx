@@ -12,7 +12,10 @@ class EventIndex extends React.Component{
     render(){
         const {events} = this.props
         return (
-            <>
+            <div className="splash-page">
+                <div className="splash-header">
+                    <img src={window.coachella} alt="coachella grounds" className="header"/>
+                </div>
                 <div className="landing">
                     <div className="events-wrapper">
                         <ul className="event-index">
@@ -26,7 +29,7 @@ class EventIndex extends React.Component{
                         </ul>
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 }

@@ -8,8 +8,8 @@ const mSTP = ({ errors }) => ({
     information : {
         email: '',
         password: '',
-        fname: '',
-        lname: ''
+        full_name: '',
+        last_name: ''
     },
     errors: errors.session,
     formType: 'Sign up',

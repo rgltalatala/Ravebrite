@@ -3,3 +3,6 @@
         json.partial! event, event: @event
     end
 end
+
+
+# json.genres(Event.genres)

@@ -5,6 +5,7 @@ export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 export const REMOVE_EVENT_ERRORS = 'REMOVE_EVENT_ERRORS'
+// export const RECEIVE_GENRES = 'RECEIVE_GENRES'
 
 export const receiveEvents = events => ({
     type: RECEIVE_EVENTS,
@@ -29,8 +30,14 @@ export const receiveEventErrors = errors => ({
 export const removeEventErrors = () => {
     return {
         type: REMOVE_EVENT_ERRORS
-    }
-    }
+    }}
+
+// export const receiveEventGenres = (genres) => {
+//     return {
+//         type: RECEIVE_GENRES,
+//         genres
+//     }
+// }
 
 export const fetchEvents = () => dispatch => {
     return EventAPIUtil.fetchEvents()
@@ -66,4 +73,8 @@ export const deleteEvent = eventId => dispatch => {
 export const clearEventErrors = () => dispatch => {
     return dispatch(removeEventErrors())
 }
-        
+
+// export const fetchEventGenres = () => dispatch => {
+//     return EventAPIUtil.fetchEventGenres()
+//         .then(() => dispatch(genres => receiveEventGenres(genres)))
+// }

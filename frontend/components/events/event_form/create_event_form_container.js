@@ -17,6 +17,7 @@ const mSTP = state => ({
         host_id: state.session.id
     },
     formType: 'Add Event'
+    // genres: state.genres
 })
 
 const mDTP = dispatch => ({

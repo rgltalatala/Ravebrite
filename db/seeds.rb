@@ -19,12 +19,16 @@ jack = User.create({email: "jack@ex.com", password: "123456", first_name: "Jack"
 
 # Events
 
+# Genres
+
+genres = Event.genres
+
 event1 = Event.create({
     host_id: raph.id,
     title: "Raph's Rave",
     description: "A night of dancing and fun with Raph's favorite house hits!",
     location: "Brooklyn Mirage 140 Stewart Ave, Brooklyn, NY 11237",
-    category: "Show", # replace this with category_id when I create category class? 
+    genre: genres[2], # replace this with genre_id when I create genre class? 
     start_date: "2021-7-9",
     end_date: "2021-7-10",
     start_time: "8:00 PM",
@@ -36,7 +40,7 @@ event2 = Event.create({
     title: "Country Nights",
     description: "Ali Ahmed performing his own renditions of Kacey Musgraves' greatest tracks.",
     location: "Skinny Dennis 152 Metropolitan Ave, Brooklyn, NY 11211",
-    category: "Bar Show",
+    genre: genres[4],
     start_date: "2021-7-11",
     end_date: "2021-7-11",
     start_time: "6:00 PM",
@@ -48,9 +52,10 @@ event3 = Event.create({
     title: "CVH at MSG",
     description: "For one night only, Chase Van Haselen will perform his debut album at Madison Square Garden!",
     location: "Madison Square Garden 4 Pennsylvania Plaza, New York, NY 10001",
-    category: "Tour",
+    genre: genres[7],
     start_date: "2021-7-17",
     end_date: "2021-7-17",
     start_time: "8:00 PM",
     end_time: "11:00 PM",
 })
+

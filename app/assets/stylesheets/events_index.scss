@@ -4,6 +4,24 @@
     justify-content: center;
 }
 
+.splash-page{
+    display: inline-block;
+}
+
+.splash-header {
+    // background-image: url("coachella.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    // height: 400px;
+
+    > .header {
+        width: 100%;
+        object-fit: cover;
+        max-height: 720px;
+    }
+}
+
 .events-wrapper {
     width: 60%;
     border: 1px solid green;
@@ -35,7 +53,6 @@
     max-width: 450px;
     display: flex;
     flex-direction: column;
-    // align-items: flex-start;
     * {
         border: 1px solid blue;
     }
@@ -46,13 +63,42 @@
     }
 }
 
+.card-image {
+    background-image: url("festival-friends.jpg");
+    height: 40%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 0% 65%;
+}
+
+.bookmark-wrapper{
+    // overflow: visible;
+    position: relative;
+}
+
+.bookmark{
+    z-index: 5;
+    border: 1px solid gray;
+    height: 25px;
+    width: 25px;
+    border-radius: 100px;
+}
+
 .event-index-title a {
     text-decoration: none;
-    color: #C9BFDE;
-
+    color: #39364F;
     &:hover{
         text-decoration: underline;
     }
+}
+
+.card-date{
+    color: #C9BFDE;
+}
+
+.card-location{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15;
 }
 
 @font-face{

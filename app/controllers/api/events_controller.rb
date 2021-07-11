@@ -11,8 +11,8 @@ class Api::EventsController < ApplicationController
     end
     
     def create
+      # @genres = Event.genres
       @event = Event.new(event_params)
-      @GENRES = Event.GENRES
   
       if @event.save
         render :show
@@ -20,10 +20,14 @@ class Api::EventsController < ApplicationController
         render json: @event.errors.full_messages, status: 422
       end
     end
+
+    def new
+        # @genres = Event.genres
+        render :new
+    end
     
     def update
         @event = Event.find_by(id: params[:id])
-        @GENRES = Event.GENRES
         
         if @event.update(event_params)
             render :show

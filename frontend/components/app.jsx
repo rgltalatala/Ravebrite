@@ -41,8 +41,6 @@ function App () {
             </Switch>
         </div>
     )
-
-    
 }
 
 export default withRouter(App);

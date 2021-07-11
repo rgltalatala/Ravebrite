@@ -4,7 +4,8 @@ import { fetchEvent, deleteEvent } from "../../../actions/event_actions";
 import { withRouter } from "react-router";
 
 const mSTP = (state, ownProps) => ({
-    event: state.entities.events[ownProps.match.params.eventId]
+    event: state.entities.events[ownProps.match.params.eventId],
+    currentUser: state.session.id
 })
 
 const mDTP = dispatch => ({
