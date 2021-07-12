@@ -1,0 +1,129 @@
+.event-form-wrapper {
+    // border: 1px solid red;
+    display: flex;
+    justify-content: center;
+}
+
+.event-form {
+    // border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    margin-top: 10px;
+}
+
+.event-form-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // border: 1px solid blue;
+
+    &:not(:nth-last-of-type(-n+2)){
+        border-bottom: 1px solid #EEEDF2;
+    }
+    
+    .event-form-input{
+        width: 100%;
+        padding: 15px;
+        padding-top: 30px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgb(243, 243, 243);
+        border-radius: 5px;
+        position: relative;
+        left: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    p {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 15;
+    }
+}
+
+.event-form-logo-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    align-content: flex-end;
+    padding-right: 10px;
+    width: 60px;
+    // border: 1px solid blue;
+}
+
+.event-form-logo{
+    width: 100%;
+    // position: relative;
+    padding-top: 10px;
+    color: #DBDAE3;
+    // right: 200px;
+}
+
+.event-form-field{
+    width: 945px;
+}
+
+
+.event-form-input-genre{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(243, 243, 243);
+    border-radius: 5px;
+    position: relative;
+    left: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.event-form-input-image{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    padding: 5px;
+    top: 5px;
+}
+
+.form-input-group{
+    position: relative;
+    min-height: 20px;
+}
+
+.event-form-label{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 250px;
+}
+
+.form-submit-button-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.form-submit-button{
+    background-color: #C9BFDE;
+    color: white;
+    padding: 16px 20px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    border-radius: 5px;
+}

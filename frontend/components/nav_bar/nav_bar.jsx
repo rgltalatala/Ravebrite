@@ -33,6 +33,10 @@ class navBar extends React.Component{
                 ravebrite
               </Link>
 
+              {/* <div className="nav-search-bar-wrapper">
+                <input type="text" className="nav-search-bar"/>
+              </div> */}
+
               <div className="nav-bar-links">
                 <Link to="/events/create" className="create link-button">
                   <i className="fas fa-plus-circle link-image"></i>
@@ -52,8 +56,7 @@ class navBar extends React.Component{
                     {currentUser.email}
                   </a>
                   <div className="dropdown-content">
-                    <a>Link 1</a>
-                    <a>Link 2</a>
+                    <a>Manage my events</a>
                     <a onClick={logout}>Log Out</a>
                   </div>
                 </div>

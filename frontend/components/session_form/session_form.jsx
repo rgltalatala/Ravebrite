@@ -139,7 +139,7 @@ class SessionForm extends React.Component {
                       onChange={this.update('password')}
                       className={"formInput"}
                     />
-                    <label className={"formInputLabel"}>Password:</label>
+                    <label className="formInputLabel">Password:</label>
                 </div>
                 <br/>
                 {formType === 'Sign up' ? signupNames() : ''}
