@@ -35,9 +35,10 @@ export const deleteEvent = (eventId) => {
     })
 }
 
-// export const fetchGenres = () => {
-//     return $.ajax({
-//         method: 'GET',
-//         url: `/`
-//     })
-// }
+export const fetchEventGenre = (genre) => {
+    return $.ajax({
+        method: 'GET',
+        url: `/api/genres`,
+        data: {genre}
+    })
+}

@@ -199,17 +199,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "REMOVE_EVENT": () => (/* binding */ REMOVE_EVENT),
 /* harmony export */   "RECEIVE_EVENT_ERRORS": () => (/* binding */ RECEIVE_EVENT_ERRORS),
 /* harmony export */   "REMOVE_EVENT_ERRORS": () => (/* binding */ REMOVE_EVENT_ERRORS),
+/* harmony export */   "RECEIVE_GENRES": () => (/* binding */ RECEIVE_GENRES),
 /* harmony export */   "receiveEvents": () => (/* binding */ receiveEvents),
 /* harmony export */   "receiveEvent": () => (/* binding */ receiveEvent),
 /* harmony export */   "removeEvent": () => (/* binding */ removeEvent),
 /* harmony export */   "receiveEventErrors": () => (/* binding */ receiveEventErrors),
 /* harmony export */   "removeEventErrors": () => (/* binding */ removeEventErrors),
+/* harmony export */   "receiveEventGenres": () => (/* binding */ receiveEventGenres),
 /* harmony export */   "fetchEvents": () => (/* binding */ fetchEvents),
 /* harmony export */   "fetchEvent": () => (/* binding */ fetchEvent),
 /* harmony export */   "createEvent": () => (/* binding */ createEvent),
 /* harmony export */   "updateEvent": () => (/* binding */ updateEvent),
 /* harmony export */   "deleteEvent": () => (/* binding */ deleteEvent),
-/* harmony export */   "clearEventErrors": () => (/* binding */ clearEventErrors)
+/* harmony export */   "clearEventErrors": () => (/* binding */ clearEventErrors),
+/* harmony export */   "fetchEventGenre": () => (/* binding */ fetchEventGenre)
 /* harmony export */ });
 /* harmony import */ var _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/event_api_util */ "./frontend/util/event_api_util.js");
 
@@ -217,8 +220,8 @@ var RECEIVE_EVENTS = 'RECEIVE_EVENTS';
 var RECEIVE_EVENT = 'RECEIVE_EVENT';
 var REMOVE_EVENT = 'REMOVE_EVENT';
 var RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
-var REMOVE_EVENT_ERRORS = 'REMOVE_EVENT_ERRORS'; // export const RECEIVE_GENRES = 'RECEIVE_GENRES'
-
+var REMOVE_EVENT_ERRORS = 'REMOVE_EVENT_ERRORS';
+var RECEIVE_GENRES = 'RECEIVE_GENRES';
 var receiveEvents = function receiveEvents(events) {
   return {
     type: RECEIVE_EVENTS,
@@ -247,13 +250,13 @@ var removeEventErrors = function removeEventErrors() {
   return {
     type: REMOVE_EVENT_ERRORS
   };
-}; // export const receiveEventGenres = (genres) => {
-//     return {
-//         type: RECEIVE_GENRES,
-//         genres
-//     }
-// }
-
+};
+var receiveEventGenres = function receiveEventGenres(genres) {
+  return {
+    type: RECEIVE_GENRES,
+    genres: genres
+  };
+};
 var fetchEvents = function fetchEvents() {
   return function (dispatch) {
     return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchEvents().then(function (events) {
@@ -297,10 +300,14 @@ var clearEventErrors = function clearEventErrors() {
   return function (dispatch) {
     return dispatch(removeEventErrors());
   };
-}; // export const fetchEventGenres = () => dispatch => {
-//     return EventAPIUtil.fetchEventGenres()
-//         .then(() => dispatch(genres => receiveEventGenres(genres)))
-// }
+};
+var fetchEventGenre = function fetchEventGenre(genre) {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchEventGenre(genre).then(function (events) {
+      return dispatch(receiveEvents(events));
+    });
+  };
+}; // receiveEvents
 
 /***/ }),
 
@@ -482,6 +489,9 @@ var mDTP = function mDTP(dispatch) {
   return {
     processForm: function processForm(event) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.createEvent)(event));
+    },
+    fetchEventGenres: function fetchEventGenres() {
+      return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.fetchEventGenres)());
     }
   };
 };
@@ -684,33 +694,45 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
     value: function componentWillUnmount() {}
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {}
+    value: function componentDidMount() {// this.props.fetchEventGenres()
+    }
   }, {
     key: "render",
     value: function render() {
-      console.log(this.state);
       var formType = this.props.formType;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, formType), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Basic Info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        htmlFor: ""
-      }, "Event Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit,
+        className: "event-form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-section"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Basic Info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Event Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Name your event and provide a genre."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: this.update('title'),
-        value: this.state.title
+        value: this.state.title,
+        className: "eventFormInput"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Genre: "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        onChange: this.update('genre')
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let people in the area discover your event, and let attendees know where to show up."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        onChange: this.update('genre'),
+        className: "eventFormInput"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-section"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let people in the area discover your event, and let attendees know where to show up."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         value: this.state.location,
-        onChange: this.update('location')
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Date and time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Tell event-goers when your event starts and ends so they can make plans to attend."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        onChange: this.update('location'),
+        className: "eventFormInput"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-section"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Date and time"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Tell event-goers when your event starts and ends so they can make plans to attend."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "date",
         value: this.state.start_date,
-        onChange: this.update('start_date')
+        onChange: this.update('start_date'),
+        className: "eventFormInput"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Event Starts "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Start Time "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
         value: this.state.start_time,
-        onChange: this.update('start_time')
+        onChange: this.update('start_time'),
+        className: "eventFormInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
         value: "12:00 AM"
       }, "12:00 AM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
@@ -721,14 +743,18 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('end_date')
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Event Ends "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "End Time "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
         value: this.state.end_time,
-        onChange: this.update('end_time')
+        onChange: this.update('end_time'),
+        className: "eventFormInput"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
         value: "12:00 AM"
       }, "12:00 AM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
         value: "11:30 PM"
-      }, "11:30 PM")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Provide some additional details about your event."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
+      }, "11:30 PM"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-section"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Provide some additional details about your event."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
         value: this.state.description,
-        onChange: this.update('description')
+        onChange: this.update('description'),
+        className: "eventFormInput"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "submit"
       }, formType)));
@@ -793,7 +819,10 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
 
   _createClass(EventIndex, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
+    value: //tabs into below func
+    // componentDidUpdate to display filtered events by genre
+    //fetchEventGenre to only fetch events we care about (ie specific genre)
+    function componentDidMount() {
       this.props.fetchEvents();
     }
   }, {
@@ -812,7 +841,9 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
         className: "header"
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "landing"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
+        className: "landing-header"
+      }, "Upcoming ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "events!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "events-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
         className: "event-index"
@@ -885,32 +916,109 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
-var EventIndexItem = function EventIndexItem(props) {
-  var event = props.event;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "event-index-item-container"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
-    className: "event-index-item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    to: "/events/".concat(event.id),
-    className: "card-image"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "bookmark-wrapper"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-    "class": "far fa-heart bookmark"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
-    className: "event-index-title"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-    to: "/events/".concat(event.id)
-  }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-    className: "card-date"
-  }, event.start_date, ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-    className: "card-location"
-  }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null)));
-};
+
+var EventIndexItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(EventIndexItem, _React$Component);
+
+  var _super = _createSuper(EventIndexItem);
+
+  function EventIndexItem(props) {
+    var _this;
+
+    _classCallCheck(this, EventIndexItem);
+
+    _this = _super.call(this, props);
+    _this.handleBookmark = _this.handleBookmark.bind(_assertThisInitialized(_this));
+    _this.state = {
+      bookmarked: false
+    };
+    return _this;
+  }
+
+  _createClass(EventIndexItem, [{
+    key: "handleBookmark",
+    value: function handleBookmark(e) {
+      e.preventDefault();
+
+      if (this.state.bookmarked === false) {
+        this.setState({
+          bookmarked: true
+        });
+      } else {
+        this.setState({
+          bookmarked: false
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var event = this.props.event; // create a function to switch class name and respectively switch to solid heart
+
+      var bookmarkEvent = function bookmarkEvent() {
+        if (_this2.state.bookmarked === false) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "far fa-heart bookmark"
+          });
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "fas fa-heart bookmark active"
+          });
+        }
+      };
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-index-item-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+        className: "event-index-item"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        to: "/events/".concat(event.id),
+        className: "card-image"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "bookmark-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "bookmark-circle",
+        onClick: this.handleBookmark
+      }, bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
+        className: "event-index-title"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        to: "/events/".concat(event.id)
+      }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+        className: "card-date"
+      }, event.start_date, ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+        className: "card-location"
+      }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null)));
+    }
+  }]);
+
+  return EventIndexItem;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventIndexItem);
 
@@ -1147,8 +1255,20 @@ var navBar = /*#__PURE__*/function (_React$Component) {
             className: "nav-bar-links"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
             to: "/events/create",
-            className: "create-button"
-          }, "Create Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "create link-button"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "fas fa-plus-circle link-image"
+          }), "Create Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+            to: "/users/:userID/likes",
+            className: "link-button"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "far fa-heart link-image"
+          }), "Likes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+            to: "/users/:userID/registrations",
+            className: "link-button"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+            className: "fas fa-ticket-alt link-image"
+          }), "Tickets"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "dropdown"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
             className: "signup-login-link dropbtn"
@@ -1655,19 +1775,31 @@ var EventsReducer = function EventsReducer() {
 /*!*************************************************!*\
   !*** ./frontend/reducers/form_input_reducer.js ***!
   \*************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// import { RECEIVE_GENRES } from "../actions/event_actions";
-// const formInputReducer = (initialState = {}, action) => {
-//     Object.freeze(initialState)
-//     switch (action.type) {
-//         case RECEIVE_GENRES:
-//             return action.genres
-//         default:
-//             return initialState
-//     }
-// }
-// export default formInputReducer
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/event_actions */ "./frontend/actions/event_actions.js");
+
+
+var formInputReducer = function formInputReducer() {
+  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(initialState);
+
+  switch (action.type) {
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_GENRES:
+      return action.genres;
+
+    default:
+      return initialState;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formInputReducer);
 
 /***/ }),
 
@@ -1687,7 +1819,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
 /* harmony import */ var _form_input_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./form_input_reducer */ "./frontend/reducers/form_input_reducer.js");
-/* harmony import */ var _form_input_reducer__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_form_input_reducer__WEBPACK_IMPORTED_MODULE_3__);
 
  // import ui from './ui_reducer';
 
@@ -1699,7 +1830,7 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   //   ui,
   session: _session_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_2__.default,
-  formInputs: (_form_input_reducer__WEBPACK_IMPORTED_MODULE_3___default())
+  formInputs: _form_input_reducer__WEBPACK_IMPORTED_MODULE_3__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rootReducer);
 
@@ -1858,7 +1989,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fetchEvent": () => (/* binding */ fetchEvent),
 /* harmony export */   "createEvent": () => (/* binding */ createEvent),
 /* harmony export */   "updateEvent": () => (/* binding */ updateEvent),
-/* harmony export */   "deleteEvent": () => (/* binding */ deleteEvent)
+/* harmony export */   "deleteEvent": () => (/* binding */ deleteEvent),
+/* harmony export */   "fetchEventGenre": () => (/* binding */ fetchEventGenre)
 /* harmony export */ });
 var fetchEvents = function fetchEvents() {
   return $.ajax({
@@ -1895,12 +2027,16 @@ var deleteEvent = function deleteEvent(eventId) {
     method: 'DELETE',
     url: "/api/events/".concat(eventId)
   });
-}; // export const fetchGenres = () => {
-//     return $.ajax({
-//         method: 'GET',
-//         url: `/`
-//     })
-// }
+};
+var fetchEventGenre = function fetchEventGenre(genre) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/genres",
+    data: {
+      genre: genre
+    }
+  });
+};
 
 /***/ }),
 

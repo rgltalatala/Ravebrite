@@ -1,1 +1,1 @@
-json.genres(@genres)
+# json.genres(@genres)

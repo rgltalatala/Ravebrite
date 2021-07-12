@@ -34,14 +34,23 @@ class navBar extends React.Component{
               </Link>
 
               <div className="nav-bar-links">
-                <Link to="/events/create" className="create-button">
+                <Link to="/events/create" className="create link-button">
+                  <i className="fas fa-plus-circle link-image"></i>
                   Create Event
+                </Link>
+                <Link to="/users/:userID/likes" className="link-button">
+                  <i className="far fa-heart link-image"></i>
+                  Likes
+                </Link>
+                <Link to="/users/:userID/registrations" className="link-button">
+                  <i className="fas fa-ticket-alt link-image"></i>
+                  Tickets
                 </Link>
                 <div className="dropdown">
                   <a className="signup-login-link dropbtn">    {/* change this to Link when I create userShow --> */}
-                      <i className="far fa-smile profilePic"></i> 
-                      {currentUser.email}
-                    </a>
+                    <i className="far fa-smile profilePic"></i> 
+                    {currentUser.email}
+                  </a>
                   <div className="dropdown-content">
                     <a>Link 1</a>
                     <a>Link 2</a>

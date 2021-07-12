@@ -4,5 +4,5 @@
     end
 end
 
-
+# filter by genre here
 # json.genres(Event.genres)

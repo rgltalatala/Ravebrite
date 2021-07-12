@@ -3,26 +3,26 @@ class Api::EventsController < ApplicationController
 
     def index
         @events = Event.all
+
         render :index
     end
 
     def show
         @event = Event.find_by(id: params[:id])
+        render :show
     end
     
     def create
-      # @genres = Event.genres
-      @event = Event.new(event_params)
-  
-      if @event.save
-        render :show
-      else
-        render json: @event.errors.full_messages, status: 422
-      end
+        @event = Event.new(event_params)
+
+        if @event.save
+            render :show
+        else
+            render json: @event.errors.full_messages, status: 422
+        end
     end
 
     def new
-        # @genres = Event.genres
         render :new
     end
     
@@ -45,11 +45,16 @@ class Api::EventsController < ApplicationController
             render json: @event.errors.full_messages, status: 422
         end
     end
-  
-    private
-  
-    def event_params
-      params.require(:event).permit(:title, :description, :location, :genre, :start_date, :end_date, :start_time, :end_time, :host_id)
+
+    def genre
+        @events = Event.find_by(:genre, params[:genre])
+
+        render :index
     end
-  end
-  
+
+    private
+
+    def event_params
+        params.require(:event).permit(:title, :description, :location, :genre, :start_date, :end_date, :start_time, :end_time, :host_id)
+    end
+end

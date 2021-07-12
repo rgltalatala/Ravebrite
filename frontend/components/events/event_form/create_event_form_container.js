@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { createEvent } from "../../../actions/event_actions";
+import { createEvent, fetchEventGenres } from "../../../actions/event_actions";
 import EventForm from "./event_form";
 
 
@@ -21,7 +21,8 @@ const mSTP = state => ({
 })
 
 const mDTP = dispatch => ({
-    processForm: (event) => dispatch(createEvent(event))
+    processForm: (event) => dispatch(createEvent(event)),
+    fetchEventGenres: () => dispatch(fetchEventGenres())
 })
 
 export default connect(mSTP, mDTP)(EventForm)
