@@ -1,6 +1,6 @@
+import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 
 
 class EventIndexItem extends React.Component{
@@ -46,7 +46,7 @@ class EventIndexItem extends React.Component{
                     <br />
     
                     <label className="card-date">
-                        {event.start_date}, {event.start_time}
+                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time}
                     </label>
                     <br />
     
