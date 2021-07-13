@@ -27,7 +27,7 @@ function App () {
     
 
     return (
-        <div>
+        <>
             <NavBarContainer />
             <Switch>
                 <AuthRoute exact path="/login" component={LoginFormContainer} />
@@ -39,7 +39,7 @@ function App () {
                 <Route exact path="/events/:eventId" component={EventShowContainer} />
                 <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />
             </Switch>
-        </div>
+        </>
     )
 }
 

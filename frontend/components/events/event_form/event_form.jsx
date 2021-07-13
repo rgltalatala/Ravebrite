@@ -51,7 +51,6 @@ class EventForm extends React.Component{
         return (
             <div className="event-form-wrapper">
                 <form onSubmit={this.handleSubmit} className='event-form'>
-
                     <div className='event-form-section'>
                         <div className="event-form-logo-wrapper">
                             <i className="fas fa-align-left fa-3x event-form-logo"></i>
@@ -83,9 +82,9 @@ class EventForm extends React.Component{
                                 className="event-form-input-genre"
                                 placeholder="genre"
                             > 
-                                <option selected="true" disabled="disabled">Genre</option>
-                                {genres.map((genre) => (
-                                    <option value={`${genre}`}>{genre}</option>
+                                <option >Genre</option>
+                                {genres.map((genre, i) => (
+                                    <option value={`${genre}`} key={i}>{genre}</option>
                                 ))}
                             </select>
                         </div>
@@ -136,46 +135,46 @@ class EventForm extends React.Component{
                             </div>
                             <br />
 
-                        <div className="form-input-group">
-                            <select 
-                                value={this.state.start_time}
-                                onChange={this.update('start_time')}
-                                className="event-form-input"
-                                >
-                                <option selected="true" disabled="disabled">Start Time</option>
-                                {times.map((time, i) => (
-                                    <option value={`${time}`}>{time}</option>
-                                ))}
-                            </select>
-                            <label className="event-form-label">Start Time </label>
-                        </div>
-                        <br />
+                            <div className="form-input-group">
+                                <select 
+                                    value={this.state.start_time}
+                                    onChange={this.update('start_time')}
+                                    className="event-form-input"
+                                    >
+                                    <option >Start Time</option>
+                                    {times.map((time, i) => (
+                                        <option value={`${time}`} key={i}>{time}</option>
+                                    ))}
+                                </select>
+                                <label className="event-form-label">Start Time </label>
+                            </div>
+                            <br />
                         
-                        <div className="form-input-group">
-                            <input 
-                                type="date" 
-                                value={this.state.end_date}
-                                onChange={this.update('end_date')}
-                                className="event-form-input"
-                            />
-                            <label className="event-form-label">Event Ends </label>
-                        </div>
-                        <br />
+                            <div className="form-input-group">
+                                <input 
+                                    type="date" 
+                                    value={this.state.end_date}
+                                    onChange={this.update('end_date')}
+                                    className="event-form-input"
+                                />
+                                <label className="event-form-label">Event Ends </label>
+                            </div>
+                            <br />
 
-                        <div className="form-input-group">
-                            <select 
-                                value={this.state.end_time}
-                                onChange={this.update('end_time')}
-                                className="event-form-input"
-                                >
-                                <option selected="true" disabled="disabled">End Time</option>
-                                {times.map((time, i) => (
-                                    <option value={`${time}`}>{time}</option>
-                                ))}
-                            </select>
-                            <label className="event-form-label">End Time </label>
+                            <div className="form-input-group">
+                                <select 
+                                    value={this.state.end_time}
+                                    onChange={this.update('end_time')}
+                                    className="event-form-input"
+                                    >
+                                    <option>End Time</option>
+                                    {times.map((time, i) => (
+                                        <option value={`${time}`} key={i}>{time}</option>
+                                    ))}
+                                </select>
+                                <label className="event-form-label">End Time</label>
+                            </div>
                         </div>
-                    </div>
                     </div>
 
                     <br />

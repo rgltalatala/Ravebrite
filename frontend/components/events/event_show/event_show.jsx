@@ -42,35 +42,46 @@ class EventShow extends React.Component{
             }
 
             return (
-                <>
-                    <h3>{event.title}</h3>
-                    <br />
-
-                    <label>Location: 
-                        {event.location}
-                    </label>
-                    <br />
-
-                    <label>Date(s): 
-                        {event.start_date} - {event.end_date}
-                    </label>
-                    <br />
-
-                    <label>Time: 
-                        {event.start_time} - {event.end_time}
-                    </label>
-                    <br />
-
-                    <p>{event.description}</p>
-                    <br />
-    
-                    {event.genre}
-                    <br />
-
-                    {currentUser === event.host_id ? currUserButtons() : ''}
+                <div className="event-show-wrapper">
+                    <div className="event-show-background"></div>
                     
-                    
-                </>
+                    <div className="event-show-card">
+                        <div >
+                            <img src={window.rave} alt="rave" className="event-show-image"/>
+                        </div>
+
+                        <div className="event-show-details">
+                            <label className="event-details-child show-location"> 
+                                {event.location}
+                            </label>
+                            <br />
+
+                            <h3  className="event-details-child show-title">{event.title}</h3>
+                            <br />
+
+                            <p  className="event-details-child show-genre">{event.genre}</p>
+                        </div>
+
+
+                        <label>Date(s): 
+                            {event.start_date} - {event.end_date}
+                        </label>
+                        <br />
+
+                        <label>Time: 
+                            {event.start_time} - {event.end_time}
+                        </label>
+                        <br />
+
+                        <p>{event.description}</p>
+                        <br />
+        
+                        {event.genre}
+                        <br />
+
+                        {currentUser === event.host_id ? currUserButtons() : ''}
+                    </div>
+                </div>
             )
         }
 
