@@ -13,7 +13,19 @@ class Event < ApplicationRecord
     #     through: :registrations,
     #     source: :registrations
 
-    # def self.genres
-        
-    # end
+    def self.genres
+        genres = [
+            "House", 
+            "Techno", 
+            "Dubstep", 
+            "Trap", 
+            "Trance", 
+            "Future Bass", 
+            "Ambient", 
+            "Hardstyle",
+            "Drum and Bass",
+            "Garage",
+            "Multi-genre"
+        ]
+    end
 end
