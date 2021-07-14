@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //Components
 import Root from './components/root';
-import { login, signup, logout } from './actions/session_actions';
 import configureStore from './store/store';
+import { fetchEvent, createEvent, fetchEvents, updateEvent, deleteEvent } from './actions/event_actions';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,10 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  window.login = login
-  window.logout = logout
-  window.store = store
+  window.fetchEvents = fetchEvents
+  window.fetchEvent = fetchEvent
+  window.createEvent = createEvent
+  window.updateEvent = updateEvent
+  window.deleteEvent = deleteEvent
   window.dispatch = store.dispatch
+  window.getState = store.getState
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store}/>, root);

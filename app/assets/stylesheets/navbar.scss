@@ -1,35 +1,60 @@
+.navBar {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    height: 69px;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 1px solid rgb(241, 241, 241);
+}
+
 .logo {
     font-family: Raleway-Black;
     font-weight: bold;
     font-size: 36px;
     margin-left: 10px;
     text-decoration: none;
-    color: #FAA763 ;
+    color: #C9BFDE;
 }
 
-.signup-login-link {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: normal;
-    text-decoration: none;
-    color: #39364f;
-    display: flexbox;
+.nav-search-bar-wrapper{
+    width: 30%;
+    height: 100%;
 }
 
-.navBar {
+.nav-search-bar {
+    height: 60px;
+}
+
+.nav-bar-links {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    padding-top: 2.5px;
-    padding-bottom: 2.5px;
 }
 
-.logout-button{
+
+.link-button{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: normal;
+    font-size: 16px;
+    text-decoration: none;
     float: right;
+    display: flex;
+    margin-right: 10px;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px 15px 20px;
+    color: inherit;
+    
+    &:hover{
+        background-color: #eeeded;
+    }
 }
 
+.link-image{
+    background-color: transparent;
+}
+
+.create {
+    color: blue;
+}
 a:visited, link:visited{
     text-decoration: none;
 }
