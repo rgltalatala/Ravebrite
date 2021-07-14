@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
   attr_reader :password
 
-  validates :email, :password_digest, :session_token, :fname, :lname, presence: true
+  validates :email, :password_digest, :session_token, :first_name, :last_name, presence: true
   validates :email, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
@@ -10,23 +10,24 @@ class User < ApplicationRecord
 
   has_many :hosted_events,
     foreign_key: :host_id,
-    source: :events
+    class_name: :Event
 
-  has_many :bookmarks,
-    foreign_key: :user_id,
-    source: :bookmarks
-
-  has_many :registrations,
+    
+    has_many :registrations,
     foreign_key: :user_id,
     source: :registrations
-
-  has_many :registered_events,
+    
+    has_many :registered_events,
     through: :registrations,
     source: :registrations
-
-  has_many :bookmarked_events,
-    through: :bookmarks,
-    source: :bookmarks
+    
+    has_many :bookmarks,
+      foreign_key: :user_id,
+      source: :bookmarks
+    
+      has_many :bookmarked_events,
+      through: :bookmarks,
+      source: :bookmarks
   
 
   def self.find_by_credentials(email, password)
