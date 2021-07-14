@@ -9,14 +9,16 @@ class EditEventForm extends React.Component {
     }
   
     render() {
-      const { processForm, formType, event } = this.props;
+      const { processForm, formType, event, errors } = this.props;
   
       if (!event) return null;
       return (
         <EventForm
           processForm={processForm}
           formType={formType}
-          event={event} />
+          event={event}
+          errors={errors}
+          />
       );
     }
   }
@@ -24,7 +26,7 @@ class EditEventForm extends React.Component {
 const mSTP = (state, ownProps) => ({
     event: state.entities.events[ownProps.match.params.eventId],
     formType: 'Edit Event',
-    errors: state.errors.events,
+    errors: state.errors.events
 })
 
 const mDTP = dispatch => ({

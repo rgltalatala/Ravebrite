@@ -35,6 +35,13 @@ export const deleteEvent = (eventId) => {
     })
 }
 
+// export const fetchUserEvents = (userId) => {
+//     return $.ajax({
+//         method: 'GET',
+//         url: 
+//     })
+// }
+
 export const fetchEventGenre = (genre) => {
     return $.ajax({
         method: 'GET',

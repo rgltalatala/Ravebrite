@@ -51,7 +51,11 @@ class EventForm extends React.Component{
         return (
             <div className="event-form-wrapper">
                 <form onSubmit={this.handleSubmit} className='event-form'>
+                    <div>
+                        {this.renderErrors()}
+                    </div>
                     <div className='event-form-section'>
+                        <br />
                         <div className="event-form-logo-wrapper">
                             <i className="fas fa-align-left fa-3x event-form-logo"></i>
                         </div>

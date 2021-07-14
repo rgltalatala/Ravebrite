@@ -16,7 +16,8 @@ const mSTP = state => ({
         end_time: '',
         host_id: state.session.id
     },
-    formType: 'Add Event'
+    formType: 'Add Event',
+    errors: state.errors.events
     // genres: state.genres
 })
 

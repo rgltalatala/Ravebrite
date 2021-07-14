@@ -429,6 +429,9 @@ function App() {
     exact: true,
     path: "/",
     component: _events_event_index_event_index_container__WEBPACK_IMPORTED_MODULE_5__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+    exact: true,
+    path: "/users/:userId/events"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
     path: "/events/create",
@@ -480,7 +483,8 @@ var mSTP = function mSTP(state) {
       end_time: '',
       host_id: state.session.id
     },
-    formType: 'Add Event' // genres: state.genres
+    formType: 'Add Event',
+    errors: state.errors.events // genres: state.genres
 
   };
 };
@@ -564,12 +568,14 @@ var EditEventForm = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           processForm = _this$props.processForm,
           formType = _this$props.formType,
-          event = _this$props.event;
+          event = _this$props.event,
+          errors = _this$props.errors;
       if (!event) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_event_form__WEBPACK_IMPORTED_MODULE_3__.default, {
         processForm: processForm,
         formType: formType,
-        event: event
+        event: event,
+        errors: errors
       });
     }
   }]);
@@ -707,9 +713,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "event-form"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.renderErrors()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-section"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-logo-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
         className: "fas fa-align-left fa-3x event-form-logo"
@@ -1213,14 +1219,16 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             currentUser = _this$props.currentUser;
 
         var currUserButtons = function currUserButtons() {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+            className: "user-button"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
             to: "/events/".concat(event.id, "/edit"),
-            className: "purchase-button"
-          }, "Edit Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+            className: "edit"
+          }, "Edit Event")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             onClick: function onClick() {
               return _this3.deleteEvent(event.id);
             },
-            className: "purchase-button"
+            className: "user-button"
           }, "Delete Event"));
         };
 
@@ -1278,7 +1286,9 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
           className: "event-description"
         }, event.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-info-right"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null, "Date and time", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time, " - ", moment__WEBPACK_IMPORTED_MODULE_0___default()(event.end_date).format("dddd, MMMM Do YYYY"), event.end_time)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null, "Location", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, event.location)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)))));
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null, "Date and time", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time, " - ", moment__WEBPACK_IMPORTED_MODULE_0___default()(event.end_date).format("dddd, MMMM Do YYYY"), event.end_time)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", null, "Location", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, event.location)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          className: "user-button-wrapper"
+        }, currentUser === event.host_id ? currUserButtons() : '')))));
       }
     }
   }]);
@@ -2185,7 +2195,13 @@ var deleteEvent = function deleteEvent(eventId) {
     method: 'DELETE',
     url: "/api/events/".concat(eventId)
   });
-};
+}; // export const fetchUserEvents = (userId) => {
+//     return $.ajax({
+//         method: 'GET',
+//         url: 
+//     })
+// }
+
 var fetchEventGenre = function fetchEventGenre(genre) {
   return $.ajax({
     method: 'GET',

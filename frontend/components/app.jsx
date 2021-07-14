@@ -35,6 +35,7 @@ function App () {
             </Switch>
             <Switch>
                 <Route exact path='/' component={EventIndexContainer} />
+                <Route exact path="/users/:userId/events" />
                 <ProtectedRoute exact path="/events/create" component={CreateEventFormContainer} />
                 <Route exact path="/events/:eventId" component={EventShowContainer} />
                 <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />

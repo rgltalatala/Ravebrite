@@ -47,9 +47,11 @@ class EventShow extends React.Component{
             const currUserButtons = () => {
                 return (
                     <>
-                        <Link to={`/events/${event.id}/edit`} className="purchase-button">Edit Event</Link>
+                        <button className="user-button">
+                            <Link to={`/events/${event.id}/edit`} className="edit">Edit Event</Link>
+                        </button>
                         <br />
-                        <button onClick={() => this.deleteEvent(event.id)} className="purchase-button">Delete Event</button>
+                        <button onClick={() => this.deleteEvent(event.id)} className="user-button">Delete Event</button>
                     </>
                 )
             }
@@ -126,9 +128,9 @@ class EventShow extends React.Component{
                                 </label>
                                 <br />
 
-                                {/* <div>
+                                <div className="user-button-wrapper">
                                     {currentUser === event.host_id ? currUserButtons() : ''}
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                     </div>

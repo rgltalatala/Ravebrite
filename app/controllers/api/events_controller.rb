@@ -46,6 +46,16 @@ class Api::EventsController < ApplicationController
         end
     end
 
+    def hosted_events
+        @events = User.find_by(:id, params[:userId]).hosted_events
+
+        if @events
+            render :index
+        else
+            render json: @event.errors.full_messages, status: 422
+        end
+    end
+
     def genre
         @events = Event.find_by(:genre, params[:genre])
 
