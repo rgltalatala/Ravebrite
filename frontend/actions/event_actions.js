@@ -78,5 +78,3 @@ export const fetchEventGenre = (genre) => dispatch => {
     return EventAPIUtil.fetchEventGenre(genre)
         .then((events) => dispatch(receiveEvents(events)))
 }
-
-// receiveEvents 

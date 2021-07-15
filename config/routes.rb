@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     resources :events, only: [:index, :show, :create, :update, :destroy] do
       resources :registrations, only: [:create]
     end
-    resources :registrations, only: [:delete]
+
+    resources :registrations, only: [:destroy]
     resources :genres, only: [:show]
 
   end
