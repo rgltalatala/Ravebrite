@@ -1192,9 +1192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _actions_registration_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/registration_actions */ "./frontend/actions/registration_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1221,7 +1220,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var EventShow = /*#__PURE__*/function (_React$Component) {
   _inherits(EventShow, _React$Component);
 
@@ -1240,6 +1238,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
     };
     _this.deleteEvent = _this.deleteEvent.bind(_assertThisInitialized(_this));
     _this.handleBookmark = _this.handleBookmark.bind(_assertThisInitialized(_this));
+    _this.purchaseTicket = _this.purchaseTicket.bind(_assertThisInitialized(_this));
     _this.openModal = _this.openModal.bind(_assertThisInitialized(_this));
     _this.closeModal = _this.closeModal.bind(_assertThisInitialized(_this));
     return _this;
@@ -1278,6 +1277,20 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       this.props.history.push('/');
     }
   }, {
+    key: "purchaseTicket",
+    value: function purchaseTicket(registration) {
+      // console.log('literally anything')
+      var _this$props = this.props,
+          currentUser = _this$props.currentUser,
+          event = _this$props.event;
+      console.log(currentUser);
+      this.props.createRegistration({
+        user_id: currentUser,
+        event_id: event.id
+      }); // .then((res) => this.props.history.push(`/users/${res.event.id}`))
+      // console.log(createRegistration)
+    }
+  }, {
     key: "openModal",
     value: function openModal() {
       this.setState({
@@ -1292,6 +1305,9 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {}
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -1299,14 +1315,14 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       if (this.state.loading) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "loading");
       } else {
-        var _this$props = this.props,
-            event = _this$props.event,
-            currentUser = _this$props.currentUser;
+        var _this$props2 = this.props,
+            event = _this$props2.event,
+            currentUser = _this$props2.currentUser;
 
         var currUserButtons = function currUserButtons() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             className: "user-button"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
             to: "/events/".concat(event.id, "/edit"),
             className: "edit"
           }, "Edit Event")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -1330,6 +1346,10 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         };
 
         var RegistrationModal = function RegistrationModal() {
+          var registration = {
+            user_id: _this3.props.currentUser.id,
+            event_id: _this3.props.event.id
+          };
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "registration-modal",
             onClick: _this3.closeModal
@@ -1348,9 +1368,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "modal-purchase-button-wrapper"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             className: "modal-purchase-button",
-            onClick: function onClick() {
-              return (0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_2__.createRegistration)();
-            }
+            onClick: _this3.purchaseTicket
           }, "Purchase"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-content-right"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -1427,7 +1445,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
   return EventShow;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.withRouter)(EventShow));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.withRouter)(EventShow));
 
 /***/ }),
 
@@ -1445,7 +1463,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _event_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event_show */ "./frontend/components/events/event_show/event_show.jsx");
 /* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/event_actions */ "./frontend/actions/event_actions.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _actions_registration_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/registration_actions */ "./frontend/actions/registration_actions.js");
+
 
 
 
@@ -1465,11 +1485,14 @@ var mDTP = function mDTP(dispatch) {
     },
     deleteEvent: function deleteEvent(eventId) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.deleteEvent)(eventId));
+    },
+    createRegistration: function createRegistration(registration) {
+      return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_3__.createRegistration)(registration));
     }
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_3__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_event_show__WEBPACK_IMPORTED_MODULE_1__.default)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_4__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_event_show__WEBPACK_IMPORTED_MODULE_1__.default)));
 
 /***/ }),
 

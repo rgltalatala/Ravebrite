@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
 import {Link, withRouter} from "react-router-dom"
-import { createRegistration } from "../../../actions/registration_actions";
 
 class EventShow extends React.Component{
     constructor(props){
@@ -15,6 +14,7 @@ class EventShow extends React.Component{
 
         this.deleteEvent = this.deleteEvent.bind(this)
         this.handleBookmark = this.handleBookmark.bind(this)
+        this.purchaseTicket = this.purchaseTicket.bind(this)
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
@@ -39,12 +39,24 @@ class EventShow extends React.Component{
         this.props.history.push('/')
     }
 
+    purchaseTicket(registration){
+        // console.log('literally anything')
+        const {currentUser, event} = this.props
+        console.log(currentUser)
+        this.props.createRegistration({user_id: currentUser, event_id: event.id})
+            // .then((res) => this.props.history.push(`/users/${res.event.id}`))
+        // console.log(createRegistration)
+    }
+
     openModal() {
         this.setState({ modal: true });
     }
 
     closeModal() {
         this.setState({ modal: false });
+    }
+
+    componentWillUnmount() {
     }
 
     render(){
@@ -77,6 +89,8 @@ class EventShow extends React.Component{
             }
 
             const RegistrationModal = () => {
+                const registration = {user_id: this.props.currentUser.id, event_id: this.props.event.id}
+
                 return(
                     <div className="registration-modal" onClick={this.closeModal}>
                         <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -99,7 +113,10 @@ class EventShow extends React.Component{
                                 </div>
 
                                 <div className="modal-purchase-button-wrapper">
-                                    <button className="modal-purchase-button" onClick={() => createRegistration()}>
+                                    <button 
+                                        className="modal-purchase-button" 
+                                        onClick={this.purchaseTicket}
+                                        >
                                         Purchase
                                     </button>
                                 </div>

@@ -16,7 +16,7 @@ class Api::RegistrationsController < ApplicationController
             @event = Event.find_by(id: registration_params[:event_id])
             render 'api/events/show' # change this to user show page
         else
-            render status: 422
+            render json: ["Can't complete purchase"], status: 422
         end
     end
 

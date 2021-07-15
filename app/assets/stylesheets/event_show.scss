@@ -129,6 +129,7 @@
     &:hover{
         background-color: darken($color: #C9BFDE, $amount: 4);
     }
+    cursor: pointer;
 }
 
 .event-details-child{
