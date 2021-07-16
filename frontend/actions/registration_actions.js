@@ -1,4 +1,5 @@
 import * as RegistrationAPIUtil from '../util/registration_api_util';
+import {receiveEvents} from './event_actions'
 
 export const RECEIVE_REGISTRATIONS = 'RECEIVE_REGISTRATIONS'
 export const RECEIVE_REGISTRATION = 'RECEIVE_REGISTRATION'
@@ -23,6 +24,7 @@ export const fetchRegistrations = (userId) => dispatch => {
     return RegistrationAPIUtil.fetchRegistrations(userId)
         .then(registrations => dispatch(receiveRegistrations(registrations)))
 }
+
 
 export const createRegistration = (registration) => dispatch => {
     return RegistrationAPIUtil.createRegistration(registration)

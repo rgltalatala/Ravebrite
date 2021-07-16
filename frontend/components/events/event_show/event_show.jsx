@@ -42,10 +42,10 @@ class EventShow extends React.Component{
     purchaseTicket(registration){
         // console.log('literally anything')
         const {currentUser, event} = this.props
-        console.log(currentUser)
+        // console.log(currentUser)
         this.props.createRegistration({user_id: currentUser, event_id: event.id})
-            // .then((res) => this.props.history.push(`/users/${res.event.id}`))
-        // console.log(createRegistration)
+        .then((res) => this.props.history.push(`/users/${currentUser}/registrations`))
+        // .then(res => console.log(res))
     }
 
     openModal() {

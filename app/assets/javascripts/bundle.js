@@ -328,6 +328,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteRegistration": () => (/* binding */ deleteRegistration)
 /* harmony export */ });
 /* harmony import */ var _util_registration_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/registration_api_util */ "./frontend/util/registration_api_util.js");
+/* harmony import */ var _event_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event_actions */ "./frontend/actions/event_actions.js");
+
 
 var RECEIVE_REGISTRATIONS = 'RECEIVE_REGISTRATIONS';
 var RECEIVE_REGISTRATION = 'RECEIVE_REGISTRATION';
@@ -459,7 +461,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.js");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
@@ -469,6 +471,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_event_form_create_event_form_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events/event_form/create_event_form_container */ "./frontend/components/events/event_form/create_event_form_container.js");
 /* harmony import */ var _events_event_form_edit_event_form_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./events/event_form/edit_event_form_container */ "./frontend/components/events/event_form/edit_event_form_container.js");
 /* harmony import */ var _footer_footer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./footer/footer */ "./frontend/components/footer/footer.jsx");
+/* harmony import */ var _registrations_user_registrations_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./registrations/user_registrations_container */ "./frontend/components/registrations/user_registrations_container.js");
+
 
 
 
@@ -482,7 +486,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_nav_bar_nav_bar_container__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_nav_bar_nav_bar_container__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__.default
@@ -490,18 +494,22 @@ function App() {
     exact: true,
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__.default
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
     exact: true,
     path: "/",
     component: _events_event_index_event_index_container__WEBPACK_IMPORTED_MODULE_5__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
     exact: true,
     path: "/users/:userId/events"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
+    path: "/users/:userId/registrations",
+    component: _registrations_user_registrations_container__WEBPACK_IMPORTED_MODULE_10__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
+    exact: true,
     path: "/events/create",
     component: _events_event_form_create_event_form_container__WEBPACK_IMPORTED_MODULE_7__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
     exact: true,
     path: "/events/:eventId",
     component: _events_event_show_event_show_container__WEBPACK_IMPORTED_MODULE_6__.default
@@ -512,7 +520,7 @@ function App() {
   }))));
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_10__.withRouter)(App));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.withRouter)(App));
 
 /***/ }),
 
@@ -1279,16 +1287,19 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "purchaseTicket",
     value: function purchaseTicket(registration) {
+      var _this3 = this;
+
       // console.log('literally anything')
       var _this$props = this.props,
           currentUser = _this$props.currentUser,
-          event = _this$props.event;
-      console.log(currentUser);
+          event = _this$props.event; // console.log(currentUser)
+
       this.props.createRegistration({
         user_id: currentUser,
         event_id: event.id
-      }); // .then((res) => this.props.history.push(`/users/${res.event.id}`))
-      // console.log(createRegistration)
+      }).then(function (res) {
+        return _this3.props.history.push("/users/".concat(currentUser, "/registrations"));
+      }); // .then(res => console.log(res))
     }
   }, {
     key: "openModal",
@@ -1310,7 +1321,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.state.loading) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "loading");
@@ -1327,14 +1338,14 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "edit"
           }, "Edit Event")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             onClick: function onClick() {
-              return _this3.deleteEvent(event.id);
+              return _this4.deleteEvent(event.id);
             },
             className: "user-button"
           }, "Delete Event"));
         };
 
         var bookmarkEvent = function bookmarkEvent() {
-          if (_this3.state.bookmarked === false) {
+          if (_this4.state.bookmarked === false) {
             return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
               className: "far fa-heart bookmark"
             });
@@ -1347,12 +1358,12 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
 
         var RegistrationModal = function RegistrationModal() {
           var registration = {
-            user_id: _this3.props.currentUser.id,
-            event_id: _this3.props.event.id
+            user_id: _this4.props.currentUser.id,
+            event_id: _this4.props.event.id
           };
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "registration-modal",
-            onClick: _this3.closeModal
+            onClick: _this4.closeModal
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-content",
             onClick: function onClick(e) {
@@ -1368,12 +1379,12 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "modal-purchase-button-wrapper"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             className: "modal-purchase-button",
-            onClick: _this3.purchaseTicket
+            onClick: _this4.purchaseTicket
           }, "Purchase"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-content-right"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "close-button",
-            onClick: _this3.closeModal
+            onClick: _this4.closeModal
           }, "x"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-image"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
@@ -1425,7 +1436,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
           className: "purchase-button",
           onClick: function onClick() {
-            return _this3.openModal();
+            return _this4.openModal();
           }
         }, "Purchase tickets"), !this.state.modal ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(RegistrationModal, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-info"
@@ -1609,7 +1620,7 @@ var navBar = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
             className: "far fa-heart link-image"
           }), "Likes"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-            to: "/users/:userID/registrations",
+            to: "/users/".concat(currentUser.id, "/registrations"),
             className: "link-button"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
             className: "fas fa-ticket-alt link-image"
@@ -1671,6 +1682,230 @@ var mDTP = function mDTP(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_nav_bar__WEBPACK_IMPORTED_MODULE_2__.default));
+
+/***/ }),
+
+/***/ "./frontend/components/registrations/registration_item.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/registrations/registration_item.jsx ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var RegistrationItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(RegistrationItem, _React$Component);
+
+  var _super = _createSuper(RegistrationItem);
+
+  function RegistrationItem() {
+    _classCallCheck(this, RegistrationItem);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(RegistrationItem, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var registration = this.props.registration;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-image"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-info"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+        className: "registration-title"
+      }, registration.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-date"
+      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(registration.start_date).format("dddd, MMMM Do YYYY"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+        onClick: function onClick() {
+          return _this.props.deleteRegistration(registration.id);
+        },
+        className: "delete-registration"
+      }, "Delete"));
+    }
+  }]);
+
+  return RegistrationItem;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RegistrationItem);
+
+/***/ }),
+
+/***/ "./frontend/components/registrations/user_registrations.jsx":
+/*!******************************************************************!*\
+  !*** ./frontend/components/registrations/user_registrations.jsx ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _registration_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registration_item */ "./frontend/components/registrations/registration_item.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var UserRegistrations = /*#__PURE__*/function (_React$Component) {
+  _inherits(UserRegistrations, _React$Component);
+
+  var _super = _createSuper(UserRegistrations);
+
+  function UserRegistrations() {
+    _classCallCheck(this, UserRegistrations);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(UserRegistrations, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchRegistrations(this.props.currentUser);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          registrations = _this$props.registrations,
+          deleteRegistration = _this$props.deleteRegistration;
+      var check = {};
+      var tickets = registrations.map(function (event) {
+        if (!Object.keys(check).includes(event.event_id)) {
+          check[event.event_id] = event;
+        }
+      }); // const sortedActivities = Object.values(registrations).slice().sort((a, b) => b.start_date - a.start_date)
+      // console.log(Object.values(check))
+
+      var sortedRegistrations = Object.values(registrations).sort(function (a, b) {
+        return new Date(a.start_date) - new Date(b.start_date);
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "registration-index-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+        className: "registration-index"
+      }, sortedRegistrations.map(function (registration, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_registration_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+          key: i,
+          registration: registration,
+          deleteRegistration: deleteRegistration
+        });
+      })));
+    }
+  }]);
+
+  return UserRegistrations;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UserRegistrations);
+
+/***/ }),
+
+/***/ "./frontend/components/registrations/user_registrations_container.js":
+/*!***************************************************************************!*\
+  !*** ./frontend/components/registrations/user_registrations_container.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_registration_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/registration_actions */ "./frontend/actions/registration_actions.js");
+/* harmony import */ var _user_registrations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user_registrations */ "./frontend/components/registrations/user_registrations.jsx");
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    registrations: Object.values(state.entities.registrations),
+    currentUser: state.session.id
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchRegistrations: function fetchRegistrations(userId) {
+      return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_1__.fetchRegistrations)(userId));
+    },
+    deleteRegistration: function (_deleteRegistration) {
+      function deleteRegistration(_x) {
+        return _deleteRegistration.apply(this, arguments);
+      }
+
+      deleteRegistration.toString = function () {
+        return _deleteRegistration.toString();
+      };
+
+      return deleteRegistration;
+    }(function (registrationId) {
+      return dispatch(deleteRegistration(registrationId));
+    })
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_user_registrations__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /***/ }),
 

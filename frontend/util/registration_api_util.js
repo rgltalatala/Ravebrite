@@ -1,7 +1,7 @@
 export const fetchRegistrations = (userId) => {
     return $.ajax({
         method: "GET",
-        url: `/api/users/${userId}/registrations`,
+        url: `/api/users/${userId}/registrations`
     })
 };
 

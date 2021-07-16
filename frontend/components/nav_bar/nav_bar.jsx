@@ -46,7 +46,7 @@ class navBar extends React.Component{
                   <i className="far fa-heart link-image"></i>
                   Likes
                 </Link>
-                <Link to="/users/:userID/registrations" className="link-button">
+                <Link to={`/users/${currentUser.id}/registrations`} className="link-button">
                   <i className="fas fa-ticket-alt link-image"></i>
                   Tickets
                 </Link>
