@@ -6,12 +6,12 @@ export const Footer = () => {
     return(
         <div className="footer-wrapper">
             <div className="footer">
-                <Link to='https://www.linkedin.com/in/raphael-talatala-703943129/' >
+                <a href='https://www.linkedin.com/in/raphael-talatala-703943129/' >
                     <i class="fab fa-linkedin-in footer-logo" ></i>
-                </Link>
-                <Link to='https://github.com/rgltalatala' >
+                </a>
+                <a href='https://github.com/rgltalatala' >
                     <i class="fab fa-github footer-logo"></i>
-                </Link>
+                </a>
             </div>
         </div>
     )
