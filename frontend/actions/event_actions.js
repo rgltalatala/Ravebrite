@@ -74,7 +74,7 @@ export const clearEventErrors = () => dispatch => {
     return dispatch(removeEventErrors())
 }
 
-export const fetchEventGenre = (genre) => dispatch => {
-    return EventAPIUtil.fetchEventGenre(genre)
-        .then((events) => dispatch(receiveEvents(events)))
+export const fetchHostedEvents = (userId) => dispatch => {
+    return EventAPIUtil.fetchHostedEvents(userId)
+        .then(events => dispatch(receiveEvents(events)))
 }

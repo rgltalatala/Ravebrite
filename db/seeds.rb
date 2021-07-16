@@ -8,6 +8,7 @@
 
 User.destroy_all
 Event.destroy_all
+Registration.destroy_all
 
 # Users 
 
@@ -19,31 +20,28 @@ jack = User.create({email: "jack@ex.com", password: "123456", first_name: "Jack"
 
 # Events
 
-# Genres
-
-
 event1 = Event.create({
     host_id: raph.id,
     title: "Raph's Rave",
     description: "A night of dancing and fun with Raph's favorite house hits!",
     location: "Brooklyn Mirage 140 Stewart Ave, Brooklyn, NY 11237",
     genre: Event.genres[0], # replace this with genre_id when I create genre class? 
-    start_date: "2021-7-9",
-    end_date: "2021-7-10",
+    start_date: "2021-8-9",
+    end_date: "2021-8-10",
     start_time: "8:00 PM",
     end_time: "4:00 AM",
 })
 
 event2 = Event.create({
-    host_id: ali.id,
-    title: "Country Nights",
-    description: "Ali Ahmed performing his own renditions of Kacey Musgraves' greatest tracks.",
-    location: "Skinny Dennis 152 Metropolitan Ave, Brooklyn, NY 11211",
-    genre: Event.genres[4],
-    start_date: "2021-7-11",
-    end_date: "2021-7-11",
-    start_time: "6:00 PM",
-    end_time: "8:00 PM",
+    host_id: demo.id,
+    title: "Electric Zoo",
+    description: "Your favorite DJs coming to perform at Randall's Island during Labor Day Weekend!",
+    location: "20 Randall's Island Park, New York, NY 10035",
+    genre: Event.genres[10],
+    start_date: "2021-9-3",
+    end_date: "2021-9-6",
+    start_time: "3:00 PM",
+    end_time: "1:00 AM",
 })
 
 event3 = Event.create({
@@ -51,10 +49,61 @@ event3 = Event.create({
     title: "CVH at MSG",
     description: "For one night only, Chase Van Haselen will perform his debut album at Madison Square Garden!",
     location: "Madison Square Garden 4 Pennsylvania Plaza, New York, NY 10001",
-    genre: Event.genres[7],
-    start_date: "2021-7-17",
-    end_date: "2021-7-17",
+    genre: Event.genres[10],
+    start_date: "2021-8-17",
+    end_date: "2021-8-17",
     start_time: "8:00 PM",
     end_time: "11:00 PM",
 })
 
+event4 = Event.create({
+    host_id: jack.id,
+    title: "In the Trap",
+    description: "Jack Liu on the 1s and 2s playing some trap classics.",
+    location: "Schimanski 54 N 11th St, Brooklyn, NY 11249",
+    genre: Event.genres[3],
+    start_date: "2021-9-21",
+    end_date: "2021-9-22",
+    start_time: "8:00 PM",
+    end_time: "4:00 AM",
+})
+
+ticket1 = Registration.create({
+    user_id: 2,
+    event_id: 4
+})
+
+ticket2 = Registration.create({
+    user_id: 3,
+    event_id: 4
+})
+
+ticket2 = Registration.create({
+    user_id: 4,
+    event_id: 4
+})
+
+ticket3 = Registration.create({
+    user_id: 5,
+    event_id: 4
+})
+
+ticket4 = Registration.create({
+    user_id: 2,
+    event_id: 4
+})
+
+ticket5 = Registration.create({
+    user_id: 1,
+    event_id: 1
+})
+
+ticket6 = Registration.create({
+    user_id: 5,
+    event_id: 3
+})
+
+ticket7 = Registration.create({
+    user_id: 4,
+    event_id: 3
+})

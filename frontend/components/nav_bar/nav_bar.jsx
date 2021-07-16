@@ -56,7 +56,9 @@ class navBar extends React.Component{
                     {currentUser.email}
                   </a>
                   <div className="dropdown-content">
-                    <a>Manage my events</a>
+                    <Link to={`/users/${currentUser.id}/events`}>
+                      Manage my events
+                    </Link>
                     <a onClick={logout}>Log Out</a>
                   </div>
                 </div>
