@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+.app{
+    position: relative;
+    min-height: 100vh; 
+}

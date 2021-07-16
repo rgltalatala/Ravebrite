@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 //Components
 import Root from './components/root';
 import configureStore from './store/store';
-import { fetchEvent, createEvent, fetchEvents, updateEvent, deleteEvent } from './actions/event_actions';
-
+import { fetchEvent, createEvent, fetchEvents, updateEvent, deleteEvent, fetchHostedEvents } from './actions/event_actions';
+import { fetchRegistrations, createRegistration, deleteRegistration } from './actions/registration_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -22,11 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
-  window.fetchEvents = fetchEvents
-  window.fetchEvent = fetchEvent
-  window.createEvent = createEvent
-  window.updateEvent = updateEvent
-  window.deleteEvent = deleteEvent
+  window.fetchRegistrations = fetchRegistrations
+  window.createRegistration = createRegistration
+  window.deleteRegistration = deleteRegistration
+  window.fetchHostedEvents = fetchHostedEvents
   window.dispatch = store.dispatch
   window.getState = store.getState
 
