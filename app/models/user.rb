@@ -13,21 +13,21 @@ class User < ApplicationRecord
     class_name: :Event
 
     
-    has_many :registrations,
+  has_many :registrations,
     foreign_key: :user_id,
-    source: :registrations
+    class_name: :Registration
     
-    has_many :registered_events,
+  has_many :registered_events,
     through: :registrations,
     source: :registrations
     
-    has_many :bookmarks,
-      foreign_key: :user_id,
-      source: :bookmarks
+  has_many :bookmarks,
+    foreign_key: :user_id,
+    source: :bookmarks
     
-      has_many :bookmarked_events,
-      through: :bookmarks,
-      source: :bookmarks
+  has_many :bookmarked_events,
+    through: :bookmarks,
+    source: :bookmarks
   
 
   def self.find_by_credentials(email, password)

@@ -1,18 +1,22 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import {Link, withRouter} from "react-router-dom"
-
 
 class EventShow extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             loading: true,
-            bookmarked: false
+            bookmarked: false,
+            modal: false
         };
+        
 
         this.deleteEvent = this.deleteEvent.bind(this)
         this.handleBookmark = this.handleBookmark.bind(this)
+        this.purchaseTicket = this.purchaseTicket.bind(this)
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     handleBookmark(e) {
@@ -33,6 +37,26 @@ class EventShow extends React.Component{
     deleteEvent(eventId){
         this.props.deleteEvent(eventId)
         this.props.history.push('/')
+    }
+
+    purchaseTicket(registration){
+        // console.log('literally anything')
+        const {currentUser, event} = this.props
+        // console.log(currentUser)
+        this.props.createRegistration({user_id: currentUser, event_id: event.id})
+        .then((res) => this.props.history.push(`/users/${currentUser}/registrations`))
+        // .then(res => console.log(res))
+    }
+
+    openModal() {
+        this.setState({ modal: true });
+    }
+
+    closeModal() {
+        this.setState({ modal: false });
+    }
+
+    componentWillUnmount() {
     }
 
     render(){
@@ -62,6 +86,66 @@ class EventShow extends React.Component{
                 } else { 
                     return <i className="fas fa-heart bookmark active"></i>
                 }
+            }
+
+            const RegistrationModal = () => {
+                const registration = {user_id: this.props.currentUser.id, event_id: this.props.event.id}
+
+                return(
+                    <div className="registration-modal" onClick={this.closeModal}>
+                        <div className="modal-content" onClick={e => e.stopPropagation()}>
+                            <div className="modal-content-left">
+                                <div className="modal-event-info">
+                                    <h2>
+                                        {event.title}
+                                    </h2>
+                                    <p>
+                                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time} - {moment(event.end_date).format("dddd, MMMM Do YYYY")} {event.end_time}
+                                    </p>
+                                </div>
+                                <div className="modal-about">
+                                    <h2>
+                                        {event.title}
+                                    </h2>
+                                    <p>
+                                        {event.description}
+                                    </p>
+                                </div>
+
+                                <div className="modal-purchase-button-wrapper">
+                                    <button 
+                                        className="modal-purchase-button" 
+                                        onClick={this.purchaseTicket}
+                                        >
+                                        Purchase
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="modal-content-right">
+                                <div className="close-button" onClick={this.closeModal}>x</div>
+                                <div className="modal-image">
+                                    <img src={window.rave} alt="rave"/>
+                                </div>
+                                <div className="order-summary">
+                                    <h3>
+                                        Order Summary
+                                    </h3>
+                                    <br />
+                                    <div className="ticket-price">
+                                        <p>1 x {event.title}</p>
+                                        <p>$20.00</p>
+                                    </div>
+                                </div>
+                                <div className="price-total">
+                                    <div className="ticket-price">
+                                        <h3>Total</h3>
+                                        <p>$20.00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
             }
 
             return (
@@ -95,9 +179,13 @@ class EventShow extends React.Component{
                                 </div>
                             </div>
                             <div className="button-wrapper">
-                                <button className="purchase-button">
-                                    Buy tickets
+                                <button 
+                                    className="purchase-button"
+                                    onClick={() => this.openModal()}
+                                >
+                                    Purchase tickets
                                 </button>
+                                {!this.state.modal ? null : <RegistrationModal />}
                             </div>
                         </div>
 
@@ -107,15 +195,13 @@ class EventShow extends React.Component{
                                 <br />
                                 <p className="event-description">{event.description}</p>
                                 <br />
-
                             </div>
 
                             <div className="event-show-info-right">
-
                                 <label>Date and time
                                     <br />
                                     <p>
-                                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time} - {moment(event.end_date).format("dddd, MMMM Do YYYY")}{event.end_time}
+                                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time} - {moment(event.end_date).format("dddd, MMMM Do YYYY")} {event.end_time}
                                     </p>
                                 </label>
                                 <br />
@@ -137,7 +223,6 @@ class EventShow extends React.Component{
                 </div>
             )
         }
-
     }
 }
 

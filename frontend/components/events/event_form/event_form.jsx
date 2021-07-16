@@ -85,6 +85,7 @@ class EventForm extends React.Component{
                                 onChange={this.update('genre')}
                                 className="event-form-input-genre"
                                 placeholder="genre"
+                                value={this.state.genre}
                             > 
                                 <option >Genre</option>
                                 {genres.map((genre, i) => (

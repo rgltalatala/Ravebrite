@@ -4,9 +4,18 @@ Rails.application.routes.draw do
   root to: "static_pages#root"
   
   namespace :api, defaults: { format: :json } do
-    resources :users, only: [:create, :show]
+    resources :users, only: [:create, :show] do 
+      resources :registrations, only: [:index]
+      # resources :events, only: [:index]
+    end
     resource :session, only: [:create, :destroy]
-    resources :events, only: [:index, :show, :create, :update, :destroy]
+    resources :events, only: [:index, :show, :create, :update, :destroy] do
+      resources :registrations, only: [:create]
+    end
+
+    get "/users/:user_id/events", to: "events#hosted_events"
+
+    resources :registrations, only: [:destroy]
     resources :genres, only: [:show]
   end
 

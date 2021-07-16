@@ -47,7 +47,7 @@ class Api::EventsController < ApplicationController
     end
 
     def hosted_events
-        @events = User.find_by(:id, params[:userId]).hosted_events
+        @events = User.find_by(id: params[:user_id]).hosted_events
 
         if @events
             render :index
