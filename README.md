@@ -2,6 +2,7 @@
 # Ravebrite
 
 ![ravebrite](https://user-images.githubusercontent.com/63977819/125955348-0469447a-2bbe-4a55-a5ae-4a975039712b.png)
+
 [Link to live site](https://ravebrite-app.herokuapp.com/#/)
 
 Ravebrite is an Eventbrite clone where users will be able to search and register for EDM related events. Users will have the ability to create and host their own events as well.
