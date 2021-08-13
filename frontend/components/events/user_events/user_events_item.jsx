@@ -17,7 +17,8 @@ class UserEventsItem extends React.Component{
                 <div className="registration-info">
                     {/* <Link to={`/events/${event.id}`} className="card-image"></Link> */}
                     <h2 className="registration-title">
-                        {event.title}
+                        <Link to={`/events/${event.id}`}>{event.title}</Link>
+                        
                     </h2>
     
                     <div className="registration-date">

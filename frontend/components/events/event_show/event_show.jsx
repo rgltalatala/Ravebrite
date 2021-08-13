@@ -21,10 +21,40 @@ class EventShow extends React.Component{
 
     handleBookmark(e) {
         e.preventDefault()
-        if (this.state.bookmarked === false){
-            this.setState({bookmarked: true})
+
+        if (this.props.currentUserId){
+            const { currentUserId,
+                    event,
+                    deleteBookmark,
+                    createBookmark,
+                    fetchEvent,
+                    } = this.props
+            let bookmarks = event.bookmarks || {};
+            let bookmark = bookmarks[currentUserId];
+
+            if (bookmarks.hasOwnProperty(currentUserId)){
+                this.setState({bookmarked: false})
+                deleteBookmark(bookmark.id)
+                    .then(() => fetchEvent(event.id));
+            } else {
+                this.setState({bookmarked: true})
+                createBookmark({user_id: currentUserId, event_id: event.id})
+                    .then(() => fetchEvent(event.id));
+            }
         } else {
-            this.setState({bookmarked: false})
+            this.props.history.push('/login');
+        }
+    }
+
+    bookmarkEvent (){
+        const {event, currentUserId} = this.props
+
+        let bookmarks = event.bookmarks || {};
+
+        if (!bookmarks.hasOwnProperty(currentUserId)){
+            return <i className="far fa-heart bookmark" ></i>
+        } else { 
+            return <i className="fas fa-heart bookmark active"></i>
         }
     }
 
@@ -40,12 +70,13 @@ class EventShow extends React.Component{
     }
 
     purchaseTicket(registration){
-        // console.log('literally anything')
         const {currentUser, event} = this.props
-        // console.log(currentUser)
-        this.props.createRegistration({user_id: currentUser, event_id: event.id})
-        .then((res) => this.props.history.push(`/users/${currentUser}/registrations`))
-        // .then(res => console.log(res))
+        if (currentUser) {
+            this.props.createRegistration({user_id: currentUser, event_id: event.id})
+            .then((res) => this.props.history.push(`/users/${currentUser}/registrations`))
+        } else {
+            this.props.history.push('/login');
+        }
     }
 
     openModal() {
@@ -80,16 +111,7 @@ class EventShow extends React.Component{
                 )
             }
 
-            const bookmarkEvent = () => {
-                if (this.state.bookmarked === false){
-                    return <i className="far fa-heart bookmark" ></i>
-                } else { 
-                    return <i className="fas fa-heart bookmark active"></i>
-                }
-            }
-
             const RegistrationModal = () => {
-                const registration = {user_id: this.props.currentUser.id, event_id: this.props.event.id}
 
                 return(
                     <div className="registration-modal" onClick={this.closeModal}>
@@ -175,7 +197,7 @@ class EventShow extends React.Component{
                         <div className="event-show-func-buttons">
                             <div className="show-bookmark-wrapper">
                                 <div className="bookmark-circle-show-like" onClick={this.handleBookmark} >
-                                    {bookmarkEvent()}
+                                    {this.bookmarkEvent()}
                                 </div>
                             </div>
                             <div className="button-wrapper">

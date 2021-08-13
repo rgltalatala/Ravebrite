@@ -42,7 +42,7 @@ class navBar extends React.Component{
                   <i className="fas fa-plus-circle link-image"></i>
                   Create Event
                 </Link>
-                <Link to="/users/:userID/likes" className="link-button">
+                <Link to={`/users/${currentUser.id}/bookmarks`} className="link-button">
                   <i className="far fa-heart link-image"></i>
                   Likes
                 </Link>

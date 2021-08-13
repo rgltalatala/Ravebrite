@@ -47,7 +47,7 @@ class UserRegistrations extends React.Component{
                 </ul>
             </div>
         )
-}
+    }
 }
 
 export default UserRegistrations;

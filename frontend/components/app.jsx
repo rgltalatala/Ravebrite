@@ -20,6 +20,7 @@ import EditEventFormContainer from './events/event_form/edit_event_form_containe
 import { Footer } from "./footer/footer";
 import UserRegistrationsContainer from "./registrations/user_registrations_container";
 import UserEventsContainer from "./events/user_events/user_events_container";
+import BookmarksContainer from "./bookmarks/user_bookmarks_container";
 
 function App () {
 
@@ -35,6 +36,7 @@ function App () {
                     {/* <Route exact path="/" component={Footer} /> */}
                     <Route exact path='/' component={EventIndexContainer} />
                     <Route exact path="/users/:userId/events" component={UserEventsContainer}/>
+                    <ProtectedRoute exact path="/users/:userId/bookmarks" component={BookmarksContainer} />
                     <ProtectedRoute exact path="/users/:userId/registrations" component={UserRegistrationsContainer} />
                     <ProtectedRoute exact path="/events/create" component={CreateEventFormContainer} />
                     <Route exact path="/events/:eventId" component={EventShowContainer} />

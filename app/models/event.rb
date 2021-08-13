@@ -5,13 +5,17 @@ class Event < ApplicationRecord
         foreign_key: :host_id,
         class_name: :User
 
-    # has_many :registrations,
-    #     foreign_key: :event_id,
-    #     source: :registrations
+    has_many :registrations,
+        foreign_key: :event_id,
+        source: :registrations
 
-    # has_many :attendees,
-    #     through: :registrations,
-    #     source: :registrations
+    has_many :attendees,
+        through: :registrations,
+        source: :registrations
+    
+    has_many :bookmarks,
+        foreign_key: :event_id,
+        class_name: :Bookmark
 
     def self.genres
         genres = [

@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { withRouter } from 'react-router'
 
 class EventIndexItem extends React.Component{
     constructor(props){
@@ -12,32 +12,61 @@ class EventIndexItem extends React.Component{
     
     handleBookmark(e) {
         e.preventDefault()
-        if (this.state.bookmarked === false){
-            this.setState({bookmarked: true})
+
+        if (this.props.currentUserId){
+            const { currentUserId,
+                    event,
+                    deleteBookmark,
+                    createBookmark,
+                    fetchEvent,
+                    id
+                    } = this.props
+            let bookmarks = event.bookmarks || {};
+            let bookmark = bookmarks[currentUserId];
+            let bookmarkLogo = document.getElementById(`${id}`)
+
+            if (bookmarks.hasOwnProperty(currentUserId)){
+                this.setState({bookmarked: false})
+                deleteBookmark(bookmark.id)
+                    .then(() => fetchEvent(event.id));
+            } else {
+                this.setState({bookmarked: true})
+                createBookmark({user_id: currentUserId, event_id: event.id})
+                    .then(() => fetchEvent(event.id));
+            }
         } else {
-            this.setState({bookmarked: false})
+            this.props.history.push('/login');
+        }
+    }
+
+    bookmarkEvent (){
+        const {event, currentUserId} = this.props
+
+        let bookmarks = event.bookmarks || {};
+        // const bookmark = this.state.bookmarked || bookmarks.hasOwnProperty(currentUserId) 
+
+        if (!bookmarks.hasOwnProperty(currentUserId)){
+            // debugger
+            return <i className="far fa-heart bookmark" ></i>
+        } else { 
+            // debugger
+            return <i className="fas fa-heart bookmark active"></i>
         }
     }
 
     render(){
-        const {event} = this.props
+        const {event, currentUserId} = this.props
         // create a function to switch class name and respectively switch to solid heart
-        const bookmarkEvent = () => {
-            if (this.state.bookmarked === false){
-                return <i className="far fa-heart bookmark" ></i>
-            } else { 
-                return <i className="fas fa-heart bookmark active"></i>
-            }
-        }
+        
 
         return(
             <div className="event-index-item-container">
                 <li className="event-index-item">
                     <Link to={`/events/${event.id}`} className="card-image"></Link>
-    
+
                     <div className="bookmark-wrapper">
                         <div className="bookmark-circle" onClick={this.handleBookmark} >
-                            {bookmarkEvent()}
+                            {this.bookmarkEvent()}
                         </div>
                     </div>
                     <h2 className="event-index-title">
@@ -62,4 +91,4 @@ class EventIndexItem extends React.Component{
     }
 }
 
-export default EventIndexItem
+export default withRouter(EventIndexItem)

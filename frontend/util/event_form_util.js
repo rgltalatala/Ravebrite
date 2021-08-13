@@ -1,4 +1,5 @@
 export const genres = [
+    "All",
     "House", 
     "Techno", 
     "Dubstep", 

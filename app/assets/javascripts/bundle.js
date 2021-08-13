@@ -185,6 +185,74 @@ function _setPrototypeOf(o, p) {
 
 /***/ }),
 
+/***/ "./frontend/actions/bookmark_actions.js":
+/*!**********************************************!*\
+  !*** ./frontend/actions/bookmark_actions.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_BOOKMARKS": () => (/* binding */ RECEIVE_BOOKMARKS),
+/* harmony export */   "RECEIVE_BOOKMARK": () => (/* binding */ RECEIVE_BOOKMARK),
+/* harmony export */   "REMOVE_BOOKMARK": () => (/* binding */ REMOVE_BOOKMARK),
+/* harmony export */   "fetchBookmarks": () => (/* binding */ fetchBookmarks),
+/* harmony export */   "createBookmark": () => (/* binding */ createBookmark),
+/* harmony export */   "deleteBookmark": () => (/* binding */ deleteBookmark)
+/* harmony export */ });
+/* harmony import */ var _util_bookmark_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/bookmark_api_util */ "./frontend/util/bookmark_api_util.js");
+
+var RECEIVE_BOOKMARKS = 'RECEIVE_BOOKMARKS';
+var RECEIVE_BOOKMARK = 'RECEIVE_BOOKMARK';
+var REMOVE_BOOKMARK = 'REMOVE_BOOKMARK';
+
+var receiveBookmarks = function receiveBookmarks(bookmarks) {
+  return {
+    type: RECEIVE_BOOKMARKS,
+    bookmarks: bookmarks
+  };
+};
+
+var receiveBookmark = function receiveBookmark(bookmark, eventId) {
+  return {
+    type: RECEIVE_BOOKMARK,
+    bookmark: bookmark,
+    eventId: eventId
+  };
+};
+
+var removeBookmark = function removeBookmark(bookmarkId) {
+  return {
+    type: REMOVE_BOOKMARK,
+    bookmarkId: bookmarkId
+  };
+};
+
+var fetchBookmarks = function fetchBookmarks(userId) {
+  return function (dispatch) {
+    return _util_bookmark_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchBookmarks(userId).then(function (bookmarks) {
+      return dispatch(receiveBookmarks(bookmarks));
+    });
+  };
+};
+var createBookmark = function createBookmark(bookmark) {
+  return function (dispatch) {
+    return _util_bookmark_api_util__WEBPACK_IMPORTED_MODULE_0__.createBookmark(bookmark).then(function (bookmark) {
+      return dispatch(receiveBookmark(bookmark, bookmark.event_id));
+    });
+  };
+};
+var deleteBookmark = function deleteBookmark(bookmarkId) {
+  return function (dispatch) {
+    return _util_bookmark_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteBookmark(bookmarkId).then(function () {
+      return dispatch(removeBookmark(bookmarkId));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/event_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/event_actions.js ***!
@@ -328,8 +396,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteRegistration": () => (/* binding */ deleteRegistration)
 /* harmony export */ });
 /* harmony import */ var _util_registration_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/registration_api_util */ "./frontend/util/registration_api_util.js");
-/* harmony import */ var _event_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event_actions */ "./frontend/actions/event_actions.js");
-
 
 var RECEIVE_REGISTRATIONS = 'RECEIVE_REGISTRATIONS';
 var RECEIVE_REGISTRATION = 'RECEIVE_REGISTRATION';
@@ -461,7 +527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.js");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
@@ -473,6 +539,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _footer_footer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./footer/footer */ "./frontend/components/footer/footer.jsx");
 /* harmony import */ var _registrations_user_registrations_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./registrations/user_registrations_container */ "./frontend/components/registrations/user_registrations_container.js");
 /* harmony import */ var _events_user_events_user_events_container__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./events/user_events/user_events_container */ "./frontend/components/events/user_events/user_events_container.js");
+/* harmony import */ var _bookmarks_user_bookmarks_container__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./bookmarks/user_bookmarks_container */ "./frontend/components/bookmarks/user_bookmarks_container.js");
+
 
 
 
@@ -488,7 +556,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_nav_bar_nav_bar_container__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_nav_bar_nav_bar_container__WEBPACK_IMPORTED_MODULE_4__.default, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__.default
@@ -496,14 +564,18 @@ function App() {
     exact: true,
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__.default
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
     exact: true,
     path: "/",
     component: _events_event_index_event_index_container__WEBPACK_IMPORTED_MODULE_5__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
     exact: true,
     path: "/users/:userId/events",
     component: _events_user_events_user_events_container__WEBPACK_IMPORTED_MODULE_11__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
+    exact: true,
+    path: "/users/:userId/bookmarks",
+    component: _bookmarks_user_bookmarks_container__WEBPACK_IMPORTED_MODULE_12__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
     path: "/users/:userId/registrations",
@@ -512,7 +584,7 @@ function App() {
     exact: true,
     path: "/events/create",
     component: _events_event_form_create_event_form_container__WEBPACK_IMPORTED_MODULE_7__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
     exact: true,
     path: "/events/:eventId",
     component: _events_event_show_event_show_container__WEBPACK_IMPORTED_MODULE_6__.default
@@ -523,7 +595,218 @@ function App() {
   }))));
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_12__.withRouter)(App));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.withRouter)(App));
+
+/***/ }),
+
+/***/ "./frontend/components/bookmarks/bookmark_item.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/bookmarks/bookmark_item.jsx ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var BookmarkItem = /*#__PURE__*/function (_React$Component) {
+  _inherits(BookmarkItem, _React$Component);
+
+  var _super = _createSuper(BookmarkItem);
+
+  function BookmarkItem() {
+    _classCallCheck(this, BookmarkItem);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(BookmarkItem, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          bookmark = _this$props.bookmark,
+          deleteBookmark = _this$props.deleteBookmark;
+      console.log(bookmark);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-image"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-info"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+        className: "registration-title"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        to: "/events/".concat(bookmark.event_id)
+      }, bookmark.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-date"
+      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(bookmark.start_date).format("dddd, MMMM Do YYYY"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+        onClick: function onClick() {
+          return deleteBookmark(bookmark.id);
+        },
+        className: "delete-registration"
+      }, "Delete"));
+    }
+  }]);
+
+  return BookmarkItem;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookmarkItem);
+
+/***/ }),
+
+/***/ "./frontend/components/bookmarks/bookmarks.jsx":
+/*!*****************************************************!*\
+  !*** ./frontend/components/bookmarks/bookmarks.jsx ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _bookmark_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bookmark_item */ "./frontend/components/bookmarks/bookmark_item.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var Bookmarks = /*#__PURE__*/function (_React$Component) {
+  _inherits(Bookmarks, _React$Component);
+
+  var _super = _createSuper(Bookmarks);
+
+  function Bookmarks() {
+    _classCallCheck(this, Bookmarks);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Bookmarks, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchBookmarks(this.props.currentUser);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          bookmarks = _this$props.bookmarks,
+          deleteBookmark = _this$props.deleteBookmark;
+      var sortedBookmarks = Object.values(bookmarks).sort(function (a, b) {
+        return new Date(a.start_date) - new Date(b.start_date);
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "registration-index-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Bookmarked Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+        className: "registration-index"
+      }, sortedBookmarks.map(function (bookmark, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_bookmark_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+          key: i,
+          bookmark: bookmark,
+          deleteBookmark: deleteBookmark
+        });
+      })));
+    }
+  }]);
+
+  return Bookmarks;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Bookmarks);
+
+/***/ }),
+
+/***/ "./frontend/components/bookmarks/user_bookmarks_container.js":
+/*!*******************************************************************!*\
+  !*** ./frontend/components/bookmarks/user_bookmarks_container.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
+/* harmony import */ var _bookmarks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./bookmarks */ "./frontend/components/bookmarks/bookmarks.jsx");
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    bookmarks: Object.values(state.entities.bookmarks),
+    currentUser: state.session.id
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchBookmarks: function fetchBookmarks(userId) {
+      return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_1__.fetchBookmarks)(userId));
+    },
+    deleteBookmark: function deleteBookmark(bookmarkId) {
+      return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_1__.deleteBookmark)(bookmarkId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_bookmarks__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /***/ }),
 
@@ -942,7 +1225,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _event_index_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event_index_item */ "./frontend/components/events/event_index/event_index_item.jsx");
+/* harmony import */ var _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../util/event_form_util */ "./frontend/util/event_form_util.js");
+/* harmony import */ var _event_index_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./event_index_item */ "./frontend/components/events/event_index/event_index_item.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -968,31 +1252,154 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var EventIndex = /*#__PURE__*/function (_React$Component) {
   _inherits(EventIndex, _React$Component);
 
   var _super = _createSuper(EventIndex);
 
-  function EventIndex() {
+  function EventIndex(props) {
+    var _this;
+
     _classCallCheck(this, EventIndex);
 
-    return _super.apply(this, arguments);
-  }
+    _this = _super.call(this, props);
+    _this.state = {
+      genre_idx: 0
+    };
+    _this.selectGenre = _this.selectGenre.bind(_assertThisInitialized(_this));
+    return _this;
+  } //tabs into below func
+  // componentDidUpdate to display filtered events by genre
+  //fetchEventGenre to only fetch events we care about (ie specific genre)
+
 
   _createClass(EventIndex, [{
     key: "componentDidMount",
-    value: //tabs into below func
-    // componentDidUpdate to display filtered events by genre
-    //fetchEventGenre to only fetch events we care about (ie specific genre)
-    function componentDidMount() {
+    value: function componentDidMount() {
       this.props.fetchEvents();
+    }
+  }, {
+    key: "selectGenre",
+    value: function selectGenre(genre_idx) {
+      this.setState({
+        genre_idx: genre_idx
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
-      var events = this.props.events;
+      var _this$props = this.props,
+          currentUserId = _this$props.currentUserId,
+          events = _this$props.events,
+          fetchEvent = _this$props.fetchEvent,
+          deleteEvent = _this$props.deleteEvent,
+          deleteBookmark = _this$props.deleteBookmark,
+          createBookmark = _this$props.createBookmark,
+          bookmarks = _this$props.bookmarks;
+      var selected = this.state.genre_idx;
+      var eventGenres = _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.genres.map(function (genre, index) {
+        var eventGenre = genre;
+        var selectedGenre = index === selected ? 'active' : '';
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+          key: index,
+          className: selectedGenre,
+          onClick: function onClick() {
+            return _this2.selectGenre(index);
+          }
+        }, eventGenre);
+      });
+      var filteredEvents;
+
+      switch (this.state.genre_idx) {
+        case 0:
+          filteredEvents = events;
+          break;
+
+        case 1:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "House";
+          });
+          break;
+
+        case 2:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Techno";
+          });
+          break;
+
+        case 3:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Dubstep";
+          });
+          break;
+
+        case 4:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Trap";
+          });
+          break;
+
+        case 5:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Trance";
+          });
+          break;
+
+        case 6:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Future Bass";
+          });
+          break;
+
+        case 7:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Ambient";
+          });
+          break;
+
+        case 8:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Hardstyle";
+          });
+          break;
+
+        case 9:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Drum and Bass";
+          });
+          break;
+
+        case 10:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Garage";
+          });
+          break;
+
+        case 11:
+          filteredEvents = events.filter(function (event) {
+            return event.genre === "Multi-genre";
+          });
+          break;
+
+        default:
+          break;
+      }
+
+      filteredEvents = filteredEvents.map(function (event, i) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_event_index_item__WEBPACK_IMPORTED_MODULE_2__.default, {
+          key: event.id,
+          event: event,
+          deleteEvent: deleteEvent,
+          currentUserId: currentUserId,
+          createBookmark: createBookmark,
+          deleteBookmark: deleteBookmark,
+          bookmarks: bookmarks,
+          fetchEvent: fetchEvent
+        });
+      });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "splash-page"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1005,17 +1412,15 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
         className: "landing"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", {
         className: "landing-header"
-      }, "Upcoming ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "events!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Upcoming ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "events!")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-genres-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+        className: "event-genres"
+      }, eventGenres)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "events-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
         className: "event-index"
-      }, events.map(function (event) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_event_index_item__WEBPACK_IMPORTED_MODULE_1__.default, {
-          key: event.id,
-          event: event,
-          deleteEvent: _this.props.deleteEvent
-        });
-      })))));
+      }, filteredEvents))));
     }
   }]);
 
@@ -1040,13 +1445,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/event_actions */ "./frontend/actions/event_actions.js");
 /* harmony import */ var _event_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./event_index */ "./frontend/components/events/event_index/event_index.jsx");
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
+
 
 
 
 
 var mSTP = function mSTP(state) {
+  var bookmarks = state.session.id ? state.entities.users[state.session.id].bookmarks : [];
   return {
-    events: Object.values(state.entities.events)
+    events: Object.values(state.entities.events),
+    currentUserId: state.session.id,
+    bookmarks: bookmarks
   };
 };
 
@@ -1055,8 +1465,17 @@ var mDTP = function mDTP(dispatch) {
     fetchEvents: function fetchEvents() {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.fetchEvents)());
     },
+    fetchEvent: function fetchEvent(eventId) {
+      return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.fetchEvent)(eventId));
+    },
     deleteEvent: function deleteEvent(eventId) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.deleteEvent)(eventId));
+    },
+    createBookmark: function createBookmark(bookmark) {
+      return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_3__.createBookmark)(bookmark));
+    },
+    deleteBookmark: function deleteBookmark(bookmarkId) {
+      return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_3__.deleteBookmark)(bookmarkId));
     }
   };
 };
@@ -1080,6 +1499,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1101,6 +1521,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1129,34 +1550,66 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
     value: function handleBookmark(e) {
       e.preventDefault();
 
-      if (this.state.bookmarked === false) {
-        this.setState({
-          bookmarked: true
+      if (this.props.currentUserId) {
+        var _this$props = this.props,
+            currentUserId = _this$props.currentUserId,
+            event = _this$props.event,
+            deleteBookmark = _this$props.deleteBookmark,
+            createBookmark = _this$props.createBookmark,
+            fetchEvent = _this$props.fetchEvent,
+            id = _this$props.id;
+        var bookmarks = event.bookmarks || {};
+        var bookmark = bookmarks[currentUserId];
+        var bookmarkLogo = document.getElementById("".concat(id));
+
+        if (bookmarks.hasOwnProperty(currentUserId)) {
+          this.setState({
+            bookmarked: false
+          });
+          deleteBookmark(bookmark.id).then(function () {
+            return fetchEvent(event.id);
+          });
+        } else {
+          this.setState({
+            bookmarked: true
+          });
+          createBookmark({
+            user_id: currentUserId,
+            event_id: event.id
+          }).then(function () {
+            return fetchEvent(event.id);
+          });
+        }
+      } else {
+        this.props.history.push('/login');
+      }
+    }
+  }, {
+    key: "bookmarkEvent",
+    value: function bookmarkEvent() {
+      var _this$props2 = this.props,
+          event = _this$props2.event,
+          currentUserId = _this$props2.currentUserId;
+      var bookmarks = event.bookmarks || {}; // const bookmark = this.state.bookmarked || bookmarks.hasOwnProperty(currentUserId) 
+
+      if (!bookmarks.hasOwnProperty(currentUserId)) {
+        // debugger
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+          className: "far fa-heart bookmark"
         });
       } else {
-        this.setState({
-          bookmarked: false
+        // debugger
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+          className: "fas fa-heart bookmark active"
         });
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var event = this.props.event; // create a function to switch class name and respectively switch to solid heart
-
-      var bookmarkEvent = function bookmarkEvent() {
-        if (_this2.state.bookmarked === false) {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-            className: "far fa-heart bookmark"
-          });
-        } else {
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-            className: "fas fa-heart bookmark active"
-          });
-        }
-      };
+      var _this$props3 = this.props,
+          event = _this$props3.event,
+          currentUserId = _this$props3.currentUserId; // create a function to switch class name and respectively switch to solid heart
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "event-index-item-container"
@@ -1170,7 +1623,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "bookmark-circle",
         onClick: this.handleBookmark
-      }, bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+      }, this.bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "event-index-title"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
         to: "/events/".concat(event.id)
@@ -1185,7 +1638,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
   return EventIndexItem;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventIndexItem);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_3__.withRouter)(EventIndexItem));
 
 /***/ }),
 
@@ -1260,13 +1713,53 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
     value: function handleBookmark(e) {
       e.preventDefault();
 
-      if (this.state.bookmarked === false) {
-        this.setState({
-          bookmarked: true
+      if (this.props.currentUserId) {
+        var _this$props = this.props,
+            currentUserId = _this$props.currentUserId,
+            event = _this$props.event,
+            deleteBookmark = _this$props.deleteBookmark,
+            createBookmark = _this$props.createBookmark,
+            fetchEvent = _this$props.fetchEvent;
+        var bookmarks = event.bookmarks || {};
+        var bookmark = bookmarks[currentUserId];
+
+        if (bookmarks.hasOwnProperty(currentUserId)) {
+          this.setState({
+            bookmarked: false
+          });
+          deleteBookmark(bookmark.id).then(function () {
+            return fetchEvent(event.id);
+          });
+        } else {
+          this.setState({
+            bookmarked: true
+          });
+          createBookmark({
+            user_id: currentUserId,
+            event_id: event.id
+          }).then(function () {
+            return fetchEvent(event.id);
+          });
+        }
+      } else {
+        this.props.history.push('/login');
+      }
+    }
+  }, {
+    key: "bookmarkEvent",
+    value: function bookmarkEvent() {
+      var _this$props2 = this.props,
+          event = _this$props2.event,
+          currentUserId = _this$props2.currentUserId;
+      var bookmarks = event.bookmarks || {};
+
+      if (!bookmarks.hasOwnProperty(currentUserId)) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+          className: "far fa-heart bookmark"
         });
       } else {
-        this.setState({
-          bookmarked: false
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+          className: "fas fa-heart bookmark active"
         });
       }
     }
@@ -1292,17 +1785,20 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
     value: function purchaseTicket(registration) {
       var _this3 = this;
 
-      // console.log('literally anything')
-      var _this$props = this.props,
-          currentUser = _this$props.currentUser,
-          event = _this$props.event; // console.log(currentUser)
+      var _this$props3 = this.props,
+          currentUser = _this$props3.currentUser,
+          event = _this$props3.event;
 
-      this.props.createRegistration({
-        user_id: currentUser,
-        event_id: event.id
-      }).then(function (res) {
-        return _this3.props.history.push("/users/".concat(currentUser, "/registrations"));
-      }); // .then(res => console.log(res))
+      if (currentUser) {
+        this.props.createRegistration({
+          user_id: currentUser,
+          event_id: event.id
+        }).then(function (res) {
+          return _this3.props.history.push("/users/".concat(currentUser, "/registrations"));
+        });
+      } else {
+        this.props.history.push('/login');
+      }
     }
   }, {
     key: "openModal",
@@ -1329,9 +1825,9 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       if (this.state.loading) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "loading");
       } else {
-        var _this$props2 = this.props,
-            event = _this$props2.event,
-            currentUser = _this$props2.currentUser;
+        var _this$props4 = this.props,
+            event = _this$props4.event,
+            currentUser = _this$props4.currentUser;
 
         var currUserButtons = function currUserButtons() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
@@ -1347,23 +1843,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
           }, "Delete Event"));
         };
 
-        var bookmarkEvent = function bookmarkEvent() {
-          if (_this4.state.bookmarked === false) {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-              className: "far fa-heart bookmark"
-            });
-          } else {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-              className: "fas fa-heart bookmark active"
-            });
-          }
-        };
-
         var RegistrationModal = function RegistrationModal() {
-          var registration = {
-            user_id: _this4.props.currentUser.id,
-            event_id: _this4.props.event.id
-          };
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "registration-modal",
             onClick: _this4.closeModal
@@ -1434,7 +1914,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "bookmark-circle-show-like",
           onClick: this.handleBookmark
-        }, bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        }, this.bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "button-wrapper"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
           className: "purchase-button",
@@ -1477,8 +1957,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _event_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event_show */ "./frontend/components/events/event_show/event_show.jsx");
 /* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/event_actions */ "./frontend/actions/event_actions.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _actions_registration_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/registration_actions */ "./frontend/actions/registration_actions.js");
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -1488,12 +1972,14 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state, ownProps) {
   return {
     event: state.entities.events[ownProps.match.params.eventId],
-    currentUser: state.session.id
+    currentUserId: state.session.id
   };
 };
 
 var mDTP = function mDTP(dispatch) {
-  return {
+  var _ref;
+
+  return _ref = {
     fetchEvent: function fetchEvent(eventId) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.fetchEvent)(eventId));
     },
@@ -1503,10 +1989,16 @@ var mDTP = function mDTP(dispatch) {
     createRegistration: function createRegistration(registration) {
       return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_3__.createRegistration)(registration));
     }
-  };
+  }, _defineProperty(_ref, "fetchEvent", function fetchEvent(eventId) {
+    return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.fetchEvent)(eventId));
+  }), _defineProperty(_ref, "createBookmark", function createBookmark(bookmark) {
+    return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_4__.createBookmark)(bookmark));
+  }), _defineProperty(_ref, "deleteBookmark", function deleteBookmark(bookmarkId) {
+    return dispatch((0,_actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_4__.deleteBookmark)(bookmarkId));
+  }), _ref;
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_4__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_event_show__WEBPACK_IMPORTED_MODULE_1__.default)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_5__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_event_show__WEBPACK_IMPORTED_MODULE_1__.default)));
 
 /***/ }),
 
@@ -1645,6 +2137,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1696,7 +2189,9 @@ var UserEventsItem = /*#__PURE__*/function (_React$Component) {
         className: "registration-info"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "registration-title"
-      }, event.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        to: "/events/".concat(event.id)
+      }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-date"
       }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-date"
@@ -1738,11 +2233,11 @@ var Footer = function Footer() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     href: "https://www.linkedin.com/in/raphael-talatala-703943129/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-    "class": "fab fa-linkedin-in footer-logo"
+    className: "fab fa-linkedin-in footer-logo"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
     href: "https://github.com/rgltalatala"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-    "class": "fab fa-github footer-logo"
+    className: "fab fa-github footer-logo"
   }))));
 };
 
@@ -1833,7 +2328,7 @@ var navBar = /*#__PURE__*/function (_React$Component) {
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
             className: "fas fa-plus-circle link-image"
           }), "Create Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-            to: "/users/:userID/likes",
+            to: "/users/".concat(currentUser.id, "/bookmarks"),
             className: "link-button"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
             className: "far fa-heart link-image"
@@ -1919,6 +2414,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1940,6 +2436,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -1969,7 +2466,9 @@ var RegistrationItem = /*#__PURE__*/function (_React$Component) {
         className: "registration-info"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "registration-title"
-      }, registration.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+        to: "/events/".concat(registration.event_id)
+      }, registration.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-date"
       }, moment__WEBPACK_IMPORTED_MODULE_0___default()(registration.start_date).format("dddd, MMMM Do YYYY"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
         onClick: function onClick() {
@@ -2109,19 +2608,9 @@ var mDTP = function mDTP(dispatch) {
     fetchRegistrations: function fetchRegistrations(userId) {
       return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_1__.fetchRegistrations)(userId));
     },
-    deleteRegistration: function (_deleteRegistration) {
-      function deleteRegistration(_x) {
-        return _deleteRegistration.apply(this, arguments);
-      }
-
-      deleteRegistration.toString = function () {
-        return _deleteRegistration.toString();
-      };
-
-      return deleteRegistration;
-    }(function (registrationId) {
-      return dispatch(deleteRegistration(registrationId));
-    })
+    deleteRegistration: function deleteRegistration(registrationId) {
+      return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_1__.deleteRegistration)(registrationId));
+    }
   };
 };
 
@@ -2453,6 +2942,48 @@ var mDTP = function mDTP(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/reducers/bookmarks_reducer.js":
+/*!************************************************!*\
+  !*** ./frontend/reducers/bookmarks_reducer.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var BookmarksReducer = function BookmarksReducer() {
+  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(initialState);
+
+  switch (action.type) {
+    case _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_BOOKMARKS:
+      return action.bookmarks;
+
+    case _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_BOOKMARK:
+      return Object.assign({}, initialState, _defineProperty({}, action.bookmark.id, action.bookmark));
+
+    case _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_BOOKMARK:
+      var newState = Object.assign({}, initialState);
+      delete newState[action.bookmarkId];
+      return newState;
+
+    default:
+      return initialState;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookmarksReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -2464,18 +2995,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _events_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./events_reducer */ "./frontend/reducers/events_reducer.js");
 /* harmony import */ var _registrations_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./registrations_reducer */ "./frontend/reducers/registrations_reducer.js");
+/* harmony import */ var _bookmarks_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./bookmarks_reducer */ "./frontend/reducers/bookmarks_reducer.js");
 
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
   events: _events_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
-  registrations: _registrations_reducer__WEBPACK_IMPORTED_MODULE_2__.default
+  registrations: _registrations_reducer__WEBPACK_IMPORTED_MODULE_2__.default,
+  bookmarks: _bookmarks_reducer__WEBPACK_IMPORTED_MODULE_3__.default
 }));
 
 /***/ }),
@@ -2547,8 +3081,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/event_actions */ "./frontend/actions/event_actions.js");
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/event_actions */ "./frontend/actions/event_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2558,16 +3094,19 @@ var EventsReducer = function EventsReducer() {
   Object.freeze(initialState);
 
   switch (action.type) {
-    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_EVENTS:
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_EVENTS:
       return action.events;
 
-    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_EVENT:
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.RECEIVE_EVENT:
       return Object.assign({}, initialState, _defineProperty({}, action.event.id, action.event));
 
-    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_EVENT:
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.REMOVE_EVENT:
       var newState = Object.assign({}, initialState);
       delete newState[action.eventId];
       return newState;
+
+    case _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_BOOKMARK:
+      return Object.assign({}, initialState, _defineProperty({}, action.bookmark.id, action.bookmark));
 
     default:
       return initialState;
@@ -2825,6 +3364,43 @@ var configureStore = function configureStore() {
 
 /***/ }),
 
+/***/ "./frontend/util/bookmark_api_util.js":
+/*!********************************************!*\
+  !*** ./frontend/util/bookmark_api_util.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchBookmarks": () => (/* binding */ fetchBookmarks),
+/* harmony export */   "createBookmark": () => (/* binding */ createBookmark),
+/* harmony export */   "deleteBookmark": () => (/* binding */ deleteBookmark)
+/* harmony export */ });
+var fetchBookmarks = function fetchBookmarks(userId) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/".concat(userId, "/bookmarks")
+  });
+};
+var createBookmark = function createBookmark(bookmark) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/events/".concat(bookmark.event_id, "/bookmarks"),
+    data: {
+      bookmark: bookmark
+    }
+  });
+};
+var deleteBookmark = function deleteBookmark(bookmarkId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/bookmarks/".concat(bookmarkId)
+  });
+};
+
+/***/ }),
+
 /***/ "./frontend/util/event_api_util.js":
 /*!*****************************************!*\
   !*** ./frontend/util/event_api_util.js ***!
@@ -2908,7 +3484,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "genres": () => (/* binding */ genres),
 /* harmony export */   "times": () => (/* binding */ times)
 /* harmony export */ });
-var genres = ["House", "Techno", "Dubstep", "Trap", "Trance", "Future Bass", "Ambient", "Hardstyle", "Drum and Bass", "Garage", "Multi-genre"];
+var genres = ["All", "House", "Techno", "Dubstep", "Trap", "Trance", "Future Bass", "Ambient", "Hardstyle", "Drum and Bass", "Garage", "Multi-genre"];
 var times = ["12:00 AM", "12:30 AM", "1:00 AM", "1:30 AM", "2:00 AM", "2:30 AM", "3:00 AM", "3:30 AM", "4:00 AM", "4:30 AM", "5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "7:00 AM", "7:30 AM", "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM"]; // ajax requests to fetch specific genre
 // takes genres from frontend using the string
 
@@ -60922,11 +61498,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
 /* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./actions/event_actions */ "./frontend/actions/event_actions.js");
 /* harmony import */ var _actions_registration_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/registration_actions */ "./frontend/actions/registration_actions.js");
+/* harmony import */ var _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions/bookmark_actions */ "./frontend/actions/bookmark_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //React
 
  //Components
+
 
 
 
@@ -60950,6 +61528,7 @@ document.addEventListener('DOMContentLoaded', function () {
     store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)();
   }
 
+  window.fetchBookmarks = _actions_bookmark_actions__WEBPACK_IMPORTED_MODULE_6__.fetchBookmarks;
   window.fetchRegistrations = _actions_registration_actions__WEBPACK_IMPORTED_MODULE_5__.fetchRegistrations;
   window.createRegistration = _actions_registration_actions__WEBPACK_IMPORTED_MODULE_5__.createRegistration;
   window.deleteRegistration = _actions_registration_actions__WEBPACK_IMPORTED_MODULE_5__.deleteRegistration;

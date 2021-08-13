@@ -6,6 +6,7 @@ import Root from './components/root';
 import configureStore from './store/store';
 import { fetchEvent, createEvent, fetchEvents, updateEvent, deleteEvent, fetchHostedEvents } from './actions/event_actions';
 import { fetchRegistrations, createRegistration, deleteRegistration } from './actions/registration_actions';
+import { fetchBookmarks } from './actions/bookmark_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore();
   }
 
+  window.fetchBookmarks = fetchBookmarks    
   window.fetchRegistrations = fetchRegistrations
   window.createRegistration = createRegistration
   window.deleteRegistration = deleteRegistration

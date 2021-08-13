@@ -7,10 +7,10 @@ export const Footer = () => {
         <div className="footer-wrapper">
             <div className="footer">
                 <a href='https://www.linkedin.com/in/raphael-talatala-703943129/' >
-                    <i class="fab fa-linkedin-in footer-logo" ></i>
+                    <i className="fab fa-linkedin-in footer-logo" ></i>
                 </a>
                 <a href='https://github.com/rgltalatala' >
-                    <i class="fab fa-github footer-logo"></i>
+                    <i className="fab fa-github footer-logo"></i>
                 </a>
             </div>
         </div>
