@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'production',
   context: __dirname,
   entry: './frontend/ravebrite.jsx',
   output: {
@@ -24,8 +25,7 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: [".js", ".jsx", "*"]
-  },
-  mode: 'production'
+  }
 };
 
 
