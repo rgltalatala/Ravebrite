@@ -70,10 +70,10 @@ class EventShow extends React.Component{
     }
 
     purchaseTicket(registration){
-        const {currentUser, event} = this.props
-        if (currentUser) {
-            this.props.createRegistration({user_id: currentUser, event_id: event.id})
-            .then((res) => this.props.history.push(`/users/${currentUser}/registrations`))
+        const {currentUserId, event} = this.props
+        if (currentUserId) {
+            this.props.createRegistration({user_id: currentUserId, event_id: event.id})
+            .then((res) => this.props.history.push(`/users/${currentUserId}/registrations`))
         } else {
             this.props.history.push('/login');
         }
@@ -98,7 +98,7 @@ class EventShow extends React.Component{
                 </>
             )
         } else {
-            const {event, currentUser} = this.props
+            const {event, currentUserId} = this.props
             const currUserButtons = () => {
                 return (
                     <>
@@ -169,7 +169,6 @@ class EventShow extends React.Component{
                     </div>
                 )
             }
-
             return (
                 <div className="event-show-wrapper">
                     <div className="event-show-background">
@@ -237,7 +236,7 @@ class EventShow extends React.Component{
                                 <br />
 
                                 <div className="user-button-wrapper">
-                                    {currentUser === event.host_id ? currUserButtons() : ''}
+                                    {currentUserId === event.host_id ? currUserButtons() : ''}
                                 </div>
                             </div>
                         </div>
