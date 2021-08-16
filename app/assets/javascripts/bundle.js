@@ -656,8 +656,8 @@ var BookmarkItem = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           bookmark = _this$props.bookmark,
-          deleteBookmark = _this$props.deleteBookmark;
-      console.log(bookmark);
+          deleteBookmark = _this$props.deleteBookmark; // console.log(bookmark)
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {

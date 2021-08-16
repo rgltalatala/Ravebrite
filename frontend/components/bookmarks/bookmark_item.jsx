@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 class BookmarkItem extends React.Component {
     render(){
         const {bookmark, deleteBookmark} = this.props
-        console.log(bookmark)
+        // console.log(bookmark)
 
         return(
             <div className="registration-card">
