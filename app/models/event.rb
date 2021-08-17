@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
     validates :title, :description, :location, :genre, :start_date, :end_date, :start_time, :end_time, :host_id, presence: true
     
+    # validate :ensure_photo
+
     belongs_to :host,
         foreign_key: :host_id,
         class_name: :User
@@ -17,6 +19,8 @@ class Event < ApplicationRecord
         foreign_key: :event_id,
         class_name: :Bookmark
 
+    # has_one_attached :photo
+
     def self.genres
         genres = [
             "House", 
@@ -31,5 +35,11 @@ class Event < ApplicationRecord
             "Garage",
             "Multi-genre"
         ]
+    end
+
+    def ensure_photo
+        unless self.photo.attached?
+            errors[:photo] << "Must be attached"
+        end
     end
 end

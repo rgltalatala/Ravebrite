@@ -172,7 +172,7 @@ class EventShow extends React.Component{
             return (
                 <div className="event-show-wrapper">
                     <div className="event-show-background">
-                        <img src={window.rave} alt="rave"/>
+                        <img src={event.photoUrl} alt="rave"/>
                     </div>
                     
                     <div className="event-show-card">

@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production',
+  // mode: 'production',
   context: __dirname,
   entry: './frontend/ravebrite.jsx',
   output: {

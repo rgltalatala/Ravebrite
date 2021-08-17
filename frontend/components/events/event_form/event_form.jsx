@@ -8,22 +8,49 @@ class EventForm extends React.Component{
     constructor(props) {
         super(props);
         // this.newState = Object.assign({}, this.props.event)
-        this.state = this.props.event
+        this.state = {
+            event: this.props.event,
+            photoFile: null,
+            photoUrl: null
+        }
+        this.handleFile = this.handleFile.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
       //write function to assign host_id to session :id
 
     update(field) {
-    return e => this.setState({
-        [field]: e.currentTarget.value
-    });
+    return e => {
+        let nextEvent = Object.assign({}, this.state.event);
+        nextEvent[field] = e.currentTarget.value;
+        this.setState({ event: nextEvent });
+        };
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.processForm(this.state)
+        // const formData = new FormData();
+        // formData.append('event[title]', this.state.event.title);
+        // formData.append('event[description]', this.state.event.description);
+        // formData.append('event[location]', this.state.event.location);
+        // formData.append('event[genre]', this.state.event.genre);
+        // formData.append('event[start_date]', this.state.event.start_date);
+        // formData.append('event[end_date]', this.state.event.end_date);
+        // formData.append('event[start_time]', this.state.event.start_time);
+        // formData.append('event[end_time]', this.state.event.end_time);
+        // formData.append('event[host_id]', this.state.event.host_id);
+        // if (this.state.photoFile) {
+        //     formData.append('event[photo]', this.state.photoFile);
+        // }
+        // $.ajax({
+        //     url: '/api/events',
+        //     method: 'POST',
+        //     data: formData,
+        //     contentType: false,
+        //     processData: false
+        // });
+        this.props.processForm(this.state.event)
             .then((res) => this.props.history.push(`/events/${res.event.id}`))
     }
 
@@ -39,15 +66,29 @@ class EventForm extends React.Component{
         );
     }
 
+    handleFile(e){
+        const file = e.currentTarget.files[0]
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            this.setState({photoFile: file, photoUrl: fileReader.result})
+        }
+
+        if (file) {
+            fileReader.readAsDataURL(file);
+        } else {
+            this.setState({ photoFile: null, photoUrl: "" });
+        }
+    }
+
     componentWillUnmount() {
     }
 
     componentDidMount(){
-        // this.props.fetchEventGenres()
     }
 
     render(){
         const {formType} = this.props
+        const preview = this.state.photoUrl ? <img src={this.state.photoUrl}/> : '';
         return (
             <div className="event-form-wrapper">
                 <form onSubmit={this.handleSubmit} className='event-form'>
@@ -73,7 +114,7 @@ class EventForm extends React.Component{
                                 <input 
                                     type="text" 
                                     onChange={this.update('title')}
-                                    value={this.state.title}
+                                    value={this.state.event.title}
                                     className="event-form-input"
                                     />
                                 <label className="event-form-label">Event Title</label>
@@ -85,12 +126,17 @@ class EventForm extends React.Component{
                                 onChange={this.update('genre')}
                                 className="event-form-input-genre"
                                 placeholder="genre"
-                                value={this.state.genre}
+                                value={this.state.event.genre}
                             > 
                                 <option >Genre</option>
-                                {genres.map((genre, i) => (
-                                    <option value={`${genre}`} key={i}>{genre}</option>
-                                ))}
+                                {genres.map((genre, i) => {
+                                    if (i === 0){
+                                        return ''
+                                    } else {
+                                        return <option value={`${genre}`} key={i}>{genre}</option>
+                                    }
+                                }
+                                )}
                             </select>
                         </div>
                     </div>
@@ -109,7 +155,7 @@ class EventForm extends React.Component{
                             <div className="form-input-group">
                                 <input 
                                     type="text" 
-                                    value={this.state.location} 
+                                    value={this.state.event.location} 
                                     onChange={this.update('location')}
                                     className="event-form-input"
                                 />
@@ -132,7 +178,7 @@ class EventForm extends React.Component{
                             <div className="form-input-group">
                                 <input 
                                     type="date" 
-                                    value={this.state.start_date}
+                                    value={this.state.event.start_date}
                                     onChange={this.update('start_date')}
                                     className="event-form-input"
                                 />
@@ -142,7 +188,7 @@ class EventForm extends React.Component{
 
                             <div className="form-input-group">
                                 <select 
-                                    value={this.state.start_time}
+                                    value={this.state.event.start_time}
                                     onChange={this.update('start_time')}
                                     className="event-form-input"
                                     >
@@ -158,7 +204,7 @@ class EventForm extends React.Component{
                             <div className="form-input-group">
                                 <input 
                                     type="date" 
-                                    value={this.state.end_date}
+                                    value={this.state.event.end_date}
                                     onChange={this.update('end_date')}
                                     className="event-form-input"
                                 />
@@ -168,7 +214,7 @@ class EventForm extends React.Component{
 
                             <div className="form-input-group">
                                 <select 
-                                    value={this.state.end_time}
+                                    value={this.state.event.end_time}
                                     onChange={this.update('end_time')}
                                     className="event-form-input"
                                     >
@@ -199,7 +245,9 @@ class EventForm extends React.Component{
                                 name="event image"
                                 accept="image/*"
                                 className="event-form-input-image"
+                                // onChange={this.handleFile}
                             />
+                            {preview}
                         </div>
                     </div>
                     <br />
@@ -217,7 +265,7 @@ class EventForm extends React.Component{
 
                             <div className="form-input-group">
                                 <textarea 
-                                    value={this.state.description}
+                                    value={this.state.event.description}
                                     onChange={this.update('description')}
                                     className="event-form-input"
                                 />

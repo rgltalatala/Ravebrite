@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'open-uri'
+
 User.destroy_all
 Event.destroy_all
 Registration.destroy_all
@@ -107,3 +109,13 @@ ticket7 = Registration.create({
     user_id: 4,
     event_id: 3
 })
+
+# image1 = URI.open('https://ravebrite-dev.s3.amazonaws.com/arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
+# image2 = URI.open('https://ravebrite-dev.s3.amazonaws.com/colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
+# image3 = URI.open('https://ravebrite-dev.s3.amazonaws.com/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
+# image4 = URI.open('https://ravebrite-dev.s3.amazonaws.com/nick-kane-NMx_9N2QC5o-unsplash.jpg')
+
+# event1.photo.attach(io: image1, filename: 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
+# event2.photo.attach(io: image2, filename: 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
+# event3.photo.attach(io: image3, filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
+# event4.photo.attach(io: image4, filename: 'nick-kane-NMx_9N2QC5o-unsplash.jpg')

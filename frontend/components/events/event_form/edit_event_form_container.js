@@ -25,6 +25,7 @@ class EditEventForm extends React.Component {
 
 const mSTP = (state, ownProps) => ({
     event: state.entities.events[ownProps.match.params.eventId],
+    photoFile: null,
     formType: 'Edit Event',
     errors: state.errors.events
 })

@@ -840,8 +840,10 @@ var mSTP = function mSTP(state) {
       end_date: '',
       start_time: '',
       end_time: '',
-      host_id: state.session.id
+      host_id: state.session.id,
+      photoUrl: null
     },
+    photoFile: null,
     formType: 'Add Event',
     errors: state.errors.events // genres: state.genres
 
@@ -852,9 +854,6 @@ var mDTP = function mDTP(dispatch) {
   return {
     processForm: function processForm(event) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.createEvent)(event));
-    },
-    fetchEventGenres: function fetchEventGenres() {
-      return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_1__.fetchEventGenres)());
     }
   };
 };
@@ -945,6 +944,7 @@ var EditEventForm = /*#__PURE__*/function (_React$Component) {
 var mSTP = function mSTP(state, ownProps) {
   return {
     event: state.entities.events[ownProps.match.params.eventId],
+    photoFile: null,
     formType: 'Edit Event',
     errors: state.errors.events
   };
@@ -984,8 +984,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../util/event_form_util */ "./frontend/util/event_form_util.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -1022,7 +1020,12 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props); // this.newState = Object.assign({}, this.props.event)
 
-    _this.state = _this.props.event;
+    _this.state = {
+      event: _this.props.event,
+      photoFile: null,
+      photoUrl: null
+    };
+    _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   } //write function to assign host_id to session :id
@@ -1034,7 +1037,12 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+        var nextEvent = Object.assign({}, _this2.state.event);
+        nextEvent[field] = e.currentTarget.value;
+
+        _this2.setState({
+          event: nextEvent
+        });
       };
     }
   }, {
@@ -1042,8 +1050,28 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault();
-      this.props.processForm(this.state).then(function (res) {
+      e.preventDefault(); // const formData = new FormData();
+      // formData.append('event[title]', this.state.event.title);
+      // formData.append('event[description]', this.state.event.description);
+      // formData.append('event[location]', this.state.event.location);
+      // formData.append('event[genre]', this.state.event.genre);
+      // formData.append('event[start_date]', this.state.event.start_date);
+      // formData.append('event[end_date]', this.state.event.end_date);
+      // formData.append('event[start_time]', this.state.event.start_time);
+      // formData.append('event[end_time]', this.state.event.end_time);
+      // formData.append('event[host_id]', this.state.event.host_id);
+      // if (this.state.photoFile) {
+      //     formData.append('event[photo]', this.state.photoFile);
+      // }
+      // $.ajax({
+      //     url: '/api/events',
+      //     method: 'POST',
+      //     data: formData,
+      //     contentType: false,
+      //     processData: false
+      // });
+
+      this.props.processForm(this.state.event).then(function (res) {
         return _this3.props.history.push("/events/".concat(res.event.id));
       });
     }
@@ -1057,16 +1085,42 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }, {
+    key: "handleFile",
+    value: function handleFile(e) {
+      var _this4 = this;
+
+      var file = e.currentTarget.files[0];
+      var fileReader = new FileReader();
+
+      fileReader.onloadend = function () {
+        _this4.setState({
+          photoFile: file,
+          photoUrl: fileReader.result
+        });
+      };
+
+      if (file) {
+        fileReader.readAsDataURL(file);
+      } else {
+        this.setState({
+          photoFile: null,
+          photoUrl: ""
+        });
+      }
+    }
+  }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {}
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {// this.props.fetchEventGenres()
-    }
+    value: function componentDidMount() {}
   }, {
     key: "render",
     value: function render() {
       var formType = this.props.formType;
+      var preview = this.state.photoUrl ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+        src: this.state.photoUrl
+      }) : '';
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
@@ -1085,7 +1139,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: this.update('title'),
-        value: this.state.title,
+        value: this.state.event.title,
         className: "event-form-input"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
         className: "event-form-label"
@@ -1093,12 +1147,16 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.update('genre'),
         className: "event-form-input-genre",
         placeholder: "genre",
-        value: this.state.genre
+        value: this.state.event.genre
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Genre"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.genres.map(function (genre, i) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-          value: "".concat(genre),
-          key: i
-        }, genre);
+        if (i === 0) {
+          return '';
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+            value: "".concat(genre),
+            key: i
+          }, genre);
+        }
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-section"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1111,7 +1169,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        value: this.state.location,
+        value: this.state.event.location,
         onChange: this.update('location'),
         className: "event-form-input"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
@@ -1128,7 +1186,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "date",
-        value: this.state.start_date,
+        value: this.state.event.start_date,
         onChange: this.update('start_date'),
         className: "event-form-input"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
@@ -1136,7 +1194,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }, "Event Starts ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        value: this.state.start_time,
+        value: this.state.event.start_time,
         onChange: this.update('start_time'),
         className: "event-form-input"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Start Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
@@ -1150,7 +1208,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "date",
-        value: this.state.end_date,
+        value: this.state.event.end_date,
         onChange: this.update('end_date'),
         className: "event-form-input"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
@@ -1158,7 +1216,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }, "Event Ends ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-        value: this.state.end_time,
+        value: this.state.event.end_time,
         onChange: this.update('end_time'),
         className: "event-form-input"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "End Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
@@ -1180,8 +1238,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         type: "file",
         name: "event image",
         accept: "image/*",
-        className: "event-form-input-image"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "event-form-input-image" // onChange={this.handleFile}
+
+      }), preview)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-section"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-logo-wrapper"
@@ -1192,7 +1251,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Provide some additional details about your event."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "form-input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
-        value: this.state.description,
+        value: this.state.event.description,
         onChange: this.update('description'),
         className: "event-form-input"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
@@ -1889,7 +1948,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-background"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-          src: window.rave,
+          src: event.photoUrl,
           alt: "rave"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-card"

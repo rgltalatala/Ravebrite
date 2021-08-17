@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { createEvent, fetchEventGenres } from "../../../actions/event_actions";
+import { createEvent} from "../../../actions/event_actions";
 import EventForm from "./event_form";
 
 
@@ -14,8 +14,10 @@ const mSTP = state => ({
         end_date: '',
         start_time: '',
         end_time: '',
-        host_id: state.session.id
+        host_id: state.session.id,
+        photoUrl: null
     },
+    photoFile: null,
     formType: 'Add Event',
     errors: state.errors.events
     // genres: state.genres
@@ -23,7 +25,6 @@ const mSTP = state => ({
 
 const mDTP = dispatch => ({
     processForm: (event) => dispatch(createEvent(event)),
-    fetchEventGenres: () => dispatch(fetchEventGenres())
 })
 
 export default connect(mSTP, mDTP)(EventForm)
