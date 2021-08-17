@@ -20,7 +20,6 @@ const mSTP = state => ({
     photoFile: null,
     formType: 'Add Event',
     errors: state.errors.events
-    // genres: state.genres
 })
 
 const mDTP = dispatch => ({

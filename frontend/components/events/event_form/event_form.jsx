@@ -7,7 +7,6 @@ import {genres, times} from '../../../util/event_form_util'
 class EventForm extends React.Component{
     constructor(props) {
         super(props);
-        // this.newState = Object.assign({}, this.props.event)
         this.state = {
             event: this.props.event,
             photoFile: null,
@@ -16,8 +15,6 @@ class EventForm extends React.Component{
         this.handleFile = this.handleFile.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-      //write function to assign host_id to session :id
 
     update(field) {
     return e => {
@@ -30,19 +27,19 @@ class EventForm extends React.Component{
 
     handleSubmit(e) {
         e.preventDefault();
-        // const formData = new FormData();
-        // formData.append('event[title]', this.state.event.title);
-        // formData.append('event[description]', this.state.event.description);
-        // formData.append('event[location]', this.state.event.location);
-        // formData.append('event[genre]', this.state.event.genre);
-        // formData.append('event[start_date]', this.state.event.start_date);
-        // formData.append('event[end_date]', this.state.event.end_date);
-        // formData.append('event[start_time]', this.state.event.start_time);
-        // formData.append('event[end_time]', this.state.event.end_time);
-        // formData.append('event[host_id]', this.state.event.host_id);
-        // if (this.state.photoFile) {
-        //     formData.append('event[photo]', this.state.photoFile);
-        // }
+        const formData = new FormData();
+        formData.append('event[title]', this.state.event.title);
+        formData.append('event[description]', this.state.event.description);
+        formData.append('event[location]', this.state.event.location);
+        formData.append('event[genre]', this.state.event.genre);
+        formData.append('event[start_date]', this.state.event.start_date);
+        formData.append('event[end_date]', this.state.event.end_date);
+        formData.append('event[start_time]', this.state.event.start_time);
+        formData.append('event[end_time]', this.state.event.end_time);
+        formData.append('event[host_id]', this.state.event.host_id);
+        if (this.state.photoFile) {
+            formData.append('event[photo]', this.state.photoFile);
+        }
         // $.ajax({
         //     url: '/api/events',
         //     method: 'POST',
@@ -50,7 +47,8 @@ class EventForm extends React.Component{
         //     contentType: false,
         //     processData: false
         // });
-        this.props.processForm(this.state.event)
+        debugger
+        this.props.processForm(formData, this.props.eventId)
             .then((res) => this.props.history.push(`/events/${res.event.id}`))
     }
 
@@ -118,7 +116,6 @@ class EventForm extends React.Component{
                                     className="event-form-input"
                                     />
                                 <label className="event-form-label">Event Title</label>
-                                {/* make default option: Add your own by having user type in own genre */}
                                 <br />
                             </div>
                             
@@ -245,7 +242,7 @@ class EventForm extends React.Component{
                                 name="event image"
                                 accept="image/*"
                                 className="event-form-input-image"
-                                // onChange={this.handleFile}
+                                onChange={this.handleFile}
                             />
                             {preview}
                         </div>

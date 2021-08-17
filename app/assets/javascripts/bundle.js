@@ -348,9 +348,10 @@ var createEvent = function createEvent(event) {
     });
   };
 };
-var updateEvent = function updateEvent(event) {
+var updateEvent = function updateEvent(formData, eventId) {
   return function (dispatch) {
-    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__.updateEvent(event).then(function (event) {
+    debugger;
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__.updateEvent(formData, eventId).then(function (event) {
       return dispatch(receiveEvent(event));
     }, function (err) {
       return dispatch(receiveEventErrors(err.responseJSON));
@@ -845,8 +846,7 @@ var mSTP = function mSTP(state) {
     },
     photoFile: null,
     formType: 'Add Event',
-    errors: state.errors.events // genres: state.genres
-
+    errors: state.errors.events
   };
 };
 
@@ -927,13 +927,15 @@ var EditEventForm = /*#__PURE__*/function (_React$Component) {
           processForm = _this$props.processForm,
           formType = _this$props.formType,
           event = _this$props.event,
-          errors = _this$props.errors;
+          errors = _this$props.errors,
+          eventId = _this$props.eventId;
       if (!event) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_event_form__WEBPACK_IMPORTED_MODULE_3__.default, {
         processForm: processForm,
         formType: formType,
         event: event,
-        errors: errors
+        errors: errors,
+        eventId: eventId
       });
     }
   }]);
@@ -944,6 +946,7 @@ var EditEventForm = /*#__PURE__*/function (_React$Component) {
 var mSTP = function mSTP(state, ownProps) {
   return {
     event: state.entities.events[ownProps.match.params.eventId],
+    eventId: ownProps.match.params.eventId,
     photoFile: null,
     formType: 'Edit Event',
     errors: state.errors.events
@@ -955,8 +958,8 @@ var mDTP = function mDTP(dispatch) {
     fetchEvent: function fetchEvent(eventId) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.fetchEvent)(eventId));
     },
-    processForm: function processForm(eventId) {
-      return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.updateEvent)(eventId));
+    processForm: function processForm(formData, eventId) {
+      return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.updateEvent)(formData, eventId));
     },
     clearEventErrors: function clearEventErrors() {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.clearEventErrors)());
@@ -1018,8 +1021,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, EventForm);
 
-    _this = _super.call(this, props); // this.newState = Object.assign({}, this.props.event)
-
+    _this = _super.call(this, props);
     _this.state = {
       event: _this.props.event,
       photoFile: null,
@@ -1028,8 +1030,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
     _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
-  } //write function to assign host_id to session :id
-
+  }
 
   _createClass(EventForm, [{
     key: "update",
@@ -1050,20 +1051,21 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit(e) {
       var _this3 = this;
 
-      e.preventDefault(); // const formData = new FormData();
-      // formData.append('event[title]', this.state.event.title);
-      // formData.append('event[description]', this.state.event.description);
-      // formData.append('event[location]', this.state.event.location);
-      // formData.append('event[genre]', this.state.event.genre);
-      // formData.append('event[start_date]', this.state.event.start_date);
-      // formData.append('event[end_date]', this.state.event.end_date);
-      // formData.append('event[start_time]', this.state.event.start_time);
-      // formData.append('event[end_time]', this.state.event.end_time);
-      // formData.append('event[host_id]', this.state.event.host_id);
-      // if (this.state.photoFile) {
-      //     formData.append('event[photo]', this.state.photoFile);
-      // }
-      // $.ajax({
+      e.preventDefault();
+      var formData = new FormData();
+      formData.append('event[title]', this.state.event.title);
+      formData.append('event[description]', this.state.event.description);
+      formData.append('event[location]', this.state.event.location);
+      formData.append('event[genre]', this.state.event.genre);
+      formData.append('event[start_date]', this.state.event.start_date);
+      formData.append('event[end_date]', this.state.event.end_date);
+      formData.append('event[start_time]', this.state.event.start_time);
+      formData.append('event[end_time]', this.state.event.end_time);
+      formData.append('event[host_id]', this.state.event.host_id);
+
+      if (this.state.photoFile) {
+        formData.append('event[photo]', this.state.photoFile);
+      } // $.ajax({
       //     url: '/api/events',
       //     method: 'POST',
       //     data: formData,
@@ -1071,7 +1073,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
       //     processData: false
       // });
 
-      this.props.processForm(this.state.event).then(function (res) {
+
+      debugger;
+      this.props.processForm(formData, this.props.eventId).then(function (res) {
         return _this3.props.history.push("/events/".concat(res.event.id));
       });
     }
@@ -1238,8 +1242,8 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         type: "file",
         name: "event image",
         accept: "image/*",
-        className: "event-form-input-image" // onChange={this.handleFile}
-
+        className: "event-form-input-image",
+        onChange: this.handleFile
       }), preview)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-section"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1676,13 +1680,19 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
         className: "event-index-item"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
         to: "/events/".concat(event.id),
-        className: "card-image"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "card-image-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: event.photoUrl,
+        className: "card-image",
+        alt: "rave"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "bookmark-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "bookmark-circle",
         onClick: this.handleBookmark
-      }, this.bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
+      }, this.bookmarkEvent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "event-info-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "event-index-title"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
         to: "/events/".concat(event.id)
@@ -1690,7 +1700,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
         className: "card-date"
       }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
         className: "card-location"
-      }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)));
+      }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)));
     }
   }]);
 
@@ -1955,7 +1965,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-details"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
-          src: window.rave,
+          src: event.photoUrl,
           alt: "rave",
           className: "event-show-image"
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -3493,18 +3503,18 @@ var createEvent = function createEvent(event) {
   return $.ajax({
     method: "POST",
     url: "/api/events",
-    data: {
-      event: event
-    }
+    data: event,
+    contentType: false,
+    processData: false
   });
 };
-var updateEvent = function updateEvent(event) {
+var updateEvent = function updateEvent(formData, eventId) {
   return $.ajax({
     method: "PATCH",
-    url: "/api/events/".concat(event.id),
-    data: {
-      event: event
-    }
+    url: "/api/events/".concat(eventId),
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
 var deleteEvent = function deleteEvent(eventId) {

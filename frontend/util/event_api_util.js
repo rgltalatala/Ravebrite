@@ -16,15 +16,19 @@ export const createEvent = (event) => {
     return $.ajax({
         method: "POST",
         url: `/api/events`,
-        data: {event}
+        data: event,
+        contentType: false,
+        processData: false
     })
 }
 
-export const updateEvent = (event) => {
+export const updateEvent = (formData, eventId) => {
     return $.ajax({
         method: "PATCH",
-        url: `/api/events/${event.id}`,
-        data: {event}
+        url: `/api/events/${eventId}`,
+        data: formData,
+        contentType: false,
+        processData: false
     })
 }
 

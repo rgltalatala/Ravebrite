@@ -9,7 +9,7 @@ class EditEventForm extends React.Component {
     }
   
     render() {
-      const { processForm, formType, event, errors } = this.props;
+      const { processForm, formType, event, errors, eventId } = this.props;
   
       if (!event) return null;
       return (
@@ -18,6 +18,7 @@ class EditEventForm extends React.Component {
           formType={formType}
           event={event}
           errors={errors}
+          eventId={eventId}
           />
       );
     }
@@ -25,6 +26,7 @@ class EditEventForm extends React.Component {
 
 const mSTP = (state, ownProps) => ({
     event: state.entities.events[ownProps.match.params.eventId],
+    eventId: ownProps.match.params.eventId,
     photoFile: null,
     formType: 'Edit Event',
     errors: state.errors.events
@@ -32,7 +34,7 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = dispatch => ({
     fetchEvent: (eventId) => dispatch(fetchEvent(eventId)),
-    processForm: (eventId) => dispatch(updateEvent(eventId)),
+    processForm: (formData, eventId) => dispatch(updateEvent(formData, eventId)),
     clearEventErrors: () => dispatch(clearEventErrors())
 })
 

@@ -28,7 +28,7 @@ class Api::EventsController < ApplicationController
     
     def update
         @event = Event.find_by(id: params[:id])
-        
+        # byebug
         if @event.update(event_params)
             render :show
         else
@@ -65,7 +65,8 @@ class Api::EventsController < ApplicationController
     private
 
     def event_params
-        params.require(:event).permit(:title, 
+        params.require(:event).permit(
+        :title, 
         :description, 
         :location, 
         :genre, 
@@ -74,7 +75,7 @@ class Api::EventsController < ApplicationController
         :start_time, 
         :end_time, 
         :host_id, 
-        # :photo
+        :photo
         )
     end
 end

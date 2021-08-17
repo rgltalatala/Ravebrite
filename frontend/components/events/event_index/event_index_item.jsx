@@ -62,27 +62,31 @@ class EventIndexItem extends React.Component{
         return(
             <div className="event-index-item-container">
                 <li className="event-index-item">
-                    <Link to={`/events/${event.id}`} className="card-image"></Link>
+                    <Link to={`/events/${event.id}`} className="card-image-wrapper">
+                        <img src={event.photoUrl} className="card-image" alt="rave"/>
+                    </Link>
 
                     <div className="bookmark-wrapper">
                         <div className="bookmark-circle" onClick={this.handleBookmark} >
                             {this.bookmarkEvent()}
                         </div>
                     </div>
-                    <h2 className="event-index-title">
-                        <Link to={`/events/${event.id}`}>{event.title}</Link>
-                    </h2>
-                    <br />
-    
-                    <label className="card-date">
-                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time}
-                    </label>
-                    <br />
-    
-                    <label className="card-location">  
-                        {event.location}
-                    </label>
-                    <br />
+                    <div className="event-info-wrapper">
+                        <h2 className="event-index-title">
+                            <Link to={`/events/${event.id}`}>{event.title}</Link>
+                        </h2>
+                        <br />
+        
+                        <label className="card-date">
+                            {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time}
+                        </label>
+                        <br />
+        
+                        <label className="card-location">  
+                            {event.location}
+                        </label>
+                        <br />
+                    </div>
                         
                     <br />
                 </li>

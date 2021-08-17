@@ -9,8 +9,11 @@
 require 'open-uri'
 
 User.destroy_all
+User.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
 Event.destroy_all
+Event.connection.execute('ALTER SEQUENCE events_id_seq RESTART WITH 1')
 Registration.destroy_all
+Registration.connection.execute('ALTER SEQUENCE registrations_id_seq RESTART WITH 1')
 
 # Users 
 
@@ -22,7 +25,7 @@ jack = User.create({email: "jack@ex.com", password: "123456", first_name: "Jack"
 
 # Events
 
-event1 = Event.create({
+event1 = Event.create!({
     host_id: raph.id,
     title: "Raph's Rave",
     description: "A night of dancing and fun with Raph's favorite house hits!",
@@ -34,7 +37,7 @@ event1 = Event.create({
     end_time: "4:00 AM",
 })
 
-event2 = Event.create({
+event2 = Event.create!({
     host_id: demo.id,
     title: "Electric Zoo",
     description: "Your favorite DJs coming to perform at Randall's Island during Labor Day Weekend!",
@@ -46,7 +49,7 @@ event2 = Event.create({
     end_time: "1:00 AM",
 })
 
-event3 = Event.create({
+event3 = Event.create!({
     host_id: chase.id,
     title: "CVH at MSG",
     description: "For one night only, Chase Van Haselen will perform his debut album at Madison Square Garden!",
@@ -58,7 +61,7 @@ event3 = Event.create({
     end_time: "11:00 PM",
 })
 
-event4 = Event.create({
+event4 = Event.create!({
     host_id: jack.id,
     title: "In the Trap",
     description: "Jack Liu on the 1s and 2s playing some trap classics.",
@@ -70,44 +73,45 @@ event4 = Event.create({
     end_time: "4:00 AM",
 })
 
-ticket1 = Registration.create({
-    user_id: 2,
-    event_id: 4
+ticket1 = Registration.create!({
+    user_id: raph.id,
+    event_id: event4.id
 })
 
-ticket2 = Registration.create({
-    user_id: 3,
-    event_id: 4
+ticket2 = Registration.create!({
+    user_id: ali.id,
+    event_id: event4.id
+
 })
 
-ticket2 = Registration.create({
-    user_id: 4,
-    event_id: 4
+ticket2 = Registration.create!({
+    user_id: chase.id,
+    event_id: event4.id
 })
 
-ticket3 = Registration.create({
-    user_id: 5,
-    event_id: 4
+ticket3 = Registration.create!({
+    user_id: jack.id,
+    event_id: event4.id
 })
 
-ticket4 = Registration.create({
-    user_id: 2,
-    event_id: 4
+ticket4 = Registration.create!({
+    user_id: raph.id,
+    event_id: event4.id
 })
 
-ticket5 = Registration.create({
-    user_id: 1,
-    event_id: 1
+ticket5 = Registration.create!({
+    user_id: demo.id,
+    event_id: event1.id
 })
 
-ticket6 = Registration.create({
-    user_id: 5,
-    event_id: 3
+ticket6 = Registration.create!({
+    user_id: jack.id,
+    event_id: event3.id
 })
 
-ticket7 = Registration.create({
-    user_id: 4,
-    event_id: 3
+ticket7 = Registration.create!({
+    user_id: chase.id,
+    event_id: event3.id
 })
 
 # image1 = URI.open('https://ravebrite-dev.s3.amazonaws.com/arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
@@ -119,3 +123,8 @@ ticket7 = Registration.create({
 # event2.photo.attach(io: image2, filename: 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
 # event3.photo.attach(io: image3, filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
 # event4.photo.attach(io: image4, filename: 'nick-kane-NMx_9N2QC5o-unsplash.jpg')
+
+event1.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')), filename: 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
+event2.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')), filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
+event3.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')), filename: 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
+event4.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nick-kane-NMx_9N2QC5o-unsplash.jpg')), filename: 'nick-kane-NMx_9N2QC5o-unsplash.jpg')

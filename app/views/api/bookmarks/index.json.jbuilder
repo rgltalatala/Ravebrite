@@ -9,5 +9,6 @@
         json.set! bookmark.id do
             json.extract! bookmark, :id, :user_id, :event_id
             json.extract! bookmark.event, :title, :description, :start_date, :start_time
+            json.photoUrl url_for(bookmark.event.photo)
         end
     end

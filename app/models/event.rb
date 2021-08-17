@@ -19,7 +19,7 @@ class Event < ApplicationRecord
         foreign_key: :event_id,
         class_name: :Bookmark
 
-    # has_one_attached :photo
+    has_one_attached :photo
 
     def self.genres
         genres = [

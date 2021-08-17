@@ -1,7 +1,7 @@
 @events.each do |event|
     json.set! event.id do 
         json.partial! event, event: @event
-        # json.photoUrl url_for(event.photo)
+        json.photoUrl url_for(event.photo)
 
         event.bookmarks.each do |bookmark|
             json.set! bookmark.user_id do
