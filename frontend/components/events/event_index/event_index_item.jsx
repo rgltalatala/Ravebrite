@@ -19,18 +19,18 @@ class EventIndexItem extends React.Component{
                     deleteBookmark,
                     createBookmark,
                     fetchEvent,
-                    id
                     } = this.props
-            let bookmarks = event.bookmarks || {};
-            let bookmark = bookmarks[currentUserId];
-            let bookmarkLogo = document.getElementById(`${id}`)
+            let bookmark = event.bookmark || {} ;
+            // let bookmark = bookmarks[currentUserId];
+            console.log(event)
+            console.log(bookmark)
 
-            if (bookmarks.hasOwnProperty(currentUserId)){
-                this.setState({bookmarked: false})
+            if (bookmark.hasOwnProperty("user_id")){
+                // this.setState({bookmarked: false})
                 deleteBookmark(bookmark.id)
                     .then(() => fetchEvent(event.id));
             } else {
-                this.setState({bookmarked: true})
+                // this.setState({bookmarked: true})
                 createBookmark({user_id: currentUserId, event_id: event.id})
                     .then(() => fetchEvent(event.id));
             }
@@ -42,23 +42,18 @@ class EventIndexItem extends React.Component{
     bookmarkEvent (){
         const {event, currentUserId} = this.props
 
-        let bookmarks = event.bookmarks || {};
-        // const bookmark = this.state.bookmarked || bookmarks.hasOwnProperty(currentUserId) 
+        let bookmark = event.bookmark || {};
 
-        if (!bookmarks.hasOwnProperty(currentUserId)){
-            // debugger
+        if (!bookmark.hasOwnProperty("user_id")){
             return <i className="far fa-heart bookmark" ></i>
         } else { 
-            // debugger
             return <i className="fas fa-heart bookmark active"></i>
         }
     }
 
     render(){
-        const {event, currentUserId} = this.props
+        const {event, currentUserId,} = this.props
         // create a function to switch class name and respectively switch to solid heart
-        
-
         return(
             <div className="event-index-item-container">
                 <li className="event-index-item">

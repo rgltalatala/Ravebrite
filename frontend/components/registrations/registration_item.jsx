@@ -10,7 +10,9 @@ class RegistrationItem extends React.Component {
 
         return(
             <div className="registration-card">
-                <div className="registration-image"></div>
+                <div className="registration-image-wrapper">
+                    <img src={registration.photoUrl} alt="event photo" className="registration-image" />
+                </div>
                 <div className="registration-info">
                     <h2 className="registration-title">
                         <Link to={`/events/${registration.event_id}`}>{registration.title}</Link>

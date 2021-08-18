@@ -5,11 +5,11 @@ import { createBookmark, deleteBookmark } from "../../../actions/bookmark_action
 
 
 const mSTP = state => {
-    let bookmarks = state.session.id ? state.entities.users[state.session.id].bookmarks : []
+    let bookmark = state.session.id ? state.entities.users[state.session.id].bookmark : []
     return {
         events: Object.values(state.entities.events),
         currentUserId: state.session.id,
-        bookmarks
+        bookmark
     }
 }
 

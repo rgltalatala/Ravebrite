@@ -9,7 +9,9 @@ class BookmarkItem extends React.Component {
 
         return(
             <div className="registration-card">
-                <div className="registration-image"></div>
+                <div className="registration-image-wrapper">
+                    <img src={bookmark.photoUrl} alt="event photo" className="registration-image"/>
+                </div>
                 <div className="registration-info">
                     <h2 className="registration-title">
                         <Link to={`/events/${bookmark.event_id}`}>{bookmark.title}</Link>

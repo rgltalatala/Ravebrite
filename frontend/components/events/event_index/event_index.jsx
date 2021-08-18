@@ -30,7 +30,7 @@ class EventIndex extends React.Component{
                 deleteEvent,
                 deleteBookmark,
                 createBookmark,
-                bookmarks
+                bookmark
                 } = this.props
 
         const selected = this.state.genre_idx;
@@ -93,7 +93,7 @@ class EventIndex extends React.Component{
                         currentUserId={currentUserId}
                         createBookmark={createBookmark}
                         deleteBookmark={deleteBookmark}
-                        bookmarks={bookmarks}
+                        bookmark={bookmark}
                         fetchEvent={fetchEvent}
                     />
             )

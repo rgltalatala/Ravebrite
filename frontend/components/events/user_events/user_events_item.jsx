@@ -13,7 +13,9 @@ class UserEventsItem extends React.Component{
 
         return(
             <div className="registration-card">
-                <div className="registration-image"></div>
+                <div className="registration-image-wrapper">
+                    <img src={event.photoUrl} alt="event photo" className="registration-image"/>
+                </div>
                 <div className="registration-info">
                     {/* <Link to={`/events/${event.id}`} className="card-image"></Link> */}
                     <h2 className="registration-title">

@@ -36,13 +36,20 @@
     }
 }
 
-.registration-image {
-    background-image: url("festival-friends.jpg");
+.registration-image-wrapper {
+    // background-image: url("festival-friends.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0% 65%;
     width: 320px;
     height: 150px;
+    border-radius: 4px;
+}
+
+.registration-image{
+    height: 100%;  //40%
+    width: 100%;
+    object-fit: cover;
     border-radius: 4px;
 }
 

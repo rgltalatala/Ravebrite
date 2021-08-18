@@ -4,7 +4,7 @@
         json.photoUrl url_for(event.photo)
 
         event.bookmarks.each do |bookmark|
-            json.set! bookmark.user_id do
+            json.set! "bookmark" do
                 json.extract! bookmark, :id, :user_id, :event_id
             end
         end

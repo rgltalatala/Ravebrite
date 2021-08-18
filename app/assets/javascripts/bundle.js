@@ -662,8 +662,12 @@ var BookmarkItem = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-image-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: bookmark.photoUrl,
+        alt: "event photo",
         className: "registration-image"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-info"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "registration-title"
@@ -1361,7 +1365,7 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
           deleteEvent = _this$props.deleteEvent,
           deleteBookmark = _this$props.deleteBookmark,
           createBookmark = _this$props.createBookmark,
-          bookmarks = _this$props.bookmarks;
+          bookmark = _this$props.bookmark;
       var selected = this.state.genre_idx;
       var eventGenres = _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.genres.map(function (genre, index) {
         var eventGenre = genre;
@@ -1459,7 +1463,7 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
           currentUserId: currentUserId,
           createBookmark: createBookmark,
           deleteBookmark: deleteBookmark,
-          bookmarks: bookmarks,
+          bookmark: bookmark,
           fetchEvent: fetchEvent
         });
       });
@@ -1515,11 +1519,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mSTP = function mSTP(state) {
-  var bookmarks = state.session.id ? state.entities.users[state.session.id].bookmarks : [];
+  var bookmark = state.session.id ? state.entities.users[state.session.id].bookmark : [];
   return {
     events: Object.values(state.entities.events),
     currentUserId: state.session.id,
-    bookmarks: bookmarks
+    bookmark: bookmark
   };
 };
 
@@ -1619,23 +1623,19 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             event = _this$props.event,
             deleteBookmark = _this$props.deleteBookmark,
             createBookmark = _this$props.createBookmark,
-            fetchEvent = _this$props.fetchEvent,
-            id = _this$props.id;
-        var bookmarks = event.bookmarks || {};
-        var bookmark = bookmarks[currentUserId];
-        var bookmarkLogo = document.getElementById("".concat(id));
+            fetchEvent = _this$props.fetchEvent;
+        var bookmark = event.bookmark || {}; // let bookmark = bookmarks[currentUserId];
 
-        if (bookmarks.hasOwnProperty(currentUserId)) {
-          this.setState({
-            bookmarked: false
-          });
+        console.log(event);
+        console.log(bookmark);
+
+        if (bookmark.hasOwnProperty("user_id")) {
+          // this.setState({bookmarked: false})
           deleteBookmark(bookmark.id).then(function () {
             return fetchEvent(event.id);
           });
         } else {
-          this.setState({
-            bookmarked: true
-          });
+          // this.setState({bookmarked: true})
           createBookmark({
             user_id: currentUserId,
             event_id: event.id
@@ -1653,15 +1653,13 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
       var _this$props2 = this.props,
           event = _this$props2.event,
           currentUserId = _this$props2.currentUserId;
-      var bookmarks = event.bookmarks || {}; // const bookmark = this.state.bookmarked || bookmarks.hasOwnProperty(currentUserId) 
+      var bookmark = event.bookmark || {};
 
-      if (!bookmarks.hasOwnProperty(currentUserId)) {
-        // debugger
+      if (!bookmark.hasOwnProperty("user_id")) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
           className: "far fa-heart bookmark"
         });
       } else {
-        // debugger
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
           className: "fas fa-heart bookmark active"
         });
@@ -2253,8 +2251,12 @@ var UserEventsItem = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-image-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: event.photoUrl,
+        alt: "event photo",
         className: "registration-image"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-info"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "registration-title"
@@ -2530,8 +2532,12 @@ var RegistrationItem = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+        className: "registration-image-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: registration.photoUrl,
+        alt: "event photo",
         className: "registration-image"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-info"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
         className: "registration-title"

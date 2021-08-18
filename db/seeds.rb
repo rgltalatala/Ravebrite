@@ -119,10 +119,10 @@ ticket7 = Registration.create!({
 # image3 = URI.open('https://ravebrite-dev.s3.amazonaws.com/nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
 # image4 = URI.open('https://ravebrite-dev.s3.amazonaws.com/nick-kane-NMx_9N2QC5o-unsplash.jpg')
 
-# event1.photo.attach(io: image1, filename: 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
-# event2.photo.attach(io: image2, filename: 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
-# event3.photo.attach(io: image3, filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
-# event4.photo.attach(io: image4, filename: 'nick-kane-NMx_9N2QC5o-unsplash.jpg')
+event1.photo.attach(io: image1, filename: 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
+event2.photo.attach(io: image2, filename: 'colin-lloyd-5TGwSC4dHOU-unsplash.jpg')
+event3.photo.attach(io: image3, filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
+event4.photo.attach(io: image4, filename: 'nick-kane-NMx_9N2QC5o-unsplash.jpg')
 
 event1.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')), filename: 'arthur-edelmans-nu7AOx73UOM-unsplash.jpg')
 event2.photo.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')), filename: 'nainoa-shizuru-NcdG9mK3PBY-unsplash.jpg')
