@@ -3,6 +3,8 @@ import UserEventsItem from './user_events_item'
 
 class UserEvents extends React.Component {
     componentDidMount(){
+        let footer = document.getElementsByClassName('footer')[0]
+        footer.removeAttribute("style")
         this.props.fetchHostedEvents(this.props.match.params.userId)
     }
 

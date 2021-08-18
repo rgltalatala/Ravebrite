@@ -47,7 +47,6 @@ class EventForm extends React.Component{
         //     contentType: false,
         //     processData: false
         // });
-        debugger
         this.props.processForm(formData, this.props.eventId)
             .then((res) => this.props.history.push(`/events/${res.event.id}`))
     }
@@ -85,8 +84,11 @@ class EventForm extends React.Component{
     }
 
     render(){
-        const {formType} = this.props
+        const {event, formType} = this.props
         const preview = this.state.photoUrl ? <img src={this.state.photoUrl}/> : '';
+        let currentDate = new Date().toISOString()
+        currentDate = currentDate.slice(0, 19);
+
         return (
             <div className="event-form-wrapper">
                 <form onSubmit={this.handleSubmit} className='event-form'>
@@ -172,55 +174,61 @@ class EventForm extends React.Component{
                             <p>
                                 Tell event-goers when your event starts and ends so they can make plans to attend.
                             </p>
-                            <div className="form-input-group">
-                                <input 
-                                    type="date" 
-                                    value={this.state.event.start_date}
-                                    onChange={this.update('start_date')}
-                                    className="event-form-input"
-                                />
-                                <label className="event-form-label">Event Starts </label>
-                            </div>
-                            <br />
+                            <div className='date-wrapper'>
+                                <div className="form-input-group">
+                                    <input 
+                                        type="date" 
+                                        value={this.state.event.start_date}
+                                        onChange={this.update('start_date')}
+                                        min={currentDate}
+                                        className="event-form-input"
+                                    />
+                                    <label className="event-form-label">Event Starts </label>
+                                </div>
+                                <br />
 
-                            <div className="form-input-group">
-                                <select 
-                                    value={this.state.event.start_time}
-                                    onChange={this.update('start_time')}
-                                    className="event-form-input"
-                                    >
-                                    <option >Start Time</option>
-                                    {times.map((time, i) => (
-                                        <option value={`${time}`} key={i}>{time}</option>
-                                    ))}
-                                </select>
-                                <label className="event-form-label">Start Time </label>
+                                <div className="form-input-group-time">
+                                    <select 
+                                        value={this.state.event.start_time}
+                                        onChange={this.update('start_time')}
+                                        className="event-form-input"
+                                        >
+                                        <option >Start Time</option>
+                                        {times.map((time, i) => (
+                                            <option value={`${time}`} key={i}>{time}</option>
+                                        ))}
+                                    </select>
+                                    <label className="event-form-label">Start Time </label>
+                                </div>
+                                <br />
                             </div>
-                            <br />
-                        
-                            <div className="form-input-group">
-                                <input 
-                                    type="date" 
-                                    value={this.state.event.end_date}
-                                    onChange={this.update('end_date')}
-                                    className="event-form-input"
-                                />
-                                <label className="event-form-label">Event Ends </label>
-                            </div>
-                            <br />
+                            
+                            <div className='date-wrapper'>
+                                <div className="form-input-group">
+                                    <input 
+                                        type="date" 
+                                        value={this.state.event.end_date}
+                                        onChange={this.update('end_date')}
+                                        min={this.state.event.start_date}
+                                        className="event-form-input"
+                                    />
+                                    <label className="event-form-label">Event Ends </label>
+                                </div>
+                                <br />
 
-                            <div className="form-input-group">
-                                <select 
-                                    value={this.state.event.end_time}
-                                    onChange={this.update('end_time')}
-                                    className="event-form-input"
-                                    >
-                                    <option>End Time</option>
-                                    {times.map((time, i) => (
-                                        <option value={`${time}`} key={i}>{time}</option>
-                                    ))}
-                                </select>
-                                <label className="event-form-label">End Time</label>
+                                <div className="form-input-group-time">
+                                    <select 
+                                        value={this.state.event.end_time}
+                                        onChange={this.update('end_time')}
+                                        className="event-form-input"
+                                        >
+                                        <option>End Time</option>
+                                        {times.map((time, i) => (
+                                            <option value={`${time}`} key={i}>{time}</option>
+                                        ))}
+                                    </select>
+                                    <label className="event-form-label">End Time</label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -244,7 +252,10 @@ class EventForm extends React.Component{
                                 className="event-form-input-image"
                                 onChange={this.handleFile}
                             />
-                            {preview}
+                            <h3>Image Preview</h3>
+                            <div className="image-preview">
+                                {preview}
+                            </div>
                         </div>
                     </div>
                     <br />

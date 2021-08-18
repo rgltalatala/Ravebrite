@@ -3,6 +3,8 @@ import BookmarkItem from './bookmark_item'
 
 class Bookmarks extends React.Component{
     componentDidMount(){
+        let footer = document.getElementsByClassName('footer')[0]
+        footer.removeAttribute("style")
         this.props.fetchBookmarks(this.props.currentUser)
     }
 

@@ -4,6 +4,8 @@ import RegistrationItem from './registration_item'
 class UserRegistrations extends React.Component{
 
     componentDidMount(){
+        let footer = document.getElementsByClassName('footer')[0]
+        footer.removeAttribute("style")
         this.props.fetchRegistrations(this.props.currentUser)
     }
 

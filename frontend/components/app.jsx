@@ -27,22 +27,21 @@ function App () {
     return (
         <>
             <NavBarContainer />
-            <div>
-                <Switch>
-                    <AuthRoute exact path="/login" component={LoginFormContainer} />
-                    <AuthRoute exact path="/signup" component={SignupFormContainer} />
-                </Switch>
-                <Switch>
-                    {/* <Route exact path="/" component={Footer} /> */}
-                    <Route exact path='/' component={EventIndexContainer} />
-                    <Route exact path="/users/:userId/events" component={UserEventsContainer}/>
-                    <ProtectedRoute exact path="/users/:userId/bookmarks" component={BookmarksContainer} />
-                    <ProtectedRoute exact path="/users/:userId/registrations" component={UserRegistrationsContainer} />
-                    <ProtectedRoute exact path="/events/create" component={CreateEventFormContainer} />
-                    <Route exact path="/events/:eventId" component={EventShowContainer} />
-                    <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />
-                </Switch>
-            </div>
+            <Switch>
+                <AuthRoute exact path="/login" component={LoginFormContainer} />
+                <AuthRoute exact path="/signup" component={SignupFormContainer} />
+            </Switch>
+            <Switch>
+                <Route exact path='/' component={EventIndexContainer} />
+                <Route exact path="/users/:userId/events" component={UserEventsContainer}/>
+                <ProtectedRoute exact path="/users/:userId/bookmarks" component={BookmarksContainer} />
+                <ProtectedRoute exact path="/users/:userId/registrations" component={UserRegistrationsContainer} />
+                <ProtectedRoute exact path="/events/create" component={CreateEventFormContainer} />
+                <Route exact path="/events/:eventId" component={EventShowContainer} />
+                <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />
+            </Switch>
+            {/* <Route path="/" component={Footer} /> */}
+            {/* <Footer /> */}
         </>
     )
 }

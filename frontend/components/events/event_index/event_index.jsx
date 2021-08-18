@@ -16,6 +16,8 @@ class EventIndex extends React.Component{
     //fetchEventGenre to only fetch events we care about (ie specific genre)
 
     componentDidMount(){
+        let footer = document.getElementsByClassName('footer')[0]
+        footer.removeAttribute("style")
         this.props.fetchEvents()
     }
 

@@ -9,11 +9,11 @@
 require 'open-uri'
 
 User.destroy_all
-User.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
+# User.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
 Event.destroy_all
-Event.connection.execute('ALTER SEQUENCE events_id_seq RESTART WITH 1')
+# Event.connection.execute('ALTER SEQUENCE events_id_seq RESTART WITH 1')
 Registration.destroy_all
-Registration.connection.execute('ALTER SEQUENCE registrations_id_seq RESTART WITH 1')
+# Registration.connection.execute('ALTER SEQUENCE registrations_id_seq RESTART WITH 1')
 
 # Users 
 

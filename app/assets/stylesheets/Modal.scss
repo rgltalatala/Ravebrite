@@ -9,6 +9,7 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
+    height: 100%;
 }
 
 .modal-content {
@@ -147,3 +148,16 @@
     justify-content: space-between;
     background-color: #F8F7FA;
 }
+
+@media screen and (max-height: 780px){
+    .modal-content{
+        height: 80%;
+        width: 80%;
+    }
+
+    .order-summary{
+        height: 20%;
+    }
+}
+
+// 920px

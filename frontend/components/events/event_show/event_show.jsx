@@ -59,6 +59,8 @@ class EventShow extends React.Component{
     }
 
     componentDidMount(){
+        let footer = document.getElementsByClassName('footer')[0]
+        footer.setAttribute("style", "margin-top: 5%")
         this.props.fetchEvent(this.props.match.params.eventId).then(() => {
             this.setState({loading: false})
         })
@@ -70,9 +72,9 @@ class EventShow extends React.Component{
     }
 
     purchaseTicket(registration){
-        const {currentUserId, event} = this.props
+        const {createRegistration, currentUserId, event} = this.props
         if (currentUserId) {
-            this.props.createRegistration({user_id: currentUserId, event_id: event.id})
+            createRegistration({user_id: currentUserId, event_id: event.id})
             .then((res) => this.props.history.push(`/users/${currentUserId}/registrations`))
         } else {
             this.props.history.push('/login');
@@ -112,7 +114,6 @@ class EventShow extends React.Component{
             }
 
             const RegistrationModal = () => {
-
                 return(
                     <div className="registration-modal" onClick={this.closeModal}>
                         <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -146,7 +147,7 @@ class EventShow extends React.Component{
                             <div className="modal-content-right">
                                 <div className="close-button" onClick={this.closeModal}>x</div>
                                 <div className="modal-image">
-                                    <img src={window.rave} alt="rave"/>
+                                    <img src={event.photoUrl} alt="rave"/>
                                 </div>
                                 <div className="order-summary">
                                     <h3>
@@ -155,13 +156,14 @@ class EventShow extends React.Component{
                                     <br />
                                     <div className="ticket-price">
                                         <p>1 x {event.title}</p>
-                                        <p>$20.00</p>
+                                        {/* <p>$20.00</p> */}
                                     </div>
                                 </div>
                                 <div className="price-total">
                                     <div className="ticket-price">
                                         <h3>Total</h3>
-                                        <p>$20.00</p>
+                                        <p>1 ticket</p>
+                                        {/* <p>$20.00</p> */}
                                     </div>
                                 </div>
                             </div>
