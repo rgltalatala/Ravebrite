@@ -8,7 +8,8 @@ class EventShow extends React.Component{
         this.state = {
             loading: true,
             bookmarked: false,
-            modal: false
+            modal: false,
+            ticketAmount: 1
         };
         
 
@@ -17,6 +18,7 @@ class EventShow extends React.Component{
         this.purchaseTicket = this.purchaseTicket.bind(this)
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.changeTicketAmount = this.changeTicketAmount.bind(this)
     }
 
     handleBookmark(e) {
@@ -74,8 +76,10 @@ class EventShow extends React.Component{
     purchaseTicket(registration){
         const {createRegistration, currentUserId, event} = this.props
         if (currentUserId) {
-            createRegistration({user_id: currentUserId, event_id: event.id})
-            .then((res) => this.props.history.push(`/users/${currentUserId}/registrations`))
+            for (let i = 0; i < this.state.ticketAmount; i++){
+                createRegistration({user_id: currentUserId, event_id: event.id})
+            }
+            this.props.history.push(`/users/${currentUserId}/registrations`)
         } else {
             this.props.history.push('/login');
         }
@@ -90,6 +94,11 @@ class EventShow extends React.Component{
     }
 
     componentWillUnmount() {
+    }
+
+    changeTicketAmount(e){
+        const valueSelectedByUser = parseInt(e.target.value);
+        this.setState({ ticketAmount : valueSelectedByUser });
     }
 
     render(){
@@ -155,15 +164,23 @@ class EventShow extends React.Component{
                                     </h3>
                                     <br />
                                     <div className="ticket-price">
-                                        <p>1 x {event.title}</p>
-                                        {/* <p>$20.00</p> */}
+                                    <select 
+                                        placeholder="1"
+                                        onChange={this.changeTicketAmount}
+                                        value={this.state.ticketAmount}
+                                    > 
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                    <p>x {event.title}</p>
                                     </div>
                                 </div>
                                 <div className="price-total">
                                     <div className="ticket-price">
                                         <h3>Total</h3>
-                                        <p>1 ticket</p>
-                                        {/* <p>$20.00</p> */}
+                                        <p>{this.state.ticketAmount} ticket(s)</p>
                                     </div>
                                 </div>
                             </div>

@@ -9,10 +9,9 @@ const receiveBookmarks = bookmarks => ({
     bookmarks
 })
 
-const receiveBookmark = (bookmark, eventId) => ({
+const receiveBookmark = (bookmark) => ({
     type: RECEIVE_BOOKMARK,
-    bookmark,
-    eventId
+    bookmark
 })
 
 const removeBookmark = bookmarkId => ({
@@ -27,7 +26,7 @@ export const fetchBookmarks = (userId) => dispatch => {
 
 export const createBookmark = (bookmark) => dispatch => {
     return BookmarkAPIUtil.createBookmark(bookmark)
-        .then(bookmark => dispatch(receiveBookmark(bookmark, bookmark.event_id)))
+        .then(bookmark => dispatch(receiveBookmark(bookmark)))
 }
 
 export const deleteBookmark = (bookmarkId) => dispatch => {

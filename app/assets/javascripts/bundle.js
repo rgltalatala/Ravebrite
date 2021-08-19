@@ -214,11 +214,10 @@ var receiveBookmarks = function receiveBookmarks(bookmarks) {
   };
 };
 
-var receiveBookmark = function receiveBookmark(bookmark, eventId) {
+var receiveBookmark = function receiveBookmark(bookmark) {
   return {
     type: RECEIVE_BOOKMARK,
-    bookmark: bookmark,
-    eventId: eventId
+    bookmark: bookmark
   };
 };
 
@@ -239,7 +238,7 @@ var fetchBookmarks = function fetchBookmarks(userId) {
 var createBookmark = function createBookmark(bookmark) {
   return function (dispatch) {
     return _util_bookmark_api_util__WEBPACK_IMPORTED_MODULE_0__.createBookmark(bookmark).then(function (bookmark) {
-      return dispatch(receiveBookmark(bookmark, bookmark.event_id));
+      return dispatch(receiveBookmark(bookmark));
     });
   };
 };
@@ -1627,17 +1626,6 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.handleBookmark = _this.handleBookmark.bind(_assertThisInitialized(_this));
-    _this.state = {
-      bookmarked: false
-    };
-
-    var bookmarkLogo = function bookmarkLogo() {
-      /*#__PURE__*/
-      react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-        className: "far fa-heart bookmark"
-      });
-    };
-
     return _this;
   }
 
@@ -1654,21 +1642,18 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             createBookmark = _this$props.createBookmark,
             fetchEvent = _this$props.fetchEvent;
         var bookmark = event.bookmark || {};
-        console.log(bookmark);
 
         if (bookmark.hasOwnProperty("user_id")) {
           deleteBookmark(bookmark.id).then(function () {
             return fetchEvent(event.id);
-          });
-          this.bookmarkEvent();
+          }); // $( `#${event.id}` ).removeClass("active");
         } else {
           createBookmark({
             user_id: currentUserId,
             event_id: event.id
           }).then(function () {
             return fetchEvent(event.id);
-          });
-          this.bookmarkEvent();
+          }); // $( `#${event.id}` ).addClass("active");
         }
       } else {
         this.props.history.push('/login');
@@ -1679,19 +1664,25 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
     value: function bookmarkEvent() {
       var _this$props2 = this.props,
           event = _this$props2.event,
-          currentUserId = _this$props2.currentUserId;
+          currentUserId = _this$props2.currentUserId,
+          fetchEvent = _this$props2.fetchEvent;
       var bookmark = event.bookmark || {};
 
       if (!bookmark.hasOwnProperty("user_id")) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-          className: "far fa-heart bookmark"
+          className: "far fa-heart bookmark",
+          id: event.id
         });
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-          className: "fas fa-heart bookmark active"
+          className: "fas fa-heart bookmark active",
+          id: event.id
         });
       }
-    }
+    } // componentDidUpdate(){
+    //     this.props.fetchEvent(this.props.event.id)
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -1699,8 +1690,6 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
           event = _this$props3.event,
           currentUserId = _this$props3.currentUserId;
       var bookmark = event.bookmark || {};
-      console.log(bookmark); // create a function to switch class name and respectively switch to solid heart
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "event-index-item-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", {
@@ -1794,13 +1783,15 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       loading: true,
       bookmarked: false,
-      modal: false
+      modal: false,
+      ticketAmount: 1
     };
     _this.deleteEvent = _this.deleteEvent.bind(_assertThisInitialized(_this));
     _this.handleBookmark = _this.handleBookmark.bind(_assertThisInitialized(_this));
     _this.purchaseTicket = _this.purchaseTicket.bind(_assertThisInitialized(_this));
     _this.openModal = _this.openModal.bind(_assertThisInitialized(_this));
     _this.closeModal = _this.closeModal.bind(_assertThisInitialized(_this));
+    _this.changeTicketAmount = _this.changeTicketAmount.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1881,20 +1872,20 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "purchaseTicket",
     value: function purchaseTicket(registration) {
-      var _this3 = this;
-
       var _this$props3 = this.props,
           createRegistration = _this$props3.createRegistration,
           currentUserId = _this$props3.currentUserId,
           event = _this$props3.event;
 
       if (currentUserId) {
-        createRegistration({
-          user_id: currentUserId,
-          event_id: event.id
-        }).then(function (res) {
-          return _this3.props.history.push("/users/".concat(currentUserId, "/registrations"));
-        });
+        for (var i = 0; i < this.state.ticketAmount; i++) {
+          createRegistration({
+            user_id: currentUserId,
+            event_id: event.id
+          });
+        }
+
+        this.props.history.push("/users/".concat(currentUserId, "/registrations"));
       } else {
         this.props.history.push('/login');
       }
@@ -1917,9 +1908,17 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {}
   }, {
+    key: "changeTicketAmount",
+    value: function changeTicketAmount(e) {
+      var valueSelectedByUser = parseInt(e.target.value);
+      this.setState({
+        ticketAmount: valueSelectedByUser
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (this.state.loading) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "loading");
@@ -1936,7 +1935,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "edit"
           }, "Edit Event")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             onClick: function onClick() {
-              return _this4.deleteEvent(event.id);
+              return _this3.deleteEvent(event.id);
             },
             className: "user-button"
           }, "Delete Event"));
@@ -1945,7 +1944,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         var RegistrationModal = function RegistrationModal() {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "registration-modal",
-            onClick: _this4.closeModal
+            onClick: _this3.closeModal
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-content",
             onClick: function onClick(e) {
@@ -1961,12 +1960,12 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "modal-purchase-button-wrapper"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
             className: "modal-purchase-button",
-            onClick: _this4.purchaseTicket
+            onClick: _this3.purchaseTicket
           }, "Purchase"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-content-right"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "close-button",
-            onClick: _this4.closeModal
+            onClick: _this3.closeModal
           }, "x"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "modal-image"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
@@ -1976,11 +1975,23 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "order-summary"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "Order Summary"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "ticket-price"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "1 x ", event.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("select", {
+            placeholder: "1",
+            onChange: _this3.changeTicketAmount,
+            value: _this3.state.ticketAmount
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("option", {
+            value: "1"
+          }, "1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("option", {
+            value: "2"
+          }, "2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("option", {
+            value: "3"
+          }, "3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("option", {
+            value: "4"
+          }, "4")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "x ", event.title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "price-total"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "ticket-price"
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "1 ticket"))))));
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", null, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, _this3.state.ticketAmount, " ticket(s)"))))));
         };
 
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
@@ -2018,7 +2029,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
           className: "purchase-button",
           onClick: function onClick() {
-            return _this4.openModal();
+            return _this3.openModal();
           }
         }, "Purchase tickets"), !this.state.modal ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(RegistrationModal, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-info"
