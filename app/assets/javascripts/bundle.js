@@ -1133,7 +1133,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         src: this.state.photoUrl
       }) : '';
       var currentDate = new Date().toISOString();
-      currentDate = currentDate.slice(0, 19);
+      currentDate = currentDate.slice(0, 10);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "event-form-wrapper"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
@@ -1161,7 +1161,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         className: "event-form-input-genre",
         placeholder: "genre",
         value: this.state.event.genre
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Genre"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.genres.map(function (genre, i) {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+        disabled: true
+      }, "Genre"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.genres.map(function (genre, i) {
         if (i === 0) {
           return '';
         } else {
@@ -1213,7 +1215,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         value: this.state.event.start_time,
         onChange: this.update('start_time'),
         className: "event-form-input"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "Start Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+        disabled: true
+      }, "Start Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
           value: "".concat(time),
           key: i
@@ -1238,7 +1242,9 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
         value: this.state.event.end_time,
         onChange: this.update('end_time'),
         className: "event-form-input"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", null, "End Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+        disabled: true
+      }, "End Time"), _util_event_form_util__WEBPACK_IMPORTED_MODULE_1__.times.map(function (time, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
           value: "".concat(time),
           key: i
@@ -1624,6 +1630,14 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       bookmarked: false
     };
+
+    var bookmarkLogo = function bookmarkLogo() {
+      /*#__PURE__*/
+      react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+        className: "far fa-heart bookmark"
+      });
+    };
+
     return _this;
   }
 
@@ -1639,24 +1653,22 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             deleteBookmark = _this$props.deleteBookmark,
             createBookmark = _this$props.createBookmark,
             fetchEvent = _this$props.fetchEvent;
-        var bookmark = event.bookmark || {}; // let bookmark = bookmarks[currentUserId];
-
-        console.log(event);
+        var bookmark = event.bookmark || {};
         console.log(bookmark);
 
         if (bookmark.hasOwnProperty("user_id")) {
-          // this.setState({bookmarked: false})
           deleteBookmark(bookmark.id).then(function () {
             return fetchEvent(event.id);
           });
+          this.bookmarkEvent();
         } else {
-          // this.setState({bookmarked: true})
           createBookmark({
             user_id: currentUserId,
             event_id: event.id
           }).then(function () {
             return fetchEvent(event.id);
           });
+          this.bookmarkEvent();
         }
       } else {
         this.props.history.push('/login');
@@ -1685,7 +1697,9 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props3 = this.props,
           event = _this$props3.event,
-          currentUserId = _this$props3.currentUserId; // create a function to switch class name and respectively switch to solid heart
+          currentUserId = _this$props3.currentUserId;
+      var bookmark = event.bookmark || {};
+      console.log(bookmark); // create a function to switch class name and respectively switch to solid heart
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "event-index-item-container"

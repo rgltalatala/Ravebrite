@@ -87,7 +87,8 @@ class EventForm extends React.Component{
         const {event, formType} = this.props
         const preview = this.state.photoUrl ? <img src={this.state.photoUrl}/> : '';
         let currentDate = new Date().toISOString()
-        currentDate = currentDate.slice(0, 19);
+        currentDate = currentDate.slice(0, 10);
+        
 
         return (
             <div className="event-form-wrapper">
@@ -127,7 +128,7 @@ class EventForm extends React.Component{
                                 placeholder="genre"
                                 value={this.state.event.genre}
                             > 
-                                <option >Genre</option>
+                                <option disabled>Genre</option>
                                 {genres.map((genre, i) => {
                                     if (i === 0){
                                         return ''
@@ -193,7 +194,7 @@ class EventForm extends React.Component{
                                         onChange={this.update('start_time')}
                                         className="event-form-input"
                                         >
-                                        <option >Start Time</option>
+                                        <option disabled>Start Time</option>
                                         {times.map((time, i) => (
                                             <option value={`${time}`} key={i}>{time}</option>
                                         ))}
@@ -222,7 +223,7 @@ class EventForm extends React.Component{
                                         onChange={this.update('end_time')}
                                         className="event-form-input"
                                         >
-                                        <option>End Time</option>
+                                        <option disabled>End Time</option>
                                         {times.map((time, i) => (
                                             <option value={`${time}`} key={i}>{time}</option>
                                         ))}

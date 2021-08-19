@@ -2,9 +2,8 @@ class Api::RegistrationsController < ApplicationController
     before_action :require_logged_in, only: [:index, :create, :destroy]
 
     def index
-        # debugger
         @registrations = User.find_by(id: params[:user_id]).registrations
-        # debugger
+        
         render :index
     end
     

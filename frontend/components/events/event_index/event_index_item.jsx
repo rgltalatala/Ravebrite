@@ -8,6 +8,7 @@ class EventIndexItem extends React.Component{
         super(props)
         this.handleBookmark = this.handleBookmark.bind(this)
         this.state = { bookmarked: false }
+        let bookmarkLogo = function () {<i className="far fa-heart bookmark"></i>}
     }
     
     handleBookmark(e) {
@@ -21,18 +22,16 @@ class EventIndexItem extends React.Component{
                     fetchEvent,
                     } = this.props
             let bookmark = event.bookmark || {} ;
-            // let bookmark = bookmarks[currentUserId];
-            console.log(event)
             console.log(bookmark)
 
             if (bookmark.hasOwnProperty("user_id")){
-                // this.setState({bookmarked: false})
                 deleteBookmark(bookmark.id)
-                    .then(() => fetchEvent(event.id));
+                .then(() => fetchEvent(event.id));
+                this.bookmarkEvent()
             } else {
-                // this.setState({bookmarked: true})
                 createBookmark({user_id: currentUserId, event_id: event.id})
-                    .then(() => fetchEvent(event.id));
+                .then(() => fetchEvent(event.id));
+                this.bookmarkEvent()
             }
         } else {
             this.props.history.push('/login');
@@ -45,7 +44,8 @@ class EventIndexItem extends React.Component{
         let bookmark = event.bookmark || {};
 
         if (!bookmark.hasOwnProperty("user_id")){
-            return <i className="far fa-heart bookmark" ></i>
+            return <i className="far fa-heart bookmark"></i>
+
         } else { 
             return <i className="fas fa-heart bookmark active"></i>
         }
@@ -53,6 +53,8 @@ class EventIndexItem extends React.Component{
 
     render(){
         const {event, currentUserId,} = this.props
+        let bookmark = event.bookmark || {};
+        console.log(bookmark)
         // create a function to switch class name and respectively switch to solid heart
         return(
             <div className="event-index-item-container">
@@ -64,6 +66,7 @@ class EventIndexItem extends React.Component{
                     <div className="bookmark-wrapper">
                         <div className="bookmark-circle" onClick={this.handleBookmark} >
                             {this.bookmarkEvent()}
+                            {/* {this.bookmarkLogo} */}
                         </div>
                     </div>
                     <div className="event-info-wrapper">
