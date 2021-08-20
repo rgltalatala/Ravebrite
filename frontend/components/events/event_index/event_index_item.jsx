@@ -40,10 +40,14 @@ class EventIndexItem extends React.Component{
         const {event, currentUserId, fetchEvent} = this.props
 
         let bookmark = event.bookmark || {};
-        if (!bookmark.hasOwnProperty("user_id")){
+        if (currentUserId){
+            if (!bookmark.hasOwnProperty("user_id")){
+                return <i className="far fa-heart bookmark" id={event.id}></i>
+            } else { 
+                return <i className="fas fa-heart bookmark active" id={event.id}></i>
+            }
+        } else {
             return <i className="far fa-heart bookmark" id={event.id}></i>
-        } else { 
-            return <i className="fas fa-heart bookmark active" id={event.id}></i>
         }
     }
 

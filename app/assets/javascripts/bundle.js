@@ -1671,14 +1671,21 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
           fetchEvent = _this$props2.fetchEvent;
       var bookmark = event.bookmark || {};
 
-      if (!bookmark.hasOwnProperty("user_id")) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-          className: "far fa-heart bookmark",
-          id: event.id
-        });
+      if (currentUserId) {
+        if (!bookmark.hasOwnProperty("user_id")) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+            className: "far fa-heart bookmark",
+            id: event.id
+          });
+        } else {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
+            className: "fas fa-heart bookmark active",
+            id: event.id
+          });
+        }
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
-          className: "fas fa-heart bookmark active",
+          className: "far fa-heart bookmark",
           id: event.id
         });
       }
@@ -2680,13 +2687,11 @@ var UserRegistrations = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           registrations = _this$props.registrations,
           deleteRegistration = _this$props.deleteRegistration;
-      var check = {};
-      var tickets = registrations.map(function (event) {
-        if (!Object.keys(check).includes(event.event_id)) {
-          check[event.event_id] = event;
-        }
-      }); // const sortedActivities = Object.values(registrations).slice().sort((a, b) => b.start_date - a.start_date)
-      // console.log(Object.values(check))
+      var check = {}; // const tickets = registrations.map((event) => {
+      //     if (!Object.keys(check).includes(event.event_id)){
+      //         check[event.event_id] = event
+      //     }
+      // })
 
       var sortedRegistrations = Object.values(registrations).sort(function (a, b) {
         return new Date(a.start_date) - new Date(b.start_date);
@@ -3491,7 +3496,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_0___default())));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
