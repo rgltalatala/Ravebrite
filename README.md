@@ -30,7 +30,7 @@ Ravebrite is an Eventbrite clone where users will be able to search and register
 * Users will be able to purchase tickets and view all tickets they own
 ![registration](https://user-images.githubusercontent.com/63977819/130277389-45de417d-4376-46a3-bba5-fdddf1b63511.gif)
 
-```
+```javascript
 purchaseTicket(registration){
         const {createRegistration, currentUserId, event, fetchRegistrations} = this.props
         if (currentUserId) {
@@ -44,8 +44,24 @@ purchaseTicket(registration){
         }
     }
 ```
-This function will execute the thunk action creator depending on the amount of tickets the user wants to purchase.  Upon purchase, the user will be redirected to the show page of their tickets to see their newly purchased tickets.  One issue was that not all of the tickets were able to show up on the page upon redirect, so fetching all of the tickets/registrations before the redirect ensured that they would show up.  Additionally, this function will check if the user is logged in or not before purchasing; if they are not, they will be redirected to the login page before being able to purchase their tickets.  
+This function will execute the action creator depending on the amount of tickets the user wants to purchase.  Upon purchase, the user will be redirected to the show page of their tickets to see their newly purchased tickets.  One issue was that not all of the tickets were able to show up on the page upon redirect, so fetching all of the tickets/registrations before the redirect ensured that they would show up.  Additionally, this function will check if the user is logged in or not before purchasing; if they are not, they will be redirected to the login page before being able to purchase their tickets.  
 
 * Users can create and manage their own events
 ![create_event](https://user-images.githubusercontent.com/63977819/125959455-6387190c-52f2-44c8-b647-a279de88d665.gif)
+
+![Screenshot_2](https://user-images.githubusercontent.com/63977819/130280510-c2e7ed96-5735-415c-8393-91955abfc708.png)
+```javascript
+export const fetchHostedEvents = (userId) => dispatch => {
+    return EventAPIUtil.fetchHostedEvents(userId)
+        .then(events => dispatch(receiveEvents(events)))
+}
+
+export const fetchHostedEvents = (userId) => {
+    return $.ajax({
+        method: 'GET',
+        url: `/api/users/${userId}/events`
+    })
+};
+```
+In order to grab all events created by a specific user, this action creator will first find all events created by a specific user, and then the user will be able to see all the events hosted by a user on their show page.  
 
