@@ -28,7 +28,23 @@ Ravebrite is an Eventbrite clone where users will be able to search and register
 ![event_show](https://user-images.githubusercontent.com/63977819/125958741-9d12bc45-2e8b-438c-aa41-a5fbc33994b9.gif)
 
 * Users will be able to purchase tickets and view all tickets they own
-![tickets](https://user-images.githubusercontent.com/63977819/125958752-74a24706-67fe-474e-b423-54f80c362878.gif)
+![registration](https://user-images.githubusercontent.com/63977819/130277389-45de417d-4376-46a3-bba5-fdddf1b63511.gif)
+
+```
+purchaseTicket(registration){
+        const {createRegistration, currentUserId, event, fetchRegistrations} = this.props
+        if (currentUserId) {
+            for (let i = 0; i < this.state.ticketAmount; i++){
+                createRegistration({user_id: currentUserId, event_id: event.id})
+            }
+            fetchRegistrations()
+            this.props.history.push(`/users/${currentUserId}/registrations`)
+        } else {
+            this.props.history.push('/login');
+        }
+    }
+```
+This function will execute the thunk action creator depending on the amount of tickets the user wants to purchase.  Upon purchase, the user will be redirected to the show page of their tickets to see their newly purchased tickets.  One issue was that not all of the tickets were able to show up on the page upon redirect, so fetching all of the tickets/registrations before the redirect ensured that they would show up.  Additionally, this function will check if the user is logged in or not before purchasing; if they are not, they will be redirected to the login page before being able to purchase their tickets.  
 
 * Users can create and manage their own events
 ![create_event](https://user-images.githubusercontent.com/63977819/125959455-6387190c-52f2-44c8-b647-a279de88d665.gif)
