@@ -20,6 +20,10 @@ class RegistrationItem extends React.Component {
                     <div className="registration-date">
                         {moment(registration.start_date).format("dddd, MMMM Do YYYY")}
                     </div>
+                    <br />
+                    <p>
+                        Order #{registration.id}
+                    </p>
                 </div>
                 <button 
                     onClick={() => this.props.deleteRegistration(registration.id)}

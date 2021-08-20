@@ -1382,6 +1382,7 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
           currentUserId = _this$props.currentUserId,
           events = _this$props.events,
           fetchEvent = _this$props.fetchEvent,
+          fetchEvents = _this$props.fetchEvents,
           deleteEvent = _this$props.deleteEvent,
           deleteBookmark = _this$props.deleteBookmark,
           createBookmark = _this$props.createBookmark,
@@ -1484,7 +1485,8 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
           createBookmark: createBookmark,
           deleteBookmark: deleteBookmark,
           bookmark: bookmark,
-          fetchEvent: fetchEvent
+          fetchEvent: fetchEvent,
+          fetchEvents: fetchEvents
         });
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1640,7 +1642,8 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             event = _this$props.event,
             deleteBookmark = _this$props.deleteBookmark,
             createBookmark = _this$props.createBookmark,
-            fetchEvent = _this$props.fetchEvent;
+            fetchEvent = _this$props.fetchEvent,
+            fetchEvents = _this$props.fetchEvents;
         var bookmark = event.bookmark || {};
 
         if (bookmark.hasOwnProperty("user_id")) {
@@ -1652,7 +1655,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             user_id: currentUserId,
             event_id: event.id
           }).then(function () {
-            return fetchEvent(event.id);
+            return fetchEvents();
           }); // $( `#${event.id}` ).addClass("active");
         }
       } else {
@@ -1875,7 +1878,8 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       var _this$props3 = this.props,
           createRegistration = _this$props3.createRegistration,
           currentUserId = _this$props3.currentUserId,
-          event = _this$props3.event;
+          event = _this$props3.event,
+          fetchRegistrations = _this$props3.fetchRegistrations;
 
       if (currentUserId) {
         for (var i = 0; i < this.state.ticketAmount; i++) {
@@ -1885,6 +1889,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
           });
         }
 
+        fetchRegistrations();
         this.props.history.push("/users/".concat(currentUserId, "/registrations"));
       } else {
         this.props.history.push('/login');
@@ -1967,9 +1972,10 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
             className: "close-button",
             onClick: _this3.closeModal
           }, "x"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-            className: "modal-image"
+            className: "modal-image-wrapper"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
             src: event.photoUrl,
+            className: "modal-image",
             alt: "rave"
           })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
             className: "order-summary"
@@ -2090,6 +2096,9 @@ var mDTP = function mDTP(dispatch) {
   var _ref;
 
   return _ref = {
+    fetchRegistrations: function fetchRegistrations() {
+      return dispatch((0,_actions_registration_actions__WEBPACK_IMPORTED_MODULE_3__.fetchRegistrations)());
+    },
     fetchEvent: function fetchEvent(eventId) {
       return dispatch((0,_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__.fetchEvent)(eventId));
     },
@@ -2593,7 +2602,7 @@ var RegistrationItem = /*#__PURE__*/function (_React$Component) {
         to: "/events/".concat(registration.event_id)
       }, registration.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
         className: "registration-date"
-      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(registration.start_date).format("dddd, MMMM Do YYYY"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
+      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(registration.start_date).format("dddd, MMMM Do YYYY")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, "Order #", registration.id)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("button", {
         onClick: function onClick() {
           return _this.props.deleteRegistration(registration.id);
         },
@@ -3482,7 +3491,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_0___default())));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);

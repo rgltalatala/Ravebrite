@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import EventShow from "./event_show";
 import { fetchEvent, deleteEvent } from "../../../actions/event_actions";
 import { withRouter } from "react-router";
-import { createRegistration } from "../../../actions/registration_actions";
+import { createRegistration, fetchRegistrations } from "../../../actions/registration_actions";
 import { createBookmark, deleteBookmark } from "../../../actions/bookmark_actions";
 
 const mSTP = (state, ownProps) => ({
@@ -11,6 +11,7 @@ const mSTP = (state, ownProps) => ({
 })
 
 const mDTP = dispatch => ({
+    fetchRegistrations: () => dispatch(fetchRegistrations()),
     fetchEvent: eventId => dispatch(fetchEvent(eventId)),
     deleteEvent: eventId => dispatch(deleteEvent(eventId)),
     createRegistration: registration => dispatch(createRegistration(registration)),

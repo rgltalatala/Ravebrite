@@ -29,6 +29,7 @@ class EventIndex extends React.Component{
         const { currentUserId,
                 events,
                 fetchEvent,
+                fetchEvents,
                 deleteEvent,
                 deleteBookmark,
                 createBookmark,
@@ -97,6 +98,7 @@ class EventIndex extends React.Component{
                         deleteBookmark={deleteBookmark}
                         bookmark={bookmark}
                         fetchEvent={fetchEvent}
+                        fetchEvents={fetchEvents}
                     />
             )
         )

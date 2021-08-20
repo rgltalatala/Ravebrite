@@ -111,14 +111,17 @@
         cursor: pointer;
     }
 }
+.modal-image-wrapper {
+    width: 360px;
+    height: 240px;
+}
 .modal-image {
-    display: block;
-    width: 100%;
+    width: 360px;
+    height: 100%;
+    object-fit: cover;
+
     // bottom: 200px;
 
-    img {
-        width: inherit;
-    }
 }
 
 

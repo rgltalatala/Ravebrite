@@ -18,6 +18,7 @@ class EventIndexItem extends React.Component{
                     deleteBookmark,
                     createBookmark,
                     fetchEvent,
+                    fetchEvents,
                     } = this.props
             let bookmark = event.bookmark || {} ;
 
@@ -27,7 +28,7 @@ class EventIndexItem extends React.Component{
                 // $( `#${event.id}` ).removeClass("active");
             } else {
                 createBookmark({user_id: currentUserId, event_id: event.id})
-                .then(() => fetchEvent(event.id))
+                .then(() => fetchEvents())
                 // $( `#${event.id}` ).addClass("active");
             }
         } else {

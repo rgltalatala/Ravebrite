@@ -74,11 +74,12 @@ class EventShow extends React.Component{
     }
 
     purchaseTicket(registration){
-        const {createRegistration, currentUserId, event} = this.props
+        const {createRegistration, currentUserId, event, fetchRegistrations} = this.props
         if (currentUserId) {
             for (let i = 0; i < this.state.ticketAmount; i++){
                 createRegistration({user_id: currentUserId, event_id: event.id})
             }
+            fetchRegistrations()
             this.props.history.push(`/users/${currentUserId}/registrations`)
         } else {
             this.props.history.push('/login');
@@ -155,8 +156,8 @@ class EventShow extends React.Component{
                             </div>
                             <div className="modal-content-right">
                                 <div className="close-button" onClick={this.closeModal}>x</div>
-                                <div className="modal-image">
-                                    <img src={event.photoUrl} alt="rave"/>
+                                <div className="modal-image-wrapper">
+                                    <img src={event.photoUrl} className="modal-image" alt="rave"/>
                                 </div>
                                 <div className="order-summary">
                                     <h3>
