@@ -30,7 +30,7 @@ Ravebrite is an Eventbrite clone where users will be able to search and register
 * Users will be able to purchase tickets and view all tickets they own
 ![registration](https://user-images.githubusercontent.com/63977819/130277389-45de417d-4376-46a3-bba5-fdddf1b63511.gif)
 
-```
+```javascript
 purchaseTicket(registration){
         const {createRegistration, currentUserId, event, fetchRegistrations} = this.props
         if (currentUserId) {
@@ -44,8 +44,39 @@ purchaseTicket(registration){
         }
     }
 ```
-This function will execute the thunk action creator depending on the amount of tickets the user wants to purchase.  Upon purchase, the user will be redirected to the show page of their tickets to see their newly purchased tickets.  One issue was that not all of the tickets were able to show up on the page upon redirect, so fetching all of the tickets/registrations before the redirect ensured that they would show up.  Additionally, this function will check if the user is logged in or not before purchasing; if they are not, they will be redirected to the login page before being able to purchase their tickets.  
+This function will execute the action creator depending on the amount of tickets the user wants to purchase.  Upon purchase, the user will be redirected to the show page of their tickets to see their newly purchased tickets.  One issue was that not all of the tickets were able to show up on the page upon redirect, so fetching all of the tickets/registrations before the redirect ensured that they would show up.  Additionally, this function will check if the user is logged in or not before purchasing; if they are not, they will be redirected to the login page before being able to purchase their tickets.  
 
 * Users can create and manage their own events
 ![create_event](https://user-images.githubusercontent.com/63977819/125959455-6387190c-52f2-44c8-b647-a279de88d665.gif)
+
+* Active Storage and AWS S3 Hosting
+```javascript
+handleSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('event[title]', this.state.event.title);
+        ...
+        if (this.state.photoFile) {
+            formData.append('event[photo]', this.state.photoFile);
+        }
+
+        this.props.processForm(formData, this.props.eventId)
+            .then((res) => this.props.history.push(`/events/${res.event.id}`))
+    }
+
+handleFile(e) {
+        const file = e.currentTarget.files[0]
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            this.setState({photoFile: file, photoUrl: fileReader.result})
+        }
+
+        if (file) {
+            fileReader.readAsDataURL(file);
+        } else {
+            this.setState({ photoFile: null, photoUrl: "" });
+        }
+    }
+```
+Users can upload their own image to attach to their event.  Ravebrite is able to access all image previews and event images through AWS S3 Hosting.  Using the properties photoFile and photoUrl, each event, registration, bookmark, and like will be able to display the corresponding image.  
 
