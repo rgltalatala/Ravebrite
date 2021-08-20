@@ -40,13 +40,7 @@ class EventForm extends React.Component{
         if (this.state.photoFile) {
             formData.append('event[photo]', this.state.photoFile);
         }
-        // $.ajax({
-        //     url: '/api/events',
-        //     method: 'POST',
-        //     data: formData,
-        //     contentType: false,
-        //     processData: false
-        // });
+
         this.props.processForm(formData, this.props.eventId)
             .then((res) => this.props.history.push(`/events/${res.event.id}`))
     }
