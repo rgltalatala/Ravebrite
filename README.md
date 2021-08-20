@@ -49,19 +49,34 @@ This function will execute the action creator depending on the amount of tickets
 * Users can create and manage their own events
 ![create_event](https://user-images.githubusercontent.com/63977819/125959455-6387190c-52f2-44c8-b647-a279de88d665.gif)
 
-![Screenshot_2](https://user-images.githubusercontent.com/63977819/130280510-c2e7ed96-5735-415c-8393-91955abfc708.png)
+* Active Storage and AWS S3 Hosting
 ```javascript
-export const fetchHostedEvents = (userId) => dispatch => {
-    return EventAPIUtil.fetchHostedEvents(userId)
-        .then(events => dispatch(receiveEvents(events)))
-}
+handleSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('event[title]', this.state.event.title);
+        ...
+        if (this.state.photoFile) {
+            formData.append('event[photo]', this.state.photoFile);
+        }
 
-export const fetchHostedEvents = (userId) => {
-    return $.ajax({
-        method: 'GET',
-        url: `/api/users/${userId}/events`
-    })
-};
+        this.props.processForm(formData, this.props.eventId)
+            .then((res) => this.props.history.push(`/events/${res.event.id}`))
+    }
+
+handleFile(e) {
+        const file = e.currentTarget.files[0]
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            this.setState({photoFile: file, photoUrl: fileReader.result})
+        }
+
+        if (file) {
+            fileReader.readAsDataURL(file);
+        } else {
+            this.setState({ photoFile: null, photoUrl: "" });
+        }
+    }
 ```
-In order to grab all events created by a specific user, this action creator will first find all events created by a specific user, and then the user will be able to see all the events hosted by a user on their show page.  
+Users can upload their own image to attach to their event.  Ravebrite is able to access all image previews and event images through AWS S3 Hosting.  Using the properties photoFile and photoUrl, each event, registration, bookmark, and like will be able to display the corresponding image.  
 
