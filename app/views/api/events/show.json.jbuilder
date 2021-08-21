@@ -1,6 +1,8 @@
 json.extract! @event, :id, :title, :description, :location, :genre, :start_date, :end_date, :start_time, :end_time, :host_id
-json.photoUrl url_for(@event.photo)
+json.hostFirstName @event.host.first_name
+json.hostLastName @event.host.last_name
 
+json.photoUrl url_for(@event.photo)
 
 json.bookmarks do
     @event.bookmarks.each do |bookmark|

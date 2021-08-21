@@ -79,9 +79,6 @@ class EventIndex extends React.Component{
                 filteredEvents = events.filter(event => event.genre === "Drum and Bass")
                 break;
             case 10:
-                filteredEvents = events.filter(event => event.genre === "Garage")
-                break;
-            case 11:
                 filteredEvents = events.filter(event => event.genre === "Multi-genre")
                 break;
             default:

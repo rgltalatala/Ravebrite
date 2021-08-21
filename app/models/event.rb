@@ -32,7 +32,6 @@ class Event < ApplicationRecord
             "Ambient", 
             "Hardstyle",
             "Drum and Bass",
-            "Garage",
             "Multi-genre"
         ]
     end

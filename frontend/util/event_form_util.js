@@ -9,7 +9,6 @@ export const genres = [
     "Ambient", 
     "Hardstyle",
     "Drum and Bass",
-    "Garage",
     "Multi-genre"
 ]
 

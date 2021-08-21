@@ -134,7 +134,7 @@ li.active {
 .bookmark-wrapper{
     display: flex;
     justify-content: center;
-    height: 35px;
+    height: 25px;
 }
 
 .bookmark-circle{
@@ -179,10 +179,13 @@ li.active {
     flex-direction: column;
 }
 
-.event-index-title a {
-    text-decoration: none;
-    color: #39364F;
+h2.event-index-title {
     margin-left: 15px;
+    width: 80%;
+    a {
+        color: #39364F;
+        text-decoration: none;
+    }
     // &:hover{
     //     text-decoration: underline;
     // }

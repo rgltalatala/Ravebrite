@@ -206,9 +206,10 @@ class EventShow extends React.Component{
                                 </label>
                                 <br />
 
-                                <h3  className="event-details-child show-title">{event.title}</h3>
+                                <h2  className="event-details-child show-title">{event.title}</h2>
                                 <br />
 
+                                <p className="event-host">Hosted by: {event.hostFirstName} {event.hostLastName}</p>
                                 <p  className="event-details-child show-genre">{event.genre}</p>
                             </div>
                         </div>

@@ -1455,12 +1455,6 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
 
         case 10:
           filteredEvents = events.filter(function (event) {
-            return event.genre === "Garage";
-          });
-          break;
-
-        case 11:
-          filteredEvents = events.filter(function (event) {
             return event.genre === "Multi-genre";
           });
           break;
@@ -2019,9 +2013,11 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
           className: "event-basic-info"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
           className: "event-details-child show-location"
-        }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h3", {
+        }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("h2", {
           className: "event-details-child show-title"
         }, event.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+          className: "event-host"
+        }, "Hosted by: ", event.hostFirstName, " ", event.hostLastName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
           className: "event-details-child show-genre"
         }, event.genre))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
           className: "event-show-func-buttons"
@@ -3616,7 +3612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "genres": () => (/* binding */ genres),
 /* harmony export */   "times": () => (/* binding */ times)
 /* harmony export */ });
-var genres = ["All", "House", "Techno", "Dubstep", "Trap", "Trance", "Future Bass", "Ambient", "Hardstyle", "Drum and Bass", "Garage", "Multi-genre"];
+var genres = ["All", "House", "Techno", "Dubstep", "Trap", "Trance", "Future Bass", "Ambient", "Hardstyle", "Drum and Bass", "Multi-genre"];
 var times = ["12:00 AM", "12:30 AM", "1:00 AM", "1:30 AM", "2:00 AM", "2:30 AM", "3:00 AM", "3:30 AM", "4:00 AM", "4:30 AM", "5:00 AM", "5:30 AM", "6:00 AM", "6:30 AM", "7:00 AM", "7:30 AM", "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM"]; // ajax requests to fetch specific genre
 // takes genres from frontend using the string
 
