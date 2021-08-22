@@ -64,7 +64,7 @@ class EventShow extends React.Component{
         let footer = document.getElementsByClassName('footer')[0]
         footer.setAttribute("style", "margin-top: 5%")
         this.props.fetchEvent(this.props.match.params.eventId).then(() => {
-            this.setState({loading: false})
+            this.setState({loading : false})
         })
     }
 
@@ -106,7 +106,7 @@ class EventShow extends React.Component{
         if (this.state.loading){
             return(
                 <>
-                    loading
+                    Loading...
                 </>
             )
         } else {
@@ -124,7 +124,7 @@ class EventShow extends React.Component{
             }
 
             const RegistrationModal = () => {
-                return(
+                return (
                     <div className="registration-modal" onClick={this.closeModal}>
                         <div className="modal-content" onClick={e => e.stopPropagation()}>
                             <div className="modal-content-left">

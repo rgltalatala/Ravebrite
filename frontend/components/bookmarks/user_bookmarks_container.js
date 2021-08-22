@@ -5,7 +5,7 @@ import Bookmarks from './bookmarks'
 
 const mSTP = state => ({
     bookmarks: Object.values(state.entities.bookmarks),
-    currentUser: state.session.id
+    currentUserId: state.session.id
 })
 
 const mDTP = dispatch => ({

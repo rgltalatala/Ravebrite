@@ -4,7 +4,7 @@ import UserEvents from './user_events'
 
 const mSTP = state => ({
     events: Object.values(state.entities.events),
-    currentUser: state.session.id
+    currentUserId: state.session.id
 })
 
 const mDTP = dispatch => ({

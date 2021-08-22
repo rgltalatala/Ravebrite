@@ -11,9 +11,6 @@ class EventIndex extends React.Component{
 
         this.selectGenre = this.selectGenre.bind(this)
     }
-    //tabs into below func
-    // componentDidUpdate to display filtered events by genre
-    //fetchEventGenre to only fetch events we care about (ie specific genre)
 
     componentDidMount(){
         let footer = document.getElementsByClassName('footer')[0]

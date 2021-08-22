@@ -22,14 +22,12 @@ class EventIndexItem extends React.Component{
                     } = this.props
             let bookmark = event.bookmark || {} ;
 
-            if (bookmark.hasOwnProperty("user_id")){
+            if (bookmark.user_id === currentUserId){
                 deleteBookmark(bookmark.id)
                 .then(() => fetchEvent(event.id))
-                // $( `#${event.id}` ).removeClass("active");
             } else {
                 createBookmark({user_id: currentUserId, event_id: event.id})
                 .then(() => fetchEvents())
-                // $( `#${event.id}` ).addClass("active");
             }
         } else {
             this.props.history.push('/login');
@@ -41,7 +39,7 @@ class EventIndexItem extends React.Component{
 
         let bookmark = event.bookmark || {};
         if (currentUserId){
-            if (!bookmark.hasOwnProperty("user_id")){
+            if (bookmark.user_id !== currentUserId){
                 return <i className="far fa-heart bookmark" id={event.id}></i>
             } else { 
                 return <i className="fas fa-heart bookmark active" id={event.id}></i>
@@ -50,10 +48,6 @@ class EventIndexItem extends React.Component{
             return <i className="far fa-heart bookmark" id={event.id}></i>
         }
     }
-
-    // componentDidUpdate(){
-    //     this.props.fetchEvent(this.props.event.id)
-    // }
 
     render(){
         const {event, currentUserId,} = this.props
@@ -79,15 +73,10 @@ class EventIndexItem extends React.Component{
                         <label className="card-date">
                             {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time}
                         </label>
-                        <br />
-        
                         <label className="card-location">  
                             {event.location}
                         </label>
-                        <br />
                     </div>
-                        
-                    <br />
                 </li>
             </div>
         )

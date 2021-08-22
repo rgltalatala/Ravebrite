@@ -702,6 +702,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _bookmark_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bookmark_item */ "./frontend/components/bookmarks/bookmark_item.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -728,44 +729,79 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var Bookmarks = /*#__PURE__*/function (_React$Component) {
   _inherits(Bookmarks, _React$Component);
 
   var _super = _createSuper(Bookmarks);
 
-  function Bookmarks() {
+  function Bookmarks(props) {
+    var _this;
+
     _classCallCheck(this, Bookmarks);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      loading: false
+    };
+    return _this;
   }
 
   _createClass(Bookmarks, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       var footer = document.getElementsByClassName('footer')[0];
       footer.removeAttribute("style");
-      this.props.fetchBookmarks(this.props.currentUser);
+      this.props.fetchBookmarks(this.props.currentUser).then(function () {
+        _this2.setState({
+          loading: false
+        });
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var _this$props = this.props,
+          bookmarks = _this$props.bookmarks,
+          fetchBookmarks = _this$props.fetchBookmarks,
+          currentUserId = _this$props.currentUserId;
+
+      if (bookmarks.length !== prevProps.bookmarks.length) {
+        fetchBookmarks(currentUserId);
+      }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          bookmarks = _this$props.bookmarks,
-          deleteBookmark = _this$props.deleteBookmark;
-      var sortedBookmarks = Object.values(bookmarks).sort(function (a, b) {
-        return new Date(a.start_date) - new Date(b.start_date);
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "registration-index-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Bookmarked Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-        className: "registration-index"
-      }, sortedBookmarks.map(function (bookmark, i) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_bookmark_item__WEBPACK_IMPORTED_MODULE_1__.default, {
-          key: i,
-          bookmark: bookmark,
-          deleteBookmark: deleteBookmark
+      if (!this.props.bookmarks.length) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Bookmarked Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "nothing-here"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "You currently don't have any bookmarks."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Bookmark some events ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "/"
+        }, "here!"))));
+      } else {
+        var _this$props2 = this.props,
+            bookmarks = _this$props2.bookmarks,
+            deleteBookmark = _this$props2.deleteBookmark;
+        var sortedBookmarks = Object.values(bookmarks).sort(function (a, b) {
+          return new Date(a.start_date) - new Date(b.start_date);
         });
-      })));
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Bookmarked Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+          className: "registration-index"
+        }, sortedBookmarks.map(function (bookmark, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_bookmark_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+            key: i,
+            bookmark: bookmark,
+            deleteBookmark: deleteBookmark
+          });
+        })));
+      }
     }
   }]);
 
@@ -797,7 +833,7 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state) {
   return {
     bookmarks: Object.values(state.entities.bookmarks),
-    currentUser: state.session.id
+    currentUserId: state.session.id
   };
 };
 
@@ -1347,10 +1383,7 @@ var EventIndex = /*#__PURE__*/function (_React$Component) {
     };
     _this.selectGenre = _this.selectGenre.bind(_assertThisInitialized(_this));
     return _this;
-  } //tabs into below func
-  // componentDidUpdate to display filtered events by genre
-  //fetchEventGenre to only fetch events we care about (ie specific genre)
-
+  }
 
   _createClass(EventIndex, [{
     key: "componentDidMount",
@@ -1633,17 +1666,17 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
             fetchEvents = _this$props.fetchEvents;
         var bookmark = event.bookmark || {};
 
-        if (bookmark.hasOwnProperty("user_id")) {
+        if (bookmark.user_id === currentUserId) {
           deleteBookmark(bookmark.id).then(function () {
             return fetchEvent(event.id);
-          }); // $( `#${event.id}` ).removeClass("active");
+          });
         } else {
           createBookmark({
             user_id: currentUserId,
             event_id: event.id
           }).then(function () {
             return fetchEvents();
-          }); // $( `#${event.id}` ).addClass("active");
+          });
         }
       } else {
         this.props.history.push('/login');
@@ -1659,7 +1692,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
       var bookmark = event.bookmark || {};
 
       if (currentUserId) {
-        if (!bookmark.hasOwnProperty("user_id")) {
+        if (bookmark.user_id !== currentUserId) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("i", {
             className: "far fa-heart bookmark",
             id: event.id
@@ -1676,10 +1709,7 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
           id: event.id
         });
       }
-    } // componentDidUpdate(){
-    //     this.props.fetchEvent(this.props.event.id)
-    // }
-
+    }
   }, {
     key: "render",
     value: function render() {
@@ -1711,9 +1741,9 @@ var EventIndexItem = /*#__PURE__*/function (_React$Component) {
         to: "/events/".concat(event.id)
       }, event.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
         className: "card-date"
-      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
+      }, moment__WEBPACK_IMPORTED_MODULE_0___default()(event.start_date).format("dddd, MMMM Do YYYY"), ", ", event.start_time), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("label", {
         className: "card-location"
-      }, event.location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null)));
+      }, event.location))));
     }
   }]);
 
@@ -1920,7 +1950,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       if (this.state.loading) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "loading");
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, "Loading...");
       } else {
         var _this$props4 = this.props,
             event = _this$props4.event,
@@ -2130,6 +2160,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _user_events_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_events_item */ "./frontend/components/events/user_events/user_events_item.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2155,41 +2186,76 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var UserEvents = /*#__PURE__*/function (_React$Component) {
   _inherits(UserEvents, _React$Component);
 
   var _super = _createSuper(UserEvents);
 
-  function UserEvents() {
+  function UserEvents(props) {
+    var _this;
+
     _classCallCheck(this, UserEvents);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      loading: false
+    };
+    return _this;
   }
 
   _createClass(UserEvents, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       var footer = document.getElementsByClassName('footer')[0];
       footer.removeAttribute("style");
-      this.props.fetchHostedEvents(this.props.match.params.userId);
+      this.props.fetchHostedEvents(this.props.match.params.userId).then(function () {
+        _this2.setState({
+          loading: false
+        });
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var _this$props = this.props,
+          events = _this$props.events,
+          fetchHostedEvents = _this$props.fetchHostedEvents,
+          currentUserId = _this$props.currentUserId;
+
+      if (events.length !== prevProps.events.length) {
+        fetchHostedEvents(currentUserId);
+      }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this3 = this;
 
-      var events = this.props.events;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "registration-index-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "My Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-        className: "registration-index"
-      }, events.map(function (event) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_events_item__WEBPACK_IMPORTED_MODULE_1__.default, {
-          key: event.id,
-          event: event,
-          deleteEvent: _this.props.deleteEvent
-        });
-      })));
+      if (!this.props.events.length) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "nothing-here"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "You currently don't have any tickets."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let's change that."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Check out some events ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "/"
+        }, "here!"))));
+      } else {
+        var events = this.props.events;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "My Events"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+          className: "registration-index"
+        }, events.map(function (event) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_events_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+            key: event.id,
+            event: event,
+            deleteEvent: _this3.props.deleteEvent
+          });
+        })));
+      }
     }
   }]);
 
@@ -2221,7 +2287,7 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state) {
   return {
     events: Object.values(state.entities.events),
-    currentUser: state.session.id
+    currentUserId: state.session.id
   };
 };
 
@@ -2626,6 +2692,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _registration_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./registration_item */ "./frontend/components/registrations/registration_item.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -2652,50 +2719,79 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var UserRegistrations = /*#__PURE__*/function (_React$Component) {
   _inherits(UserRegistrations, _React$Component);
 
   var _super = _createSuper(UserRegistrations);
 
-  function UserRegistrations() {
+  function UserRegistrations(props) {
+    var _this;
+
     _classCallCheck(this, UserRegistrations);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      loading: false
+    };
+    return _this;
   }
 
   _createClass(UserRegistrations, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       var footer = document.getElementsByClassName('footer')[0];
       footer.removeAttribute("style");
-      this.props.fetchRegistrations(this.props.currentUser);
+      this.props.fetchRegistrations(this.props.currentUser).then(function () {
+        _this2.setState({
+          loading: false
+        });
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var _this$props = this.props,
+          registrations = _this$props.registrations,
+          fetchRegistrations = _this$props.fetchRegistrations,
+          currentUserId = _this$props.currentUserId;
+
+      if (registrations.length !== prevProps.registrations.length) {
+        fetchRegistrations(currentUserId);
+      }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          registrations = _this$props.registrations,
-          deleteRegistration = _this$props.deleteRegistration;
-      var check = {}; // const tickets = registrations.map((event) => {
-      //     if (!Object.keys(check).includes(event.event_id)){
-      //         check[event.event_id] = event
-      //     }
-      // })
-
-      var sortedRegistrations = Object.values(registrations).sort(function (a, b) {
-        return new Date(a.start_date) - new Date(b.start_date);
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "registration-index-wrapper"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
-        className: "registration-index"
-      }, sortedRegistrations.map(function (registration, i) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_registration_item__WEBPACK_IMPORTED_MODULE_1__.default, {
-          key: i,
-          registration: registration,
-          deleteRegistration: deleteRegistration
+      if (!this.props.registrations.length) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "nothing-here"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "You currently don't have any tickets."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Let's change that."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Check out some events ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "/"
+        }, "here!"))));
+      } else {
+        var _this$props2 = this.props,
+            registrations = _this$props2.registrations,
+            deleteRegistration = _this$props2.deleteRegistration;
+        var sortedRegistrations = Object.values(registrations).sort(function (a, b) {
+          return new Date(a.start_date) - new Date(b.start_date);
         });
-      })));
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "registration-index-wrapper"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", {
+          className: "registration-index"
+        }, sortedRegistrations.map(function (registration, i) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_registration_item__WEBPACK_IMPORTED_MODULE_1__.default, {
+            key: i,
+            registration: registration,
+            deleteRegistration: deleteRegistration
+          });
+        })));
+      }
     }
   }]);
 
@@ -3485,7 +3581,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default));
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_1__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_0___default())));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
