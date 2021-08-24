@@ -41,7 +41,7 @@ function App () {
                     <Route exact path="/events/:eventId" component={EventShowContainer} />
                     <ProtectedRoute exact path="/events/:eventId/edit" component={EditEventFormContainer} />
                 </Switch>
-            <Footer />
+                <Footer />
             </div>
             {/* <Route path="/" component={Footer} /> */}
         </>

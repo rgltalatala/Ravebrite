@@ -4,7 +4,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: calc(100vh - 119px);
 
     h1 {
         width: 750px;

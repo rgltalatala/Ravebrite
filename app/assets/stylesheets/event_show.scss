@@ -1,5 +1,5 @@
 .event-show-container{
-    min-height: 100vh;
+    min-height: calc(100vh - 219px);
     position: relative;
 }
 
@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     z-index: 0;
+    top: 15px;
     position: absolute;
     // overflow: hidden;
     width: 100%;
@@ -18,11 +19,12 @@
 
 .event-show-background{
     width: 100%;
-    position: absolute;
+    // position: absolute;
     overflow: hidden;
+    margin-bottom: 100px;
 
     img {
-        height: 65vh;
+        height: 830px;
         object-fit: cover;
         width: 100%;
         transform: scale(1.1);

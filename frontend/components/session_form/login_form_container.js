@@ -15,7 +15,8 @@ const mSTP = ({ errors }) => ({
 })
 
 const mDTP = dispatch => ({
-    processForm: (user) => dispatch(login(user))
+    processForm: (user) => dispatch(login(user)),
+    removeErrors: () => dispatch(removeErrors())
 })
 
 export default connect(mSTP, mDTP)(SessionForm)

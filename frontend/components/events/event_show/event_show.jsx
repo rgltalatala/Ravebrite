@@ -11,7 +11,6 @@ class EventShow extends React.Component{
             modal: false,
             ticketAmount: 1
         };
-        
 
         this.deleteEvent = this.deleteEvent.bind(this)
         this.handleBookmark = this.handleBookmark.bind(this)
@@ -62,7 +61,7 @@ class EventShow extends React.Component{
 
     componentDidMount(){
         let footer = document.getElementsByClassName('footer')[0]
-        footer.setAttribute("style", "margin-top: 10%")
+        footer.setAttribute("style", "margin-top: 100px")
 
         this.props.fetchEvent(this.props.match.params.eventId).then(() => {
             this.setState({loading : false})
@@ -75,7 +74,7 @@ class EventShow extends React.Component{
     }
 
     purchaseTicket(registration){
-        const {createRegistration, currentUserId, event, fetchRegistrations} = this.props
+        const {createRegistration, currentUserId, event} = this.props
         if (currentUserId) {
             for (let i = 0; i < this.state.ticketAmount; i++){
                 createRegistration({user_id: currentUserId, event_id: event.id})

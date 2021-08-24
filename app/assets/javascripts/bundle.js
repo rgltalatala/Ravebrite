@@ -463,7 +463,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "receiveErrors": () => (/* binding */ receiveErrors),
 /* harmony export */   "signup": () => (/* binding */ signup),
 /* harmony export */   "login": () => (/* binding */ login),
-/* harmony export */   "logout": () => (/* binding */ logout)
+/* harmony export */   "logout": () => (/* binding */ logout),
+/* harmony export */   "removeErrors": () => (/* binding */ removeErrors)
 /* harmony export */ });
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/session_api_util */ "./frontend/util/session_api_util.js");
 
@@ -510,6 +511,11 @@ var logout = function logout() {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__.logout().then(function () {
       return dispatch(logoutCurrentUser());
     });
+  };
+};
+var removeErrors = function removeErrors() {
+  return function (dispatch) {
+    return dispatch(receiveErrors([]));
   };
 };
 
@@ -1884,7 +1890,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var footer = document.getElementsByClassName('footer')[0];
-      footer.setAttribute("style", "margin-top: 10%");
+      footer.setAttribute("style", "margin-top: 100px");
       this.props.fetchEvent(this.props.match.params.eventId).then(function () {
         _this2.setState({
           loading: false
@@ -1903,8 +1909,7 @@ var EventShow = /*#__PURE__*/function (_React$Component) {
       var _this$props3 = this.props,
           createRegistration = _this$props3.createRegistration,
           currentUserId = _this$props3.currentUserId,
-          event = _this$props3.event,
-          fetchRegistrations = _this$props3.fetchRegistrations;
+          event = _this$props3.event;
 
       if (currentUserId) {
         for (var i = 0; i < this.state.ticketAmount; i++) {
@@ -2924,7 +2929,20 @@ var mDTP = function mDTP(dispatch) {
   return {
     processForm: function processForm(user) {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.login)(user));
-    }
+    },
+    removeErrors: function (_removeErrors) {
+      function removeErrors() {
+        return _removeErrors.apply(this, arguments);
+      }
+
+      removeErrors.toString = function () {
+        return _removeErrors.toString();
+      };
+
+      return removeErrors;
+    }(function () {
+      return dispatch(removeErrors());
+    })
   };
 };
 
@@ -3029,7 +3047,9 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "componentWillUnmount",
-    value: function componentWillUnmount() {}
+    value: function componentWillUnmount() {
+      this.props.removeErrors();
+    }
   }, {
     key: "render",
     value: function render() {
@@ -3163,7 +3183,20 @@ var mDTP = function mDTP(dispatch) {
   return {
     processForm: function processForm(user) {
       return dispatch((0,_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__.signup)(user));
-    }
+    },
+    removeErrors: function (_removeErrors) {
+      function removeErrors() {
+        return _removeErrors.apply(this, arguments);
+      }
+
+      removeErrors.toString = function () {
+        return _removeErrors.toString();
+      };
+
+      return removeErrors;
+    }(function () {
+      return dispatch(removeErrors());
+    })
   };
 };
 
