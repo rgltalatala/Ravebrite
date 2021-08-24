@@ -4,7 +4,7 @@ import UserRegistrations from "./user_registrations";
 
 const mSTP = state => ({
     registrations: Object.values(state.entities.registrations),
-    currentUser: state.session.id
+    currentUserId: state.session.id
 })
 
 const mDTP = dispatch => ({

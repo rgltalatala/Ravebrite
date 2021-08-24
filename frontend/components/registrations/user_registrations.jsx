@@ -13,7 +13,7 @@ class UserRegistrations extends React.Component{
     componentDidMount(){
         let footer = document.getElementsByClassName('footer')[0]
         footer.removeAttribute("style")
-        this.props.fetchRegistrations(this.props.currentUser).then(() => {
+        this.props.fetchRegistrations(this.props.currentUserId).then(() => {
             this.setState({loading : false})
         })
     }

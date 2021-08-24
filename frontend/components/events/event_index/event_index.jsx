@@ -14,7 +14,7 @@ class EventIndex extends React.Component{
 
     componentDidMount(){
         let footer = document.getElementsByClassName('footer')[0]
-        footer.removeAttribute("style")
+        footer.setAttribute("style", "margin-top: 5%")
         this.props.fetchEvents()
     }
 

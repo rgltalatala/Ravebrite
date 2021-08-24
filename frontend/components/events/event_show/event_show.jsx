@@ -62,7 +62,8 @@ class EventShow extends React.Component{
 
     componentDidMount(){
         let footer = document.getElementsByClassName('footer')[0]
-        footer.setAttribute("style", "margin-top: 5%")
+        footer.setAttribute("style", "margin-top: 10%")
+
         this.props.fetchEvent(this.props.match.params.eventId).then(() => {
             this.setState({loading : false})
         })
@@ -79,7 +80,7 @@ class EventShow extends React.Component{
             for (let i = 0; i < this.state.ticketAmount; i++){
                 createRegistration({user_id: currentUserId, event_id: event.id})
             }
-            fetchRegistrations()
+            // fetchRegistrations(currentUserId)
             this.props.history.push(`/users/${currentUserId}/registrations`)
         } else {
             this.props.history.push('/login');
@@ -190,74 +191,76 @@ class EventShow extends React.Component{
                 )
             }
             return (
-                <div className="event-show-wrapper">
+                <div className="event-show-container">
                     <div className="event-show-background">
                         <img src={event.photoUrl} alt="rave"/>
                     </div>
-                    
-                    <div className="event-show-card">
-                        <div className="event-show-details">
-                            <div>
-                                <img src={event.photoUrl} alt="rave" className="event-show-image"/>
-                            </div>
-                            <div className="event-basic-info">
-                                <label className="event-details-child show-location">
-                                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}
-                                </label>
-                                <br />
+                    <div className="event-show-wrapper">
+                        
+                        <div className="event-show-card">
+                            <div className="event-show-details">
+                                <div className="event-show-image-wrapper">
+                                    <img src={event.photoUrl} alt="rave" className="event-show-image"/>
+                                </div>
+                                <div className="event-basic-info">
+                                    <label className="event-details-child show-location">
+                                            {moment(event.start_date).format("dddd, MMMM Do YYYY")}
+                                    </label>
+                                    <br />
 
-                                <h2  className="event-details-child show-title">{event.title}</h2>
-                                <br />
+                                    <h2  className="event-details-child show-title">{event.title}</h2>
+                                    <br />
 
-                                <p className="event-host">Hosted by: {event.hostFirstName} {event.hostLastName}</p>
-                                <p  className="event-details-child show-genre">{event.genre}</p>
-                            </div>
-                        </div>
-
-                        <div className="event-show-func-buttons">
-                            <div className="show-bookmark-wrapper">
-                                <div className="bookmark-circle-show-like" onClick={this.handleBookmark} >
-                                    {this.bookmarkEvent()}
+                                    <p className="event-host">Hosted by: {event.hostFirstName} {event.hostLastName}</p>
+                                    <p  className="event-details-child show-genre">{event.genre}</p>
                                 </div>
                             </div>
-                            <div className="button-wrapper">
-                                <button 
-                                    className="purchase-button"
-                                    onClick={() => this.openModal()}
-                                >
-                                    Purchase tickets
-                                </button>
-                                {!this.state.modal ? null : <RegistrationModal />}
-                            </div>
-                        </div>
 
-                        <div className="event-show-info">
-                            <div className="event-show-info-left">
-                                About this event
-                                <br />
-                                <p className="event-description">{event.description}</p>
-                                <br />
+                            <div className="event-show-func-buttons">
+                                <div className="show-bookmark-wrapper">
+                                    <div className="bookmark-circle-show-like" onClick={this.handleBookmark} >
+                                        {this.bookmarkEvent()}
+                                    </div>
+                                </div>
+                                <div className="button-wrapper">
+                                    <button 
+                                        className="purchase-button"
+                                        onClick={() => this.openModal()}
+                                    >
+                                        Purchase tickets
+                                    </button>
+                                    {!this.state.modal ? null : <RegistrationModal />}
+                                </div>
                             </div>
 
-                            <div className="event-show-info-right">
-                                <label>Date and time
+                            <div className="event-show-info">
+                                <div className="event-show-info-left">
+                                    About this event
                                     <br />
-                                    <p>
-                                        {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time} - {moment(event.end_date).format("dddd, MMMM Do YYYY")} {event.end_time}
-                                    </p>
-                                </label>
-                                <br />
+                                    <p className="event-description">{event.description}</p>
+                                    <br />
+                                </div>
 
-                                <label>Location
-                                    <br />  
-                                    <p>
-                                        {event.location}
-                                    </p>
-                                </label>
-                                <br />
+                                <div className="event-show-info-right">
+                                    <label>Date and time
+                                        <br />
+                                        <p>
+                                            {moment(event.start_date).format("dddd, MMMM Do YYYY")}, {event.start_time} - {moment(event.end_date).format("dddd, MMMM Do YYYY")} {event.end_time}
+                                        </p>
+                                    </label>
+                                    <br />
 
-                                <div className="user-button-wrapper">
-                                    {currentUserId === event.host_id ? currUserButtons() : ''}
+                                    <label>Location
+                                        <br />  
+                                        <p>
+                                            {event.location}
+                                        </p>
+                                    </label>
+                                    <br />
+
+                                    <div className="user-button-wrapper">
+                                        {currentUserId === event.host_id ? currUserButtons() : ''}
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -159,6 +159,7 @@ li.active {
         background-color: rgb(246, 246, 246);
         color: lighten($color: #C9BFDE, $amount: 1%);
         transition: .25s;
+        cursor: pointer;
     }
 }
 

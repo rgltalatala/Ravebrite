@@ -11,7 +11,7 @@ const Root = ({ store }) => (
             <div className="app">
                 <App />
             </div>
-            <Footer/>
+            {/* <Footer/> */}
         </HashRouter>
     </Provider>
     );
