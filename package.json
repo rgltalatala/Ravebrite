@@ -25,7 +25,7 @@
     "npm": "6.9.0"
   },
   "scripts": {
-    "postinstall": "webpack",
+    "postinstall": "webpack --mode=production --watch",
     "webpack": "webpack --mode=development --watch",
     "start": "node index.js"
   },
