@@ -1073,7 +1073,7 @@ var EventForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       event: _this.props.event,
       photoFile: null,
-      photoUrl: null
+      photoUrl: _this.props.event.photoUrl
     };
     _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));

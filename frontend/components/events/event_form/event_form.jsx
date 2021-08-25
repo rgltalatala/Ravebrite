@@ -10,7 +10,7 @@ class EventForm extends React.Component{
         this.state = {
             event: this.props.event,
             photoFile: null,
-            photoUrl: null
+            photoUrl: this.props.event.photoUrl
         }
         this.handleFile = this.handleFile.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
