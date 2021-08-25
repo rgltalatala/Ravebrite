@@ -6,7 +6,6 @@ import {
   Link,
   HashRouter
 } from 'react-router-dom'; 
-// import { login } from '../../actions/session_actions';
 
 
 class SessionForm extends React.Component {
