@@ -8,6 +8,7 @@
     "@heroicons/react": "^1.0.2",
     "babel-loader": "^8.2.2",
     "babel-preset-es2015": "^6.24.1",
+    "loose-envify": "^1.4.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -28,7 +29,7 @@
     "postinstall": "webpack --mode=production --watch",
     "webpack": "webpack --mode=development --watch",
     "start": "node index.js",
-    "heroku-postbuild": "webpack --mode=production"
+    "heroku-postbuild": "webpack --mode=production --watch"
   },
   "description": "Ravebrite is an Eventbrite clone where users will be able to search and register for EDM related events. Users will have the ability to create and host their own events as well.",
   "version": "1.0.0",
